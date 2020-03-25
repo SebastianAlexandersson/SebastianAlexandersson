@@ -1,0 +1,43 @@
+version: '3.7'
+services:
+  proxy:
+    build: ./proxy
+    ports:
+      - 3000:80
+    depends_on:
+      - authapi
+      - godisapi
+
+  godisdb:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: example
+      POSTGRES_USER: root
+
+  adminer:
+    image: adminer
+    ports:
+      - 8080:8080
+
+  authdb:
+    image: mongo
+    ports:
+      - 27017:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+
+  authapi:
+    build: ./services/auth
+    command: ["npm", "run", "dev"]
+    volumes:
+      - ./services/auth/:/usr/app/
+      - ./services/auth/node_modules
+
+  godisapi:
+    build: ./services/godis
+    command: ["npm", "run", "dev"]
+    volumes:
+      - ./services/godis/:/usr/app
+      - ./services/godis/node_modules
