@@ -5,7 +5,9 @@ const mongoose = require('mongoose')
 async function connectToDb() {
   const connection = await mongoose.connect('mongodb://authdb', {
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    user: process.env.DB_USER,
+    pass: process.env.DB_PASSWORD
   })
     .then(() => console.log('connection to db working'))
 }

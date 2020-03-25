@@ -4,9 +4,8 @@
   "description": "Godislager",
   "main": "src/index.js",
   "dependencies": {
-    "cors": "^2.8.5",
     "express": "^4.17.1",
-    "pg": "^7.18.2"
+    "mariadb": "^2.3.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.2"

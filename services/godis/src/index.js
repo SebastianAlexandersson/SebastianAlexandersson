@@ -1,27 +1,19 @@
 const express = require('express')
 const app = express()
+const mariadb = require('mariadb')
 
-const { Client } = require('pg')
-
-const db = new Client({
-  user: 'root',
-  password: 'example',
+const pool = mariadb.createPool({
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
   host: 'godisdb'
 })
 
-async function connectToDb() {
-  try {
-    const connection = await db.connect()
-      .then(db => console.log('connection to godisdb working'))
-
-    db.end()
-
-  } catch(error) {
-    console.log(error)
-  }
-}
-
-connectToDb()
+pool.getConnection()
+  .then(conn => {
+    console.log('connection to godisdb is working')
+    conn.release()
+  })
+  .catch(err => console.log(err))
 
 app.get('/godisapi', (req, res) => {
   res.send('godis')

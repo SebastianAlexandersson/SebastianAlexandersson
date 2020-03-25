@@ -9,11 +9,12 @@ services:
       - godisapi
 
   godisdb:
-    image: postgres
-    restart: always
+    image: mariadb 
     environment:
-      POSTGRES_PASSWORD: example
-      POSTGRES_USER: root
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: msgodis
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
 
   adminer:
     image: adminer
@@ -25,8 +26,8 @@ services:
     ports:
       - 27017:27017
     environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: example
+      MONGO_INITDB_ROOT_USERNAME: ${DB_USER}
+      MONGO_INITDB_ROOT_PASSWORD: ${DB_PASSWORD}
 
   authapi:
     build: ./services/auth
@@ -34,6 +35,11 @@ services:
     volumes:
       - ./services/auth/:/usr/app/
       - ./services/auth/node_modules
+    depends_on:
+      - authdb
+    environment:
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
 
   godisapi:
     build: ./services/godis
@@ -41,3 +47,8 @@ services:
     volumes:
       - ./services/godis/:/usr/app
       - ./services/godis/node_modules
+    depends_on:
+      - godisdb
+    environment:
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
