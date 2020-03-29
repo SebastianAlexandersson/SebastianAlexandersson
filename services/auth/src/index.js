@@ -14,8 +14,8 @@ async function connectToDb() {
 
 connectToDb()
 
-app.get('/', (req, res) => {
-  res.send('auth')
+app.get('/authapi', (req, res) => {
+  res.send('Auth api')
 })
 
 app.listen(4000, () => console.log('Auth service listening on port 4000'))

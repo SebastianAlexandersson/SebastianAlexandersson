@@ -1,13 +1,5 @@
 version: '3.7'
 services:
-  proxy:
-    build: ./proxy
-    ports:
-      - 3000:80
-    depends_on:
-      - authapi
-      - godisapi
-
   godisdb:
     image: mariadb 
     environment:
@@ -34,21 +26,30 @@ services:
     command: ["npm", "run", "dev"]
     volumes:
       - ./services/auth/:/usr/app/
-      - ./services/auth/node_modules
     depends_on:
       - authdb
     environment:
       DB_USER: ${DB_USER}
       DB_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - 4000:4000
 
   godisapi:
     build: ./services/godis
     command: ["npm", "run", "dev"]
     volumes:
       - ./services/godis/:/usr/app
-      - ./services/godis/node_modules
     depends_on:
       - godisdb
     environment:
-      DB_USER: ${DB_USER}
-      DB_PASSWORD: ${DB_PASSWORD}
+      TYPEORM_CONNECTION: ${TYPEORM_CONNECTION}
+      TYPEORM_HOST: ${TYPEORM_HOST}
+      TYPEORM_USERNAME: ${DB_USER}
+      TYPEORM_PASSWORD: ${DB_PASSWORD}
+      TYPEORM_DATABASE: ${TYPEORM_DATABASE}
+      TYPEORM_PORT: ${TYPEORM_PORT}
+      TYPEORM_SYNCHRONIZE: ${TYPEORM_SYNCHRONIZE}
+      TYPEORM_LOGGING: ${TYPEORM_LOGGING} 
+      TYPEORM_ENTITIES: ${TYPEORM_ENTITIES}
+    ports:
+      - 5000:5000
