@@ -1,6 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToOne, JoinColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToOne } from 'typeorm';
+import { Product } from './Product';
 import { Order } from './Order';
-import { Product } from './Product'
 
 @Entity()
 export class OrderProduct {
@@ -10,10 +10,6 @@ export class OrderProduct {
   @ManyToOne(type => Order, order => order.id)
   order: Order;
 
-  @OneToOne(type => Product)
-  @JoinColumn()
+  @ManyToOne(type => Product, product => product.id)
   product: Product;
-
-  @Column()
-  qty: number;
 }

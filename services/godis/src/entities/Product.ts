@@ -1,6 +1,7 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
-import { Producer } from './Producer'
-import { OrderProduct } from './OrderProduct'
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany } from 'typeorm';
+import { Producer } from './Producer';
+import { OrderProduct } from './OrderProduct';
+import { Deal } from './Deals';
 
 @Entity()
 export class Product {
@@ -10,12 +11,12 @@ export class Product {
   @Column()
   name: string;
 
-  @Column()
-  qty: number;
-
-  @Column()
-  price: number;
-
-  @ManyToOne(type => Producer, producer => producer.name)  
+  @ManyToOne(type => Producer, producer => producer.id)
   producer: Producer;
+
+  @OneToMany(type => OrderProduct, orderProduct => orderProduct.id)
+  orderProduct: OrderProduct[];
+
+  @OneToMany(type => Deal, deal => deal.id)
+  deal: Deal[];
 };
