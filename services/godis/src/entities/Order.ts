@@ -1,5 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, OneToMany, ManyToOne } from 'typeorm';
 import { Consumer } from './Consumer';
+import { OrderProduct } from './OrderProduct';
 
 @Entity()
 export class Order {
@@ -8,4 +9,7 @@ export class Order {
 
   @ManyToOne(type => Consumer, consumer => consumer.id)
   consumer: Consumer;
+
+  @OneToMany(type => OrderProduct, orderProduct => orderProduct.id)
+  orderProduct: OrderProduct[];
 }
