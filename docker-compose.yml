@@ -1,12 +1,14 @@
 version: '3.7'
 services:
   godisdb:
-    image: mariadb 
+    image: mariadb
     environment:
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
       MYSQL_DATABASE: msgodis
       MYSQL_USER: ${DB_USER}
       MYSQL_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - 3306:3306
 
   adminer:
     image: adminer
@@ -29,6 +31,7 @@ services:
     depends_on:
       - authdb
     environment:
+      DB_HOST: authdb
       DB_USER: ${DB_USER}
       DB_PASSWORD: ${DB_PASSWORD}
     ports:
@@ -49,7 +52,7 @@ services:
       TYPEORM_DATABASE: ${TYPEORM_DATABASE}
       TYPEORM_PORT: ${TYPEORM_PORT}
       TYPEORM_SYNCHRONIZE: ${TYPEORM_SYNCHRONIZE}
-      TYPEORM_LOGGING: ${TYPEORM_LOGGING} 
+      TYPEORM_LOGGING: ${TYPEORM_LOGGING}
       TYPEORM_ENTITIES: ${TYPEORM_ENTITIES}
     ports:
       - 5000:5000
