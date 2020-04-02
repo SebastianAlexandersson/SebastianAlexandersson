@@ -1,3 +1,4 @@
+/* eslint-disable import/no-unresolved */
 /* eslint-disable prefer-destructuring */
 import { Request, Response, NextFunction } from 'express';
 import * as dotenv from 'dotenv';
@@ -27,6 +28,9 @@ export const authHandler = asyncHandler(
     } else if (req.cookies.token) {
       token = req.cookies.token;
     }
+
+    // const token =
+    //   req.header('Authorization')?.split(' ')[1] || req.header('x-auth-token');
 
     if (!token) {
       return next(

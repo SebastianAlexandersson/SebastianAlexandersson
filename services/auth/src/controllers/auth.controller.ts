@@ -36,7 +36,7 @@ export const logoutSession = asyncHandler(
     // res.clearCookie('token')
     res.cookie('token', 'none', {
       expires: new Date(Date.now() + 10 * 1000),
-      httpOnly: true,
+      httpOnly: false,
     });
     res
       .status(200)
