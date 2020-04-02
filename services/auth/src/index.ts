@@ -19,6 +19,9 @@ app.use(cookieParser());
 app.use(morgan('dev'));
 app.use('/authapi/auth', authRouter);
 app.use('/authapi/user', userRouter);
+app.use('/authapi/test', (req, res) => {
+  res.send('test')
+})
 
 app.use(errorHandler);
 

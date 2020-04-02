@@ -1,5 +1,22 @@
 version: '3.7'
 services:
+  frontend:
+    build: ./client
+    volumes:
+      - ./client/:/usr/app/
+    command: ["npm", "run", "start"]
+    environment:
+      CI: ${CI}
+
+  proxy:
+    build: ./proxy
+    ports:
+      - 80:80
+    depends_on:
+      - godisapi
+      - authapi
+      - frontend
+
   godisdb:
     image: mariadb
     environment:
@@ -34,8 +51,6 @@ services:
       DB_HOST: authdb
       DB_USER: ${DB_USER}
       DB_PASSWORD: ${DB_PASSWORD}
-    ports:
-      - 4000:4000
 
   godisapi:
     build: ./services/godis
@@ -54,5 +69,3 @@ services:
       TYPEORM_SYNCHRONIZE: ${TYPEORM_SYNCHRONIZE}
       TYPEORM_LOGGING: ${TYPEORM_LOGGING}
       TYPEORM_ENTITIES: ${TYPEORM_ENTITIES}
-    ports:
-      - 5000:5000
