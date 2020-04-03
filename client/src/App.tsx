@@ -21,6 +21,7 @@ if (Cookie.get('token')) {
 }
 
 function App() {
+  console.log(' GET MY TOKEN ', Cookie.get('token'));
   return (
     <div className="App">
       <Switch>

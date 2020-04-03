@@ -17,7 +17,7 @@ export const loadUser = () => async (dispatch: Dispatch< IUserLoadedAction| IAut
     setAuthToken(token);
   }
   try {
-    const res = await fetch('/authapi/user/getme', {
+    const res = await fetch('/authapi/user/me', {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${token}`,

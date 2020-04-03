@@ -3,7 +3,6 @@ import Cookie from 'js-cookie';
 import { IAuthState, AuthTypesReducer, AuthActionTypes } from './auth.types';
 
 const initialState: IAuthState = {
-  // token: localStorage.getItem('token'),
   token: Cookie.get('token'),
   loading: true,
   isAuth: false,

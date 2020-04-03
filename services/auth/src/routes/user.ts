@@ -6,6 +6,6 @@ import { roleHandler } from '../middleware/roleHandler';
 const router = Router();
 
 router.route('/register').post(register);
-router.route('/getme').get(authHandler, getMe);
+router.route('/me').get(authHandler, getMe);
 router.route('/getadminprofile').get(authHandler, roleHandler, getAdmin);
 export { router };
