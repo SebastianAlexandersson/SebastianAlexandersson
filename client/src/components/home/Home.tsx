@@ -10,12 +10,9 @@ interface Props {
 
 const Home: React.FC<Props> = ({ loadUser, isAuth }) => {
   React.useEffect(() => {
-    if (isAuth) {
-      loadUser();
-    } else {
-      console.log('no token');
-    }
+    loadUser();
   }, []);
+
   return (
     <div>
       <h1> Welcome </h1>
