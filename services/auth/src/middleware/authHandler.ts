@@ -18,18 +18,18 @@ export interface IAuthRequest extends Request {
 
 export const authHandler = asyncHandler(
   async (req: IAuthRequest, res: Response, next: NextFunction) => {
-    // let token: any;
-    //
-    // if (
-    //   req.headers.authorization &&
-    //   req.headers.authorization.startsWith('Bearer')
-    // ) {
-    //   token = req.headers.authorization.split(' ')[1];
-    // } else if (req.cookies.token) {
-    //   token = req.cookies.token;
-    // }
-    const token:any =
-  req.header('Authorization')?.split(' ')[1] || req.header('x-auth-token');
+    let token: any;
+
+    if (
+      req.headers.authorization &&
+      req.headers.authorization.startsWith('Bearer')
+    ) {
+      token = req.headers.authorization.split(' ')[1];
+    } else if (req.cookies.token) {
+      token = req.cookies.token;
+    }
+    // const token: any =
+    //   req.header('Authorization')?.split(' ')[1] || req.header('x-auth-token');
 
     if (!token) {
       return next(

@@ -16,18 +16,20 @@ export const register = asyncHandler(
   }
 );
 
+// THIS ONE DOES NOT WORK //TODO: NEED T FIX
 export const getMe = asyncHandler(
   async (req: IAuthRequest, res: Response, next: NextFunction) => {
     if (!req.user) {
       return next(new ErrorResponse('Not authorized', 404));
     }
-
     res.status(200).json({ success: true, data: req.user });
   }
 );
 
+// THIS ONE DOES NOT WORK //TODO: NEED T FIX
 export const getAdmin = asyncHandler(
   async (req: IAuthRequest, res: Response, next: NextFunction) => {
+    // res.send('ddd');
     res.status(200).json({ success: true, data: req.user });
   }
 );

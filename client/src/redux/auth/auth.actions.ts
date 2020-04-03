@@ -10,7 +10,7 @@ import {
 import setAuthToken from '../../utils/setAuthToken';
 
 
-export const loadUser = () => async (dispatch: Dispatch< IUserLoadedAction| IAuthErrorAction >) => {
+export const loadUser = () => async (dispatch: Dispatch <IUserLoadedAction| IAuthErrorAction >) => {
   let token: any;
   if (Cookies.get('token')) {
     token = Cookies.get('token');
