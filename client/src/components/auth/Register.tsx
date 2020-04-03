@@ -27,7 +27,7 @@ const Register: React.FC<Props> = ({ registerUser, history, isAuth }) => {
 
   React.useEffect(() => {
     if (isAuth) {
-      history.push('/');
+      history.push('/me');
     }
   });
 

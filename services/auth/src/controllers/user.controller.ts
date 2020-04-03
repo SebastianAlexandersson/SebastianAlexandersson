@@ -16,7 +16,6 @@ export const register = asyncHandler(
   }
 );
 
-// THIS ONE DOES NOT WORK //TODO: NEED T FIX
 export const getMe = asyncHandler(
   async (req: IAuthRequest, res: Response, next: NextFunction) => {
     // console.log(req);
@@ -27,7 +26,6 @@ export const getMe = asyncHandler(
   }
 );
 
-// THIS ONE DOES NOT WORK //TODO: NEED T FIX
 export const getAdmin = asyncHandler(
   async (req: IAuthRequest, res: Response, next: NextFunction) => {
     // res.send('ddd');

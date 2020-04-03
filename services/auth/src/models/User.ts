@@ -38,6 +38,16 @@ const UserSchema = new Schema<IUser>({
   ],
 });
 
+UserSchema.methods.toJSON = function() {
+  const user = this;
+  const userObject = user.toObject();
+
+  delete userObject.password;
+  delete userObject.tokens;
+
+  return userObject;
+};
+
 UserSchema.pre<IUser>('save', async function(next: NextFunction) {
   const user = this;
   const salt = await bcrypt.genSalt(8);
