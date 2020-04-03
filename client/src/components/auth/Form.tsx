@@ -19,7 +19,7 @@ const Form: React.FC<Props> = ({ handleChange, handleSubmit, formData }) => (
       <span>password</span>
       <input type="text" name="password" placeholder="password" value={formData.password} onChange={handleChange} />
     </label>
-    <button type="submit">submit</button>
+    <button type="submit" className="btn btn-lg btn-primary">submit</button>
   </form>
 );
 export default Form;

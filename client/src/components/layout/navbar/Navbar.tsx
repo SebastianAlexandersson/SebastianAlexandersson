@@ -7,7 +7,7 @@ interface Props {
 }
 
 const Navbar: React.FC<Props> = () => (
-  <nav>
+  <nav className="Navbar">
     <NavList />
   </nav>
 );

@@ -1,14 +1,15 @@
-nav {
-  padding: 2rem;
+.Navbar {
+  padding: 1rem 2rem;
 }
 
 #navList {
   display: flex;
   justify-content: flex-end;
+
 }
 
 #navList li {
-  padding: .5rem;
+  padding: 0 .5rem;
 }
 
 #navList li a,
@@ -17,4 +18,20 @@ span {
   text-transform: capitalize;
   color: #333;
   cursor: pointer;
+  transition: 300ms ease-in-out;
+  text-decoration: none;
+  padding: .5rem;
+}
+
+
+#navList span:hover {
+  color: #fff;
+  background: #333;
+
+}
+
+#navList a:hover {
+  color: #fff;
+  background: #333;
+
 }

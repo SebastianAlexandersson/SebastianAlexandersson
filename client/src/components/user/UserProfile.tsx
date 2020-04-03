@@ -1,11 +1,15 @@
+/* eslint-disable import/extensions */
 /* eslint-disable react/prop-types */
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { RouteProps, Link } from 'react-router-dom';
+import { RouteProps } from 'react-router-dom';
 import * as H from 'history';
 import { AppState } from '../../redux';
 import { IUserData } from '../../redux/auth/auth.types';
 import './User.css';
+import CandyStock from '../candy_stock/CandyStock';
+import CandyShop from '../candy_shop/CandyShop';
+import CandyList from '../candy_stock/CandyList';
 
 interface Props extends RouteProps{
   user: IUserData | null;
@@ -40,15 +44,15 @@ const UserProfile: React.FC<Props> = ({
       <div className="options">
         {!isLoading && user?.role === 'admin' ? (
           <>
-
-            <h3>Edit your candy</h3>
-            <Link to="/candy-stock">Candy Stock</Link>
+            <h3>Add new candy</h3>
+            <CandyStock />
+            <CandyList />
           </>
         )
           : (
             <>
               <h3>Buy some candy</h3>
-              <Link to="/candyshop">CandyShop</Link>
+              <CandyShop />
             </>
           )}
       </div>

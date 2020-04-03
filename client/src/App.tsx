@@ -40,14 +40,16 @@ const App: React.FC <Props> = ({ token, loadUser }) => {
   }, []);
   return (
     <div className="App">
-      <Switch>
-        <Layout>
-          <Route exact path="/" component={Home} />
-          <Route exact path="/register" component={Register} />
-          <Route exact path="/login" component={Login} />
-          <Route exact path="/me" component={UserProfile} />
-        </Layout>
-      </Switch>
+      <Layout>
+        <div className="container">
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route exact path="/register" component={Register} />
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/me" component={UserProfile} />
+          </Switch>
+        </div>
+      </Layout>
     </div>
   );
 };
