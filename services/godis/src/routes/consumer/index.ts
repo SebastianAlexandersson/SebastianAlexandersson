@@ -1,4 +1,3 @@
-import { Request, Response } from 'express';
 import * as controllers from '../../controllers/ConsumerControllers';
 
 export default [
