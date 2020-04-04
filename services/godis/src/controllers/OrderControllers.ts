@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { getRepository } from 'typeorm';
+import { getRepository, getManager } from 'typeorm';
 import { Product } from '../entities/Product';
 import { Order } from '../entities/Order';
 import { OrderProduct } from '../entities/OrderProduct';
@@ -7,38 +7,48 @@ import { Consumer } from '../entities/Consumer';
 import { HTTP400Error } from '../utils/httpErrors';
 
 export async function createOrder(req: Request, res: Response) {
-  const { consumer, products } = req.body;
+  const { consumer, orderArr } = req.body;
 
-  if (!consumer || !Array.isArray(products)) {
+  if (!consumer || !Array.isArray(orderArr)) {
     throw new HTTP400Error('Missing paramaters in request body.');
   };
 
-  if (products.length < 1) {
+  if (orderArr.length < 1) {
     throw new HTTP400Error('No products in product list');
   };
 
-  const productRepository = getRepository(Product);
-  const orderRepository = getRepository(Order);
-  const consumerRepository = getRepository(Consumer);
-  const orderProductRepository = getRepository(OrderProduct);
+  const entityManager = getManager().transaction(async manager => {
+    const consumerObj = await manager.findOne(Consumer, consumer);
 
-  const consumerObj = await consumerRepository.findOne(consumer);
-  
-  const productList = await productRepository.findByIds(products);
-  const productListRelation = productList.map(product => orderProductRepository.create({
-    product,
-  }))
-  await orderProductRepository.save(productListRelation);
-  
-  const order = orderRepository.create();
-  order.consumer = consumerObj;
-  order.orderProduct = productListRelation;
-  await orderRepository.save(order);
+    const productList = await Promise.all(orderArr.map(async obj => {
+      const product = await manager.findOne(Product, obj.id);
 
-  res.status(200)
-  .send({
-    message: 'Resource created',
-    order,
+      return manager.create(OrderProduct, {
+        product,
+        qty: obj.qty,
+        price: product.price,
+      });
+    }));
+    await manager.save(productList);
+
+    const order = manager.create(Order, {
+      consumer: consumerObj,
+      orderProduct: productList,
+    });
+    await manager.save(order);
+
+    const updatedProductList = await Promise.all(orderArr.map(async obj => {
+      const product = await manager.findOne(Product, obj.id);
+      product.qty -= obj.qty;
+      return product;
+    }));
+    await manager.save(updatedProductList);
+    
+    res.status(200)
+    .send({
+      message: 'Resource created',
+      order,
+    });
   });
 };
 
@@ -91,3 +101,13 @@ export async function getOrderByConsumerId(req: Request, res: Response) {
   .send(orders);
 };
 
+export async function updateOrder(req: Request, res: Response) {
+  const id = Number(req.params.id);
+  const { products } = req.body;
+
+  const orderRepository = getRepository(Order);
+  const productRepository = getRepository(Product);
+  const orderProductRepository = getRepository(OrderProduct);
+
+
+}

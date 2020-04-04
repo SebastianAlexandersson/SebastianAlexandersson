@@ -11,6 +11,12 @@ export class Product {
   @Column()
   name: string;
 
+  @Column('double')
+  qty: number;
+
+  @Column('double')
+  price: number;
+
   @ManyToOne(type => Producer, producer => producer.id)
   producer: Producer;
 

@@ -7,7 +7,7 @@ import { HTTP400Error } from '../utils/httpErrors';
 export async function getAllProducts(req: Request, res: Response) {
   const productRepository = getRepository(Product);
 
-  const products = await productRepository.find();
+  const products = await productRepository.find({ relations: ['producer']});
 
   res.status(200)
   .json(products);
@@ -87,7 +87,7 @@ export async function createProduct(req: Request, res: Response) {
 }
 
 export async function updateProduct(req: Request, res: Response) {
-  const { name } = req.body;
+  const { name, qty, price } = req.body;
   const id = Number(req.params.id);
 
   const productRepository = getRepository(Product);
@@ -100,6 +100,8 @@ export async function updateProduct(req: Request, res: Response) {
   const resource = await productRepository.save({
     id,
     name,
+    qty,
+    price,
   });
 
   res.status(200)
