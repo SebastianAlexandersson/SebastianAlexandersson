@@ -10,6 +10,6 @@ export class Order {
   @ManyToOne(type => Consumer, consumer => consumer.id)
   consumer: Consumer;
 
-  @OneToMany(type => OrderProduct, orderProduct => orderProduct.id)
+  @OneToMany(type => OrderProduct, orderProduct => orderProduct.order)
   orderProduct: OrderProduct[];
 }
