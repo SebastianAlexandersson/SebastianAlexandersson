@@ -2,9 +2,12 @@
 
 import { combineReducers } from 'redux';
 import authReducer from './auth/auth.reducer';
+import producerReducer from './producer/producer.reducer';
+import consumerReducer from './concumer/concumer.reducer';
 
 
 export default combineReducers({
   auth: authReducer,
-  consumer: () => 'consumer',
+  producer: producerReducer,
+  consumer: consumerReducer,
 });

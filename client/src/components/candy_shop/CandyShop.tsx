@@ -1,16 +1,25 @@
 import * as React from 'react';
 import './candyshop.css';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { getProducers } from '../../redux/concumer/consumer.actions';
+import { AppState } from '../../redux';
+import { IProducer } from '../../redux/producer/producer.types';
+
 
 interface Props {
-
+  getProducers: () => Promise<void>;
+  producers: IProducer[];
 }
 
-const CandyShop: React.FC<Props> = () => {
-  let a;
+const CandyShop: React.FC<Props> = ({ getProducers, producers }) => {
+  React.useEffect(() => {
+    getProducers();
+  }, []);
+
   return (
     <div className="CandyShop">
-      <h2>Producer 1</h2>
+      <h2>{producers && producers.length > 0 && producers[0] ? producers[0].name : 'producer 1'}</h2>
       <table className="table table-dark">
         <thead>
           <tr>
@@ -67,7 +76,7 @@ const CandyShop: React.FC<Props> = () => {
 
         </tbody>
       </table>
-      <h2>Producer 2</h2>
+      <h2>{producers && producers.length > 0 && producers[1] ? producers[1].name : 'producer 2'}</h2>
       <table className="table table-dark">
         <thead>
           <tr>
@@ -125,7 +134,7 @@ const CandyShop: React.FC<Props> = () => {
         </tbody>
       </table>
 
-      <h2>Producer 3</h2>
+      <h2>{producers && producers.length > 0 && producers[2] ? producers[2].name : 'producer 3'}</h2>
       <table className="table table-dark">
         <thead>
           <tr>
@@ -190,4 +199,7 @@ const CandyShop: React.FC<Props> = () => {
     </div>
   );
 };
-export default CandyShop;
+const mapStateToProps = (state: AppState) => ({
+  producers: state.consumer.producers,
+});
+export default connect(mapStateToProps, { getProducers })(CandyShop);
