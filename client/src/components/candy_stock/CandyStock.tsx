@@ -67,7 +67,7 @@ const CandyStock: React.FC<Props> = ({ addNewProduct }) => {
           </label>
         </div>
 
-        <button type="submit" className="btn btn-primary">Submit</button>
+        <button type="submit" className="btn btn-primary btn-lg">Submit</button>
       </form>
 
     </div>

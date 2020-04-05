@@ -50,21 +50,35 @@ const NavList: React.FC<Props> = ({
             <Link to="/">Home</Link>
             {' '}
           </li>
-
+          {/*  */}
           { user?.role === 'admin' ? (
-            <li>
-              {' '}
-              <Link to="/producer"> create producer profile </Link>
-              {' '}
-            </li>
+            <>
+              <li>
+                {' '}
+                <Link to="/producer"> create producer profile </Link>
+                {' '}
+              </li>
+              <li>
+                {' '}
+                <Link to="/admin"> Candy Stock </Link>
+                {' '}
+              </li>
+            </>
           )
 
             : (
-              <li>
-                {' '}
-                <Link to="/consumer"> create consumer profile </Link>
-                {' '}
-              </li>
+              <>
+                <li>
+                  {' '}
+                  <Link to="/consumer"> create consumer profile </Link>
+                  {' '}
+                </li>
+                <li>
+                  {' '}
+                  <Link to="/user"> Candy Store </Link>
+                  {' '}
+                </li>
+              </>
             )}
 
           <li>

@@ -7,7 +7,7 @@ import {
 } from './producer.types';
 
 export const createProducer = (
-  name: string,
+  formData: Record<string, any>,
 ) => async (dispatch: Dispatch<ICreateProducerAction>) => {
   try {
     const config = {
@@ -16,13 +16,11 @@ export const createProducer = (
       },
     };
 
-    const response = await axios.post('/godisapi/producer', name, config);
-
-    const data = await response.data;
+    const response = await axios.post('/godisapi/producer', formData, config);
 
     dispatch({
       type: ProducerActionTypes.CREATE_PRODUCER,
-      payload: data,
+      payload: response.data,
     });
   } catch (err) {
     console.error(err);
@@ -33,19 +31,16 @@ export const addNewProduct = (
   product: IProduct,
 ) => async (dispatch: Dispatch<IAddProductAction>) => {
   try {
-    const response = await fetch('/godisapi/product', {
-      method: 'POST',
+    const config = {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(product),
-    });
-
-    const body = await response.json();
+    };
+    const res = await axios.post('/godisapi/product', product, config);
 
     dispatch({
       type: ProducerActionTypes.ADD_PRODUCT,
-      payload: body,
+      payload: res.data,
     });
   } catch (err) {
     console.error(err);
@@ -53,7 +48,21 @@ export const addNewProduct = (
 };
 
 
-export const deleteProduct = () => async (dispatch: Dispatch<IDeleteProductAction>) => {
+// export const getAllUsers = () => async (dispatch: Dispatch<IGetProducers>) => {
+//   try {
+//     const res = await axios.get('/godisapi/producer');
+//     dispatch({
+//       type: ProducerActionTypes.GET_PRODUCERS,
+//       payload: res.data,
+//     });
+//   } catch (err) {
+//     console.log(err);
+//   }
+// };
+
+export const deleteProduct = (
+  productId: string,
+) => async (dispatch: Dispatch<IDeleteProductAction>) => {
   try {
     dispatch({
       type: ProducerActionTypes.DELETE_PRODUCT,

@@ -10,6 +10,7 @@ const initialState: IProducerState = {
   orderProduct: null,
   deal: null,
   products: [],
+
 };
 
 export default (state: IProducerState = initialState, action: ProducerTypesReducer) => {
@@ -26,6 +27,7 @@ export default (state: IProducerState = initialState, action: ProducerTypesReduc
         products: [...state.products, action.payload],
         loading: false,
       };
+
     default:
       return state;
   }

@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import { RouteComponentProps } from 'react-router-dom';
 import * as H from 'history';
 import Form from './Form';
-import { IFormData } from '../../redux/auth/auth.types';
+import { IFormData, IUserData } from '../../redux/auth/auth.types';
 import { loginUser } from '../../redux/auth/auth.actions';
 import { AppState } from '../../redux';
 
@@ -16,20 +16,26 @@ interface Props extends RouteComponentProps{
   loginUser: Function;
   isAuth: boolean;
   history: H.History<any>;
+  user: IUserData | null;
 }
 
-//
-const Login: React.FC<Props> = ({ loginUser, isAuth, history }) => {
+
+const Login: React.FC<Props> = ({
+  loginUser, isAuth, history, user,
+}) => {
   const [formData, setFormData] = React.useState<IFormData>({
     username: '',
     password: '',
   });
 
   React.useEffect(() => {
-    if (isAuth) {
-      history.push('/me');
+    if (isAuth && user && user?.role === 'admin') {
+      history.push('/admin');
     }
-  });
+    if (isAuth && user && user?.role === 'user') {
+      history.push('/user');
+    }
+  }, [isAuth]);
 
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -59,6 +65,7 @@ const Login: React.FC<Props> = ({ loginUser, isAuth, history }) => {
 
 const mapStateToProps = (state: AppState) => ({
   isAuth: state.auth.isAuth,
+  user: state.auth.user,
 });
 
 export default connect(mapStateToProps, { loginUser })(Login);

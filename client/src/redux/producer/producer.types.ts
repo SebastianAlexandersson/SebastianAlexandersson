@@ -27,6 +27,7 @@ export enum ProducerActionTypes {
   ADD_PRODUCT = 'ADD_PRODUCT',
   DELETE_PRODUCT = 'DELETE_PRODUCT',
   CREATE_PRODUCER = 'CREATE_PRODUCER',
+
 }
 
 
@@ -38,8 +39,9 @@ export interface IAddProductAction {
 
 export interface ICreateProducerAction {
   type: ProducerActionTypes.CREATE_PRODUCER;
-  payload: string; // just the name
+  payload: IProducer; // just the name
 }
+
 
 export interface IDeleteProductAction {
   type: ProducerActionTypes.DELETE_PRODUCT;
