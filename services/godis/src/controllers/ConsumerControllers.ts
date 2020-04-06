@@ -41,10 +41,13 @@ export async function createConsumer(req: Request, res: Response) {
     adress
   };
   
-  await consumerRepository.save(consumer);
+  const savedConsumer = await consumerRepository.save(consumer);
 
   res.status(200)
-  .send({ message: 'Resource created.' })
+  .send({
+    message: 'Resource created.',
+    consumer: savedConsumer,
+  })
 };
 
 export async function updateConsumer(req: Request, res: Response) {
