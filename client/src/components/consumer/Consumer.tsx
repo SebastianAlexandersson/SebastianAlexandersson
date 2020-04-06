@@ -29,6 +29,8 @@ const Consumer: React.FC<Props> = ({ user, isLoading }) => (!isLoading ? (
     <h3 className="display-3"> Let's shop some Candy </h3>
   </div>
 ) : <Spinner />);
+
+
 const mapStateToProps = (state: AppState) => ({
   user: state.auth.user,
   isLoading: state.auth.loading,
