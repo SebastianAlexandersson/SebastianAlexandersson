@@ -27,7 +27,7 @@ export enum ProducerActionTypes {
   ADD_PRODUCT = 'ADD_PRODUCT',
   DELETE_PRODUCT = 'DELETE_PRODUCT',
   CREATE_PRODUCER = 'CREATE_PRODUCER',
-
+  GET_PRODUCT_BY_PRODUCER =' GET_PRODUCT_BY_PRODUCER',
 }
 
 
@@ -43,10 +43,15 @@ export interface ICreateProducerAction {
 }
 
 
+export interface IGetProductByProducer {
+  type: ProducerActionTypes.GET_PRODUCT_BY_PRODUCER;
+  payload: IProduct;
+}
+
 export interface IDeleteProductAction {
   type: ProducerActionTypes.DELETE_PRODUCT;
   payload: string; // sending id to the reducer
 }
 
 export type ProducerTypesReducer =
-   IAddProductAction | IDeleteProductAction | ICreateProducerAction
+   IAddProductAction | IDeleteProductAction | ICreateProducerAction | IGetProductByProducer

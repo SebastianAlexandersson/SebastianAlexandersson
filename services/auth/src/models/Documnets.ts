@@ -3,7 +3,8 @@ import { Document } from 'mongoose';
 
 enum UserRole {
   USER = 'USER',
-  ADMIN = 'ADMIN'
+  ADMIN = 'ADMIN',
+  PRODUCER = 'PRODUCER'
 }
 export interface IToken {
   token: string;
