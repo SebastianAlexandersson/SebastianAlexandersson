@@ -25,15 +25,21 @@ const Register: React.FC<Props> = ({
   const [formData, setFormData] = React.useState<IFormData>({
     username: '',
     password: '',
+    firstName: '',
+    lastName: '',
+    adress: '',
   });
 
 
   React.useEffect(() => {
-    if (isAuth && user && user.role === 'admin') {
+    if (isAuth && user && user?.role === 'admin') {
       history.push('/admin');
     }
-    if (isAuth && user && user.role === 'user') {
+    if (isAuth && user && user?.role === 'user') {
       history.push('/user');
+    }
+    if (isAuth && user && user?.role === 'producer') {
+      history.push('/producer');
     }
   }, [isAuth]);
 
@@ -50,13 +56,16 @@ const Register: React.FC<Props> = ({
     setFormData({
       username: '',
       password: '',
+      firstName: '',
+      lastName: '',
+      adress: '',
     });
   };
 
   return (
     <>
       <h1>REGISTER</h1>
-      <Form handleChange={handleChange} handleSubmit={handleSubmit} formData={formData} />
+      <Form handleChange={handleChange} handleSubmit={handleSubmit} formData={formData} isRegister />
     </>
   );
 };
