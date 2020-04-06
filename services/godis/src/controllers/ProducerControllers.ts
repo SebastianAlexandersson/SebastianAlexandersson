@@ -39,11 +39,12 @@ export async function createProducer(req: Request, res: Response) {
   };
 
   const producerRepository = getRepository(Producer);
-  await producerRepository.save(producer);
+  const savedProducer = await producerRepository.save(producer);
 
   res.status(200)
   .send({
-    message: 'Resource created.'
+    message: 'Resource created.',
+    producer: savedProducer,
   });
 }
 
