@@ -7,11 +7,10 @@ import { HTTP400Error } from '../utils/httpErrors';
 export async function getAllProducts(req: Request, res: Response) {
   const productRepository = getRepository(Product);
 
-  const products = await productRepository.find({ relations: ['producer']});
+  const products = await productRepository.find({ relations: ['producer'] });
 
-  res.status(200)
-  .json(products);
-};
+  res.status(200).json(products);
+}
 
 export async function getProductById(req: Request, res: Response) {
   const id = Number(req.params.id);
@@ -26,11 +25,10 @@ export async function getProductById(req: Request, res: Response) {
 
   if (!product) {
     throw new HTTP400Error('No such product.');
-  };
+  }
 
-  res.status(200)
-  .json(product);
-};
+  res.status(200).json(product);
+}
 
 export async function getProductByProducer(req: Request, res: Response) {
   const { producer } = req.params;
@@ -38,29 +36,30 @@ export async function getProductByProducer(req: Request, res: Response) {
   const productRepository = getRepository(Product);
   const producerRepository = getRepository(Producer);
 
-  const producerId = await producerRepository.findOne({ where: { name: producer }});
+  const producerId = await producerRepository.findOne({
+    where: { name: producer },
+  });
 
   if (!producerId) {
-    throw new HTTP400Error('No such producer.')
-  };
+    throw new HTTP400Error('No such producer.');
+  }
 
   const products = await productRepository.find({
     relations: ['producer'],
     where: {
-      producer: { id: producerId.id }
-    }
+      producer: { id: producerId.id },
+    },
   });
 
-  res.status(200)
-  .json(products);
-};
+  res.status(200).json(products);
+}
 
 export async function createProduct(req: Request, res: Response) {
   const { name, producerName } = req.body;
 
   if (!name || !producerName) {
     throw new HTTP400Error('Missing paramaters in request body.');
-  };
+  }
 
   const producerRepository = getRepository(Producer);
   const productRepository = getRepository(Product);
@@ -73,17 +72,16 @@ export async function createProduct(req: Request, res: Response) {
 
   if (!producer) {
     throw new HTTP400Error('No such producer.');
-  };
+  }
 
   await productRepository.save({
     name,
     producer,
   });
 
-  res.status(200)
-  .send({
-    message: 'Resource created'
-  })
+  res.status(200).send({
+    message: 'Resource created',
+  });
 }
 
 export async function updateProduct(req: Request, res: Response) {
@@ -95,7 +93,7 @@ export async function updateProduct(req: Request, res: Response) {
 
   if (!product) {
     throw new HTTP400Error('No such product.');
-  };
+  }
 
   const resource = await productRepository.save({
     id,
@@ -104,12 +102,11 @@ export async function updateProduct(req: Request, res: Response) {
     price,
   });
 
-  res.status(200)
-  .send({
+  res.status(200).send({
     message: 'Resource updated',
     resource,
-  })
-};
+  });
+}
 
 export async function deleteProduct(req: Request, res: Response) {
   const id = Number(req.params.id);
@@ -119,13 +116,12 @@ export async function deleteProduct(req: Request, res: Response) {
 
   if (!product) {
     throw new HTTP400Error('No such product.');
-  };
+  }
 
-  const resource = await productRepository.remove(product)
+  const resource = await productRepository.remove(product);
 
-  res.status(200)
-  .send({
+  res.status(200).send({
     message: 'Resource deleted.',
     resource,
-  })
+  });
 }
