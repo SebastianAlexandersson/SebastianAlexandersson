@@ -9,20 +9,18 @@ export async function validateToken(
 ) {
   const token = req.headers.authorization;
 
-  const request = await fetch('http://localhost/authapi/auth/validateToken', {
+  const request = await fetch('http://authapi:4000/authapi/auth/validateToken', {
     method: 'POST',
     headers: {
-      ContentType: 'application/json',
+      'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ token }),
-  }).catch(err => {
-    throw err;
+    body: JSON.stringify({ token })
   });
 
   const response = await request.json();
 
   if (!response.isValid) {
-    throw new HTTP400Error('Invalid JSON web token');
+    throw new HTTP400Error('Bad token.');
   }
 
   next();
