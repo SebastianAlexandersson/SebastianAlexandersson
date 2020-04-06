@@ -24,6 +24,9 @@ const UserSchema = new Schema<IUser>({
     enum: ['user', 'admin', 'producer'],
     default: 'user',
   },
+  godisDbId: {
+    type: Number,
+  },
   createdAt: {
     type: Date,
     default: Date.now,

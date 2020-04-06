@@ -7,6 +7,7 @@
     "dev": "nodemon --exec ts-node src/index.ts"
   },
   "dependencies": {
+    "@types/node-fetch": "^2.5.5",
     "bcryptjs": "^2.4.3",
     "colors": "^1.4.0",
     "cookie-parser": "^1.4.5",
@@ -14,7 +15,8 @@
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.9.6",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "node-fetch": "^2.6.0"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",

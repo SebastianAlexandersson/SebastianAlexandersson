@@ -66,6 +66,10 @@ export const validateToken = asyncHandler(
   async (req: IAuthRequest, res: Response, next: NextFunction) => {
     console.log(req.body);
 
-    res.json({ isValid: true });
+    res.json({
+      isValid: true,
+      role: req.user.role,
+      godisDbId: req.user.godisDbId,
+    });
   }
 );

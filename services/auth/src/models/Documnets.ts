@@ -13,6 +13,7 @@ export interface IUser extends Document {
   username: string;
   password: string;
   role: string;
+  godisDbId: number;
   createdAt: Date;
   sessionsToken: IToken[];
   generateAuthToken: () => Promise<string>;
