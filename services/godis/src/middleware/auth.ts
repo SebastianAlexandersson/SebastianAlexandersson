@@ -3,7 +3,7 @@ import fetch from 'node-fetch';
 import { HTTP400Error } from '../utils/httpErrors';
 
 export async function validateToken(req: Request, res: Response, next: NextFunction) {
-  const token = req.headers.token
+  const token = req.headers.authorization
 
   const request = await fetch('http://localhost/authapi/validateToken', {
     method: "POST",
