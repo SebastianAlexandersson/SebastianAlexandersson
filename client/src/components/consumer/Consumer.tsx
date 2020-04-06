@@ -5,23 +5,22 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { AppState } from '../../redux';
 import { IUserData } from '../../redux/auth/auth.types';
-import { addConsumerProfile } from '../../redux/concumer/consumer.actions';
-import { IConsumer } from '../../redux/concumer/consumer.types';
+import Spinner from '../layout/Spinner';
 
 interface Props {
   user: IUserData | null;
-  userLoading: boolean;
-  addConsumerProfile: (formData: IConsumer) => Promise<void>;
+  isLoading: boolean;
+
 }
 
-const Consumer: React.FC<Props> = ({ user, userLoading, addConsumerProfile }) => (
+const Consumer: React.FC<Props> = ({ user, isLoading }) => (!isLoading ? (
   <div>
     {' '}
     <h1 className="display-1">
       {' '}
       Hello
       {' '}
-      {!userLoading && user && user.username }
+      {!isLoading && user && user.username }
       {' '}
 
       {' '}
@@ -29,12 +28,11 @@ const Consumer: React.FC<Props> = ({ user, userLoading, addConsumerProfile }) =>
 
     <h3 className="display-3"> Let's shop some Candy </h3>
   </div>
-);
-
+) : <Spinner />);
 const mapStateToProps = (state: AppState) => ({
   user: state.auth.user,
-  userLoading: state.auth.loading,
+  isLoading: state.auth.loading,
 });
 
 
-export default connect(mapStateToProps, { addConsumerProfile })(Consumer);
+export default connect(mapStateToProps)(Consumer);

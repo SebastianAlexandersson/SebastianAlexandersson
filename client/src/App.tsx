@@ -18,8 +18,6 @@ import { AppState } from './redux';
 import { loadUser } from './redux/auth/auth.actions';
 import Producer from './components/producer/Producer';
 import Consumer from './components/consumer/Consumer';
-import CandyAuth from './components/candy_stock/CandyAuth';
-import CandyUser from './components/candy_shop/CandyUser';
 import Admin from './components/admin/Admin';
 
 
@@ -52,9 +50,7 @@ const App: React.FC <Props> = ({ token, loadUser }) => {
             <Route exact path="/login" component={Login} />
             <Route exact path="/admin" component={Admin} />
             <Route exact path="/user" component={Consumer} />
-
-            {/* <Route exact path="/producer" component={Producer} /> */}
-            {/* <Route exact path="/consumer" component={Consumer} /> */}
+            <Route exact path="/producer" component={Producer} />
           </Switch>
         </div>
       </Layout>

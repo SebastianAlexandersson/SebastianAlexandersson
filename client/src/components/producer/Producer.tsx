@@ -1,53 +1,53 @@
+/* eslint-disable import/extensions */
 /* eslint-disable react/prop-types */
 /* eslint-disable no-shadow */
 import * as React from 'react';
 
 import { connect } from 'react-redux';
-import { createProducer } from '../../redux/producer/producer.actions';
+import { RouteComponentProps } from 'react-router-dom';
+import * as H from 'history';
+import { AppState } from '../../redux';
+import { IUserData } from '../../redux/auth/auth.types';
+import Spinner from '../layout/Spinner';
+import Card from '../layout/Card';
 
-interface Props {
-  createProducer: (formData: Record<string, any>) => Promise<void>;
+interface Props extends RouteComponentProps {
+  user: IUserData | null;
+  isLoading: boolean;
+  history: H.History<any>;
 }
 
-
-const Producer: React.FC<Props> = ({ createProducer }) => {
-  const [formData, setFormData] = React.useState({ name: '' });
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    createProducer(formData);
-    setFormData({ name: '' });
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
+const Producer: React.FC<Props> = ({ isLoading, user, history }) => {
+  React.useEffect(() => {
+    if (user === null) {
+      history.push('/');
+    }
+  }, [user]);
 
 
-    setFormData({ ...formData, [name]: value });
-  };
-
-  return (
+  return (!isLoading ? (
     <div className="mt-5">
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label htmlFor="name">
-            <span className="display-4">producer name</span>
-            <input
-              type="text"
-              className="form-control"
-              id="name"
-              onChange={handleChange}
-              name="name"
-            />
-          </label>
-        </div>
+      {!isLoading && user && (
+        <h3 className="display-3">
+          Welcome
+          {' '}
+          Producer
+          {'  '}
+          {user.username}
+        </h3>
+      )}
 
-
-        <button type="submit" className="btn btn-primary btn-lg">Submit</button>
-      </form>
-
+      <div className="options mt-5" style={{ display: 'flex', justifyContent: 'space-around' }}>
+        <Card title="Add more Candies" link1="add candies" path1="/producer/add-candy" />
+        <Card title="edit  Candies" link1="edit candies" path1="/producer/add-candy" />
+      </div>
     </div>
-  );
+  ) : <Spinner />);
 };
 
-export default connect(null, { createProducer })(Producer);
+const mapStateToProps = (state: AppState) => ({
+  user: state.auth.user,
+  isLoading: state.auth.loading,
+});
+
+export default connect(mapStateToProps)(Producer);
