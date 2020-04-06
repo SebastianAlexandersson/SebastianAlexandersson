@@ -55,7 +55,7 @@ export async function getProductByProducer(req: Request, res: Response) {
 }
 
 export async function createProduct(req: Request, res: Response) {
-  const { name, producerName } = req.body;
+  const { name, producerName, qty, price } = req.body;
 
   if (!name || !producerName) {
     throw new HTTP400Error('Missing paramaters in request body.');
@@ -74,13 +74,16 @@ export async function createProduct(req: Request, res: Response) {
     throw new HTTP400Error('No such producer.');
   }
 
-  await productRepository.save({
+  const savedProduct = await productRepository.save({
     name,
     producer,
+    qty,
+    price
   });
 
   res.status(200).send({
     message: 'Resource created',
+    product: savedProduct,
   });
 }
 

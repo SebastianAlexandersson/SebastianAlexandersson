@@ -1,12 +1,10 @@
 import * as controllers from '../../controllers/ProductControllers';
-import { validateToken } from '../../middleware/auth';
 
 export default [
   {
     path: '/godisapi/product',
     method: 'get',
     handler: [
-      validateToken,
       controllers.getAllProducts,
     ],
   },

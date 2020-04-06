@@ -7,7 +7,9 @@ import { Consumer } from '../entities/Consumer';
 import { HTTP400Error } from '../utils/httpErrors';
 
 export async function createOrder(req: Request, res: Response) {
-  const { consumer, orderArr } = req.body;
+  const { orderArr } = req.body;
+  // @ts-ignore
+  const consumer = Number(req.headers.user.godisDbId);
 
   if (!consumer || !Array.isArray(orderArr)) {
     throw new HTTP400Error('Missing paramaters in request body.');
