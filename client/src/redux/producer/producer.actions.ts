@@ -6,6 +6,7 @@ import {
   IProduct, IAddProductAction, ProducerActionTypes, IDeleteProductAction, ICreateProducerAction,
 } from './producer.types';
 
+
 export const createProducer = (
   formData: Record<string, any>,
 ) => async (dispatch: Dispatch<ICreateProducerAction>) => {

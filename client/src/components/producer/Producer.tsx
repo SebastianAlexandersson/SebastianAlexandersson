@@ -15,8 +15,8 @@ const Producer: React.FC<Props> = ({ createProducer }) => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
     createProducer(formData);
+    setFormData({ name: '' });
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -27,12 +27,11 @@ const Producer: React.FC<Props> = ({ createProducer }) => {
   };
 
   return (
-    <div>
-      <h1>{formData.name}</h1>
+    <div className="mt-5">
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="name">
-            producer name
+            <span className="display-4">producer name</span>
             <input
               type="text"
               className="form-control"
@@ -44,7 +43,7 @@ const Producer: React.FC<Props> = ({ createProducer }) => {
         </div>
 
 
-        <button type="submit" className="btn btn-primary">Submit</button>
+        <button type="submit" className="btn btn-primary btn-lg">Submit</button>
       </form>
 
     </div>
