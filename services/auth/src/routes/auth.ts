@@ -5,6 +5,7 @@ import {
   logoutSession,
   clearSessionList,
   validateAdmin,
+  validateToken,
 } from '../controllers/auth.controller';
 import { authHandler } from '../middleware/authHandler';
 
@@ -14,5 +15,6 @@ router.route('/login').post(login);
 router.route('/logout').post(authHandler, logoutSession);
 router.route('/logoutall').post(authHandler, clearSessionList);
 router.route('/isadmin').get(authHandler, validateAdmin);
+router.route('/validateToken').post(authHandler, validateToken);
 
 export { router };

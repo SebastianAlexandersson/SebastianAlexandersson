@@ -2,19 +2,22 @@ import { Request, Response, NextFunction } from 'express';
 import fetch from 'node-fetch';
 import { HTTP400Error } from '../utils/httpErrors';
 
-export async function validateToken(req: Request, res: Response, next: NextFunction) {
-  const token = req.headers.authorization
+export async function validateToken(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  const token = req.headers.authorization;
 
-  const request = await fetch('http://localhost/authapi/validateToken', {
-    method: "POST",
+  const request = await fetch('http://localhost/authapi/auth/validateToken', {
+    method: 'POST',
     headers: {
-      "ContentType": "application/json"
+      ContentType: 'application/json',
     },
     body: JSON.stringify({ token }),
-  })
-  .catch(err => {
+  }).catch(err => {
     throw err;
-  })
+  });
 
   const response = await request.json();
 
@@ -22,5 +25,5 @@ export async function validateToken(req: Request, res: Response, next: NextFunct
     throw new HTTP400Error('Invalid JSON web token');
   }
 
-  next()
-};
+  next();
+}

@@ -64,6 +64,8 @@ export const validateAdmin = asyncHandler(
 
 export const validateToken = asyncHandler(
   async (req: IAuthRequest, res: Response, next: NextFunction) => {
-    //
+    console.log(req.body);
+
+    res.json({ isValid: true });
   }
 );
