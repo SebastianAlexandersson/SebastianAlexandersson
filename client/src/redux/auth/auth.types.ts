@@ -18,6 +18,9 @@ export interface IUserData {
 export interface IFormData {
   username: string;
   password: string;
+  firstName?: string;
+  lastName?: string;
+  adress?: string;
 }
 
 export interface IToken {

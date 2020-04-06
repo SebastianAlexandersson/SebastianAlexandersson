@@ -35,6 +35,9 @@ const Login: React.FC<Props> = ({
     if (isAuth && user && user?.role === 'user') {
       history.push('/user');
     }
+    if (isAuth && user && user?.role === 'producer') {
+      history.push('/producer');
+    }
   }, [isAuth]);
 
 
@@ -57,8 +60,8 @@ const Login: React.FC<Props> = ({
   return (
 
     <>
-      <h1>LOGIN</h1>
-      <Form handleChange={handleChange} handleSubmit={handleSubmit} formData={formData} />
+      <h1 className="display-1">LOGIN</h1>
+      <Form handleChange={handleChange} handleSubmit={handleSubmit} formData={formData} isRegister={false} />
     </>
   );
 };
