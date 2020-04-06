@@ -9,13 +9,14 @@ export async function validateToken(
 ) {
   const token = req.headers.authorization;
 
-  const request = await fetch('http://authapi:4000/authapi/auth/validateToken', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ token })
-  });
+  const request = await fetch(
+    'http://authapi:4000/authapi/auth/validateToken',
+    {
+      headers: {
+        Authorization: token,
+      },
+    }
+  );
 
   const response = await request.json();
 

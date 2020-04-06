@@ -15,6 +15,6 @@ router.route('/login').post(login);
 router.route('/logout').post(authHandler, logoutSession);
 router.route('/logoutall').post(authHandler, clearSessionList);
 router.route('/isadmin').get(authHandler, validateAdmin);
-router.route('/validateToken').post(authHandler, validateToken);
+router.route('/validateToken').get(authHandler, validateToken);
 
 export { router };
