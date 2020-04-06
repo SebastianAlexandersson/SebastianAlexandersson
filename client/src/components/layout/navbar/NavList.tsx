@@ -1,3 +1,7 @@
+/* eslint-disable import/extensions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 /* eslint-disable react/prop-types */
 /* eslint-disable no-shadow */
 /* eslint-disable @typescript-eslint/interface-name-prefix */
@@ -6,10 +10,12 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { AppState } from '../../../redux';
 import { logoutUser } from '../../../redux/auth/auth.actions';
+import { IUserData } from '../../../redux/auth/auth.types';
 
 interface Props {
   isAuth: boolean;
   isLoading: boolean;
+  user: IUserData | null;
   logoutUser: () => Promise<void>;
 }
 
@@ -19,7 +25,9 @@ interface INavLink {
   path: string;
 }
 
-const NavList: React.FC<Props> = ({ isAuth, isLoading, logoutUser }) => {
+const NavList: React.FC<Props> = ({
+  isAuth, isLoading, logoutUser, user,
+}) => {
   const navLinks: INavLink[] = [
 
     {
@@ -42,18 +50,47 @@ const NavList: React.FC<Props> = ({ isAuth, isLoading, logoutUser }) => {
             <Link to="/">Home</Link>
             {' '}
           </li>
+          {/*  */}
+          { user?.role === 'admin' ? (
+            <>
+              <li>
+                {' '}
+                <Link to="/producer"> create producer profile </Link>
+                {' '}
+              </li>
+              <li>
+                {' '}
+                <Link to="/admin"> Candy Stock </Link>
+                {' '}
+              </li>
+            </>
+          )
+
+            : (
+              <>
+                <li>
+                  {' '}
+                  <Link to="/consumer"> create consumer profile </Link>
+                  {' '}
+                </li>
+                <li>
+                  {' '}
+                  <Link to="/user"> Candy Store </Link>
+                  {' '}
+                </li>
+              </>
+            )}
+
           <li>
-            {' '}
             <span onClick={() => {
-              console.log('apa');
               logoutUser();
             }}
             >
               Logout
-
             </span>
-            {' '}
           </li>
+
+
         </>
       ) : navLinks.map((link) => (
         <li key={link.id}>
@@ -69,6 +106,7 @@ const NavList: React.FC<Props> = ({ isAuth, isLoading, logoutUser }) => {
 const mapStateToProps = (state: AppState) => ({
   isAuth: state.auth.isAuth,
   isLoading: state.auth.loading,
+  user: state.auth.user,
 });
 
 export default connect(mapStateToProps, { logoutUser })(NavList);

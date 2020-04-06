@@ -7,7 +7,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { RouteComponentProps } from 'react-router-dom';
 import { registerUser } from '../../redux/auth/auth.actions';
-import { IFormData } from '../../redux/auth/auth.types';
+import { IFormData, IUserData } from '../../redux/auth/auth.types';
 import Form from './Form';
 import { AppState } from '../../redux';
 
@@ -15,10 +15,13 @@ interface Props extends RouteComponentProps {
   registerUser: (formData: IFormData) => Promise<void>;
   history: H.History<any>;
   isAuth: boolean;
+  user: IUserData | null;
 }
 
 
-const Register: React.FC<Props> = ({ registerUser, history, isAuth }) => {
+const Register: React.FC<Props> = ({
+  registerUser, history, isAuth, user,
+}) => {
   const [formData, setFormData] = React.useState<IFormData>({
     username: '',
     password: '',
@@ -26,10 +29,13 @@ const Register: React.FC<Props> = ({ registerUser, history, isAuth }) => {
 
 
   React.useEffect(() => {
-    if (isAuth) {
-      history.push('/me');
+    if (isAuth && user && user.role === 'admin') {
+      history.push('/admin');
     }
-  });
+    if (isAuth && user && user.role === 'user') {
+      history.push('/user');
+    }
+  }, [isAuth]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const { name, value } = e.target;
@@ -57,6 +63,7 @@ const Register: React.FC<Props> = ({ registerUser, history, isAuth }) => {
 
 const mapStateToProps = (state: AppState) => ({
   isAuth: state.auth.isAuth,
+  user: state.auth.user,
 });
 
 export default connect(mapStateToProps, { registerUser })(Register);
