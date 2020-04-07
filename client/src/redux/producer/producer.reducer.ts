@@ -5,22 +5,12 @@ import { IProducerState, ProducerActionTypes, ProducerTypesReducer } from './pro
 
 const initialState: IProducerState = {
   loading: true,
-  producer: null,
   error: null,
-  orderProduct: null,
-  deal: null,
   products: [],
-
 };
 
 export default (state: IProducerState = initialState, action: ProducerTypesReducer) => {
   switch (action.type) {
-    case ProducerActionTypes.CREATE_PRODUCER:
-      return {
-        ...state,
-        producer: action.payload,
-        loading: false,
-      };
     case ProducerActionTypes.ADD_PRODUCT:
       return {
         ...state,

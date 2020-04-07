@@ -3,30 +3,11 @@
 import { Dispatch } from 'react';
 import axios from 'axios';
 import {
-  IProduct, IAddProductAction, ProducerActionTypes, IDeleteProductAction, ICreateProducerAction,
+  IProduct, IAddProductAction,
+  ProducerActionTypes, IDeleteProductAction,
+  IGetAllProducts,
 } from './producer.types';
 
-
-export const createProducer = (
-  formData: Record<string, any>,
-) => async (dispatch: Dispatch<ICreateProducerAction>) => {
-  try {
-    const config = {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    };
-
-    const response = await axios.post('/godisapi/producer', formData, config);
-
-    dispatch({
-      type: ProducerActionTypes.CREATE_PRODUCER,
-      payload: response.data,
-    });
-  } catch (err) {
-    console.error(err);
-  }
-};
 
 export const addNewProduct = (
   product: IProduct,
@@ -48,18 +29,6 @@ export const addNewProduct = (
   }
 };
 
-
-// export const getAllUsers = () => async (dispatch: Dispatch<IGetProducers>) => {
-//   try {
-//     const res = await axios.get('/godisapi/producer');
-//     dispatch({
-//       type: ProducerActionTypes.GET_PRODUCERS,
-//       payload: res.data,
-//     });
-//   } catch (err) {
-//     console.log(err);
-//   }
-// };
 
 export const deleteProduct = (
   productId: string,
