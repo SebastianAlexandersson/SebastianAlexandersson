@@ -1,5 +1,12 @@
 /* eslint-disable @typescript-eslint/interface-name-prefix */
 
+
+export interface IProductUpdateFormData {
+  id: number | undefined;
+  name?: string;
+  qty?: number;
+  price?: number;
+}
 export interface IProducer{
   id: number;
   name: string;
@@ -54,6 +61,11 @@ export interface IDeleteProductAction {
   payload: string; // sending id to the reducer
 }
 
+export interface IUpdateProductAction {
+  type: ProducerActionTypes.UPDATE_PRODUCT;
+  payload: IProductUpdateFormData;
+}
+
 export interface ISetCurrent {
   type: ProducerActionTypes.SET_CURRENT;
   payload: IProduct;
@@ -65,6 +77,10 @@ export interface IClearCurrent {
 
 
 export type ProducerTypesReducer =
-   IAddProductAction | IDeleteProductAction |
-   IGetProductByProducer | IGetAllProducts |
-   ISetCurrent | IClearCurrent
+   IAddProductAction |
+   IDeleteProductAction |
+   IGetProductByProducer |
+   IGetAllProducts |
+   ISetCurrent |
+   IClearCurrent|
+   IUpdateProductAction

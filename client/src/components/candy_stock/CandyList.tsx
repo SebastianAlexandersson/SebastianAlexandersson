@@ -15,6 +15,7 @@ import Spinner from '../layout/Spinner';
 import { IUserData } from '../../redux/auth/auth.types';
 import './Candy.css';
 import EditForm from './EditForm';
+import useToggle from '../../hooks/useToggle';
 
 interface Props {
   getAllProducts: () => Promise<void>;
@@ -30,10 +31,16 @@ const CandyList: React.FC<Props> = ({
 }) => {
   React.useEffect(() => {
     getAllProducts();
-  }, []);
+  }, [getAllProducts]);
+
+  const [showForm, toggleForm] = useToggle(false);
 
   const producerName = user && user.username;
 
+  const handleCurrent = (val: IProduct) => {
+    setCurrent(val);
+    toggleForm();
+  };
 
   return !isLoading ? (
     <ul className="mt-5 CandyList">
@@ -52,15 +59,14 @@ const CandyList: React.FC<Props> = ({
 
           Price:
           <span>
-            <small className="decrease">&#8592;</small>
+
             {x.price}
-            {' '}
-            <small className="increase">&#8594;</small>
-            {' '}
+
+
           </span>
 
           <div className="cta">
-            <span id="edit-pen" onClick={() => setCurrent(x)}>
+            <span id="edit-pen" onClick={() => handleCurrent(x)}>
               &#9998;
             </span>
             <span id="delete-icon">
@@ -70,8 +76,8 @@ const CandyList: React.FC<Props> = ({
         </li>
       )) }
 
-      {current !== null && (
-        <EditForm current={current} />
+      {showForm && current !== null && (
+        <EditForm current={current} toggle={toggleForm} />
       ) }
 
     </ul>

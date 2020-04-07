@@ -28,7 +28,11 @@ export default (state: IProducerState = initialState, action: ProducerTypesReduc
       return {
         ...state,
         current: action.payload,
-
+      };
+    case ProducerActionTypes.CLEAR_CURRENT:
+      return {
+        ...state,
+        current: null,
       };
 
     default:

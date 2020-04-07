@@ -9,6 +9,9 @@ import {
   IGetAllProducts,
   IProduct,
   ISetCurrent,
+  IProductUpdateFormData,
+  IUpdateProductAction,
+  IClearCurrent,
 } from './producer.types';
 
 
@@ -58,8 +61,30 @@ export const setCurrent = (product: IProduct): ISetCurrent => ({
   payload: product,
 });
 
+export const clearCurrent = (): IClearCurrent => ({
+  type: ProducerActionTypes.CLEAR_CURRENT,
+});
 
-export const updateAllProducts = () => {};
+export const updateProduct = (
+  formData: IProductUpdateFormData,
+) => async (dispatch: Dispatch<IUpdateProductAction>) => {
+  try {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+
+    const res = await axios.put(`/godisapi/product/${formData.id}`, formData, config);
+
+    dispatch({
+      type: ProducerActionTypes.UPDATE_PRODUCT,
+      payload: res.data,
+    });
+  } catch (err) {
+    console.error(err);
+  }
+};
 
 
 export const deleteProduct = (
