@@ -6,7 +6,11 @@ interface Props {
 
 const Spinner: React.FC<Props> = () => (
   <>
-    <h1 className="display-1"> ...Loading </h1>
+    <div className="d-flex justify-content-center">
+      <div className="spinner-border" role="status">
+        <span className="sr-only">Loading...</span>
+      </div>
+    </div>
   </>
 );
 export default Spinner;

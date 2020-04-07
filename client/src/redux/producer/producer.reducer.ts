@@ -7,6 +7,7 @@ const initialState: IProducerState = {
   loading: true,
   error: null,
   products: [],
+  current: null,
 };
 
 export default (state: IProducerState = initialState, action: ProducerTypesReducer) => {
@@ -16,6 +17,18 @@ export default (state: IProducerState = initialState, action: ProducerTypesReduc
         ...state,
         products: [...state.products, action.payload],
         loading: false,
+      };
+    case ProducerActionTypes.GET_ALL_PRODUCTS:
+      return {
+        ...state,
+        products: action.payload,
+        loading: false,
+      };
+    case ProducerActionTypes.SET_CURRENT:
+      return {
+        ...state,
+        current: action.payload,
+
       };
 
     default:

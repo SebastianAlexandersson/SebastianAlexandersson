@@ -4,9 +4,11 @@
 import { Dispatch } from 'react';
 import axios from 'axios';
 import {
-  IProduct, IAddProductAction,
+  IAddProductAction,
   ProducerActionTypes, IDeleteProductAction,
   IGetAllProducts,
+  IProduct,
+  ISetCurrent,
 } from './producer.types';
 
 
@@ -36,6 +38,28 @@ export const addNewProduct = (
     console.error(err);
   }
 };
+
+
+export const getAllProducts = () => async (dispatch: Dispatch<IGetAllProducts>) => {
+  try {
+    const res = await axios.get('/godisapi/product');
+    dispatch({
+      type: ProducerActionTypes.GET_ALL_PRODUCTS,
+      payload: res.data,
+    });
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+
+export const setCurrent = (product: IProduct): ISetCurrent => ({
+  type: ProducerActionTypes.SET_CURRENT,
+  payload: product,
+});
+
+
+export const updateAllProducts = () => {};
 
 
 export const deleteProduct = (

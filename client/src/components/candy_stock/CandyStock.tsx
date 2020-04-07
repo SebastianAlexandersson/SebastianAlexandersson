@@ -31,8 +31,11 @@ const CandyStock: React.FC<Props> = ({ user, addNewProduct }) => {
       producerName: user?.username,
     };
     addNewProduct(newCandy);
-    console.log(newCandy);
-    console.log('test');
+    setFormData({
+      name: '',
+      price: '',
+      qty: '',
+    });
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
