@@ -19,6 +19,7 @@ import { loadUser } from './redux/auth/auth.actions';
 import Producer from './components/producer/Producer';
 import Consumer from './components/consumer/Consumer';
 import Admin from './components/admin/Admin';
+import CandyStock from './components/candy_stock/CandyStock';
 
 
 let token: any;
@@ -51,6 +52,7 @@ const App: React.FC <Props> = ({ token, loadUser }) => {
             <Route exact path="/admin" component={Admin} />
             <Route exact path="/user" component={Consumer} />
             <Route exact path="/producer" component={Producer} />
+            <Route exact path="/add-candy" component={CandyStock} />
           </Switch>
         </div>
       </Layout>

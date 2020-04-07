@@ -12,6 +12,7 @@ export interface IUserData {
   role: string;
   sessionTokens: IToken[];
   username: string;
+  godisDbId: number;
 }
 
 

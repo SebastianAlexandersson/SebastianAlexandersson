@@ -43,6 +43,45 @@ const NavList: React.FC<Props> = ({
   ];
   return (
     <ul id="navList">
+
+      {!isLoading && isAuth && user?.role === 'producer' && (
+        <li>
+          {' '}
+          <Link to="/producer">
+            {' '}
+            {user.username}
+            {' '}
+          </Link>
+          {' '}
+        </li>
+      ) }
+
+      {!isLoading && isAuth && user?.role === 'admin' && (
+        <li>
+          {' '}
+          <Link to="/admin">
+            {' '}
+            {user.username}
+            {' '}
+          </Link>
+          {' '}
+        </li>
+      ) }
+
+
+      {!isLoading && isAuth && user?.role === 'user' && (
+        <li>
+          {' '}
+          <Link to="/user">
+            {' '}
+            {user.username}
+            {' '}
+          </Link>
+          {' '}
+        </li>
+      ) }
+
+
       {!isLoading && isAuth ? (
         <>
           <li>
@@ -69,6 +108,8 @@ const NavList: React.FC<Props> = ({
           {' '}
         </li>
       )) }
+
+
     </ul>
   );
 };

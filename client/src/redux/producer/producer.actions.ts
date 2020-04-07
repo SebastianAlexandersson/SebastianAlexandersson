@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/interface-name-prefix */
 /* eslint-disable no-undef */
 /* eslint-disable import/extensions */
 import { Dispatch } from 'react';
@@ -9,8 +10,15 @@ import {
 } from './producer.types';
 
 
+export interface IProductFormData { // type when adding a new product in candy shop component
+  name: string;
+  price: number;
+  qty: number;
+  producerName: string | undefined;
+}
+
 export const addNewProduct = (
-  product: IProduct,
+  product: IProductFormData,
 ) => async (dispatch: Dispatch<IAddProductAction>) => {
   try {
     const config = {
