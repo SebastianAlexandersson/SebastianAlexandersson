@@ -88,12 +88,14 @@ export const updateProduct = (
 
 
 export const deleteProduct = (
-  productId: string,
+  productId: number,
 ) => async (dispatch: Dispatch<IDeleteProductAction>) => {
   try {
+    await axios.delete(`/godisapi/product/${productId.toString()}`);
+
     dispatch({
       type: ProducerActionTypes.DELETE_PRODUCT,
-      payload: '',
+      payload: productId,
     });
   } catch (err) {
     console.error(err);

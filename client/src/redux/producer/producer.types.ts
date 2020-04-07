@@ -58,7 +58,7 @@ export interface IGetAllProducts {
 }
 export interface IDeleteProductAction {
   type: ProducerActionTypes.DELETE_PRODUCT;
-  payload: string; // sending id to the reducer
+  payload: number; // sending id to the reducer
 }
 
 export interface IUpdateProductAction {

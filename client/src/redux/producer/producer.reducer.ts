@@ -1,7 +1,9 @@
 /* eslint-disable import/extensions */
 /* eslint-disable no-undef */
 
-import { IProducerState, ProducerActionTypes, ProducerTypesReducer } from './producer.types';
+import {
+  IProducerState, ProducerActionTypes, ProducerTypesReducer, IProduct,
+} from './producer.types';
 
 const initialState: IProducerState = {
   loading: true,
@@ -22,6 +24,12 @@ export default (state: IProducerState = initialState, action: ProducerTypesReduc
       return {
         ...state,
         products: action.payload,
+        loading: false,
+      };
+    case ProducerActionTypes.DELETE_PRODUCT:
+      return {
+        ...state,
+        products: state.products.filter((product: IProduct) => product.id !== action.payload),
         loading: false,
       };
     case ProducerActionTypes.SET_CURRENT:

@@ -8,7 +8,7 @@
 import * as React from 'react';
 
 import { connect } from 'react-redux';
-import { getAllProducts, setCurrent } from '../../redux/producer/producer.actions';
+import { getAllProducts, setCurrent, deleteProduct } from '../../redux/producer/producer.actions';
 import { AppState } from '../../redux';
 import { IProduct } from '../../redux/producer/producer.types';
 import Spinner from '../layout/Spinner';
@@ -19,33 +19,40 @@ import useToggle from '../../hooks/useToggle';
 
 interface Props {
   getAllProducts: () => Promise<void>;
+  setCurrent: (product: IProduct) => void;
+  deleteProduct: (productId: number) => Promise<void>;
   storeProducts: IProduct[];
   isLoading: boolean;
   user: IUserData | null;
-  setCurrent: (product: IProduct) => void;
   current: null | IProduct;
 }
 
 const CandyList: React.FC<Props> = ({
-  getAllProducts, storeProducts, isLoading, user, setCurrent, current,
+  getAllProducts, storeProducts, isLoading, user, setCurrent, current, deleteProduct,
 }) => {
+  // const fetchProducts = React.useCallback(() => {
+  //   getAllProducts();
+  // }, [storeProducts]);
+
   React.useEffect(() => {
     getAllProducts();
-  }, [getAllProducts]);
+    // fetchProducts();
+  }, []);
 
   const [showForm, toggleForm] = useToggle(false);
 
   const producerName = user && user.username;
 
-  const handleCurrent = (val: IProduct) => {
+  const handleCurrent = React.useCallback((val: IProduct) => {
     setCurrent(val);
     toggleForm();
-  };
+  }, [showForm]);
 
   return !isLoading ? (
     <ul className="mt-5 CandyList">
       <h3 className="display-3">Candy list</h3>
-      {storeProducts.length > 0 && storeProducts.filter((x) => x.producer.name === producerName) && storeProducts.map((x) => (
+      {!isLoading && storeProducts.length === 0 && <h3 className="display-3">No products, in Stock </h3> }
+      {storeProducts.length > 0 && storeProducts.filter((x) => x.producer.name === producerName).map((x) => (
         <li className="">
           {' '}
           Name:
@@ -69,7 +76,7 @@ const CandyList: React.FC<Props> = ({
             <span id="edit-pen" onClick={() => handleCurrent(x)}>
               &#9998;
             </span>
-            <span id="delete-icon">
+            <span id="delete-icon" onClick={() => deleteProduct(x.id)}>
               &#10008;
             </span>
           </div>
@@ -93,4 +100,4 @@ const mapStateToProps = (state: AppState) => ({
 });
 
 
-export default connect(mapStateToProps, { getAllProducts, setCurrent })(CandyList);
+export default connect(mapStateToProps, { getAllProducts, setCurrent, deleteProduct })(CandyList);

@@ -1,5 +1,7 @@
 .Navbar {
-  padding: 1rem 2rem;
+  padding: 2rem 1.5rem;
+  background: #333;
+  margin-bottom: 2rem;
 }
 
 #navList {
@@ -16,7 +18,7 @@
 span {
   font-size: 1.5rem;
   text-transform: capitalize;
-  color: #333;
+  color: #fff;
   cursor: pointer;
   transition: 300ms ease-in-out;
   text-decoration: none;
@@ -25,13 +27,12 @@ span {
 
 
 #navList span:hover {
-  color: #fff;
-  background: #333;
+  color: #333;
+  background: #fff;
 
 }
 
 #navList a:hover {
-  color: #fff;
-  background: #333;
-
+  color: #333;
+  background: #fff;
 }
