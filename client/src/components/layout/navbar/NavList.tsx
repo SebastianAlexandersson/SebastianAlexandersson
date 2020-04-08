@@ -11,11 +11,14 @@ import { connect } from 'react-redux';
 import { AppState } from '../../../redux';
 import { logoutUser } from '../../../redux/auth/auth.actions';
 import { IUserData } from '../../../redux/auth/auth.types';
+import { ReactComponent as CartLogo } from '../../../img/cart.svg';
+import { IProduct } from '../../../redux/producer/producer.types';
 
 interface Props {
   isAuth: boolean;
   isLoading: boolean;
   user: IUserData | null;
+  userCart: [] | IProduct[] | any;
   logoutUser: () => Promise<void>;
 }
 
@@ -26,7 +29,7 @@ interface INavLink {
 }
 
 const NavList: React.FC<Props> = ({
-  isAuth, isLoading, logoutUser, user,
+  isAuth, isLoading, logoutUser, user, userCart,
 }) => {
   const navLinks: INavLink[] = [
 
@@ -70,15 +73,22 @@ const NavList: React.FC<Props> = ({
 
 
       {!isLoading && isAuth && user?.role === 'user' && (
-        <li>
-          {' '}
-          <Link to="/user">
-            {' '}
-            {user.username}
-            {' '}
-          </Link>
-          {' '}
-        </li>
+        <>
+          <li>
+            <Link to="/user">
+              {' '}
+              {user.username}
+              {' '}
+            </Link>
+          </li>
+
+          <li>
+            <span className="Cart-logo">
+              <CartLogo />
+              <small>{userCart.length}</small>
+            </span>
+          </li>
+        </>
       ) }
 
 
@@ -118,6 +128,7 @@ const mapStateToProps = (state: AppState) => ({
   isAuth: state.auth.isAuth,
   isLoading: state.auth.loading,
   user: state.auth.user,
+  userCart: state.consumer.cart,
 });
 
 export default connect(mapStateToProps, { logoutUser })(NavList);

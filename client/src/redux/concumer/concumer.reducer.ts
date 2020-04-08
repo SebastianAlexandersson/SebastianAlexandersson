@@ -4,7 +4,7 @@ import { IConsumerState, ConsumerActionTypes, ConsumerReducerType } from './cons
 const initialState: IConsumerState = {
   loading: false,
   consumer: null,
-  producers: [],
+  cart: [],
   error: null,
 };
 
@@ -16,13 +16,13 @@ export default (state: IConsumerState = initialState, action: ConsumerReducerTyp
         producers: action.payload,
         loading: false,
       };
-
-    case ConsumerActionTypes.ADD_CONSUMER_PROFILE:
+    case ConsumerActionTypes.ADD_TO_CART:
       return {
         ...state,
-        consumer: action.payload,
+        cart: [...state.cart, action.payload],
         loading: false,
       };
+
     default:
       return state;
   }

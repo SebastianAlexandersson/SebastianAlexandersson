@@ -1,5 +1,5 @@
 .Navbar {
-  padding: 2rem 1.5rem;
+  padding: 4rem 1.5rem;
   background: #333;
   margin-bottom: 2rem;
 }
@@ -35,4 +35,30 @@ span {
 #navList a:hover {
   color: #333;
   background: #fff;
+}
+
+
+
+.Cart-logo svg,
+small {
+  width: 12rem;
+  position: absolute;
+  left: 0;
+  top: 2rem;
+}
+
+.Cart-logo:hover {
+  background: none !important;
+
+}
+
+small {
+  top: 3rem;
+  left: .3rem;
+  color: #fff;
+}
+
+
+svg {
+  color: #fff;
 }
