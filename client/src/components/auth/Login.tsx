@@ -10,7 +10,7 @@ import Form from './Form';
 import { IFormData, IUserData } from '../../redux/auth/auth.types';
 import { loginUser } from '../../redux/auth/auth.actions';
 import { AppState } from '../../redux';
-
+import './auth.css';
 
 interface Props extends RouteComponentProps{
   loginUser: Function;

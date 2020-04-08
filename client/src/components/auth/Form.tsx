@@ -12,7 +12,8 @@ interface Props {
 const Form: React.FC<Props> = ({
   handleChange, handleSubmit, formData, isRegister,
 }) => (
-  <form onSubmit={handleSubmit}>
+  <form onSubmit={handleSubmit} className="Form">
+
     <label htmlFor="username">
       <span>username</span>
       <input type="text" name="username" placeholder="username" value={formData.username} onChange={handleChange} />
@@ -32,7 +33,7 @@ const Form: React.FC<Props> = ({
 
         <label htmlFor="lastName">
           <span>last name</span>
-          <input type="text" name="lastName" placeholder="lastName" value={ formData.lastName} onChange={handleChange} />
+          <input type="text" name="lastName" placeholder="lastName" value={formData.lastName} onChange={handleChange} />
         </label>
 
         <label htmlFor="adress">
@@ -41,7 +42,7 @@ const Form: React.FC<Props> = ({
         </label>
       </>
     )}
-    <button type="submit" className="btn btn-lg btn-primary">submit</button>
+    <button type="submit" className="Btn">submit</button>
   </form>
 );
 export default Form;

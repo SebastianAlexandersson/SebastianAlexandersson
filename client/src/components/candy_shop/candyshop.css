@@ -1,4 +1,7 @@
 .CandyShop {
-  margin-top: 2rem;
-  ;
+  margin: 2rem auto;
+}
+
+.CandyShop table {
+  margin: 0 auto;
 }

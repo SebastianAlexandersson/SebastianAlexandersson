@@ -1,0 +1,25 @@
+.Home {
+  padding: 2rem 1rem;
+  font-family: 'Bangers', cursive;
+}
+
+.Home h1 {
+  padding: .5rem;
+  font-size: 3.5rem;
+
+}
+
+.Home h3 {
+  padding: .5rem;
+  font-size: 2rem;
+}
+
+.Home h3 span {
+  background: #333;
+  color: #fff;
+}
+
+.Home h4 {
+  padding: .5rem;
+  font-size: 1.8rem;
+}

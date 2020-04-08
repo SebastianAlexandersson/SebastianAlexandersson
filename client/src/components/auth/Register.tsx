@@ -10,6 +10,7 @@ import { registerUser } from '../../redux/auth/auth.actions';
 import { IFormData, IUserData } from '../../redux/auth/auth.types';
 import Form from './Form';
 import { AppState } from '../../redux';
+import './auth.css';
 
 interface Props extends RouteComponentProps {
   registerUser: (formData: IFormData) => Promise<void>;
