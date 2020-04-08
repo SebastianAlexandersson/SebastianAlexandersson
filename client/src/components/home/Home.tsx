@@ -7,7 +7,7 @@ import { IProduct } from '../../redux/producer/producer.types';
 import { getAllProducts } from '../../redux/producer/producer.actions';
 import Spinner from '../layout/Spinner';
 import './home.css';
-import CandyItem from '../Candy/CandyItem';
+import CandyItem from '../candy/CandyItem';
 
 interface Props{
   allProducts: IProduct[];

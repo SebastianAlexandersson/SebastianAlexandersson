@@ -62,3 +62,67 @@ small {
 svg {
   color: #fff;
 }
+
+
+.DropDownCart {
+  position: absolute;
+  top: 11rem;
+  left: 2rem;
+  background: #fff;
+  border: 2px solid #333;
+  height: 45rem;
+  width: 36rem;
+  z-index: 2;
+  box-shadow: 1px 2px 3px 3px #ccc;
+  /* overflow: scroll; */
+}
+
+
+.cartList {
+  flex-grow: 1 auto;
+  height: 100%;
+  overflow: scroll;
+}
+
+.cartList li {
+  font-size: 1.5rem;
+  padding: .5rem;
+  display: flex;
+  justify-content: space-around;
+  margin: 1.5rem 0;
+  text-transform: capitalize;
+}
+
+.cartList li p {
+  /* border: 1px solid red; */
+  align-items: center;
+  display: flex;
+}
+
+.cartList li p .arrow {
+  color: #333 !important;
+  font-size: 3.5rem !important;
+}
+
+.cartList li p .delete {
+  color: #333 !important;
+  font-size: 2rem !important;
+}
+
+.CartFooter {
+  display: flex;
+  align-items: center;
+  padding: .7rem;
+  border: 2px solid red;
+  margin-top: auto;
+  height: 8rem;
+}
+
+.CartFooter strong {
+  font-size: 1.6rem;
+  text-align: left;
+}
+
+.CartFooter button {
+  margin-right: .5rem;
+}

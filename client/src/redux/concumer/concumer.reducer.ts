@@ -1,4 +1,5 @@
 import { IConsumerState, ConsumerActionTypes, ConsumerReducerType } from './consumer.types';
+import { removeFromCartItem, adDItemToCart } from '../producer/producer.utils';
 
 
 const initialState: IConsumerState = {
@@ -19,10 +20,23 @@ export default (state: IConsumerState = initialState, action: ConsumerReducerTyp
     case ConsumerActionTypes.ADD_TO_CART:
       return {
         ...state,
-        cart: [...state.cart, action.payload],
+        // cart: [...state.cart, action.payload],
+        cart: adDItemToCart(state.cart, action.payload),
+        loading: false,
+      };
+    case ConsumerActionTypes.DELETE_CART_ITEM:
+      return {
+        ...state,
+        cart: state.cart.filter((cartItem) => cartItem.id !== action.payload),
         loading: false,
       };
 
+    case ConsumerActionTypes.REMOVE_ITEM:
+      return {
+        ...state,
+        cart: removeFromCartItem(state.cart, action.payload),
+        loading: false,
+      };
     default:
       return state;
   }

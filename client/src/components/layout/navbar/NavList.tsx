@@ -13,6 +13,8 @@ import { logoutUser } from '../../../redux/auth/auth.actions';
 import { IUserData } from '../../../redux/auth/auth.types';
 import { ReactComponent as CartLogo } from '../../../img/cart.svg';
 import { IProduct } from '../../../redux/producer/producer.types';
+import useToggle from '../../../hooks/useToggle';
+import DropDown from './DropDown';
 
 interface Props {
   isAuth: boolean;
@@ -44,6 +46,8 @@ const NavList: React.FC<Props> = ({
       path: '/register',
     },
   ];
+
+  const [showCart, toggleCart] = useToggle(false);
   return (
     <ul id="navList">
 
@@ -83,7 +87,7 @@ const NavList: React.FC<Props> = ({
           </li>
 
           <li>
-            <span className="Cart-logo">
+            <span className="Cart-logo" onClick={toggleCart}>
               <CartLogo />
               <small>{userCart.length}</small>
             </span>
@@ -119,6 +123,7 @@ const NavList: React.FC<Props> = ({
         </li>
       )) }
 
+      {showCart && <DropDown />}
 
     </ul>
   );

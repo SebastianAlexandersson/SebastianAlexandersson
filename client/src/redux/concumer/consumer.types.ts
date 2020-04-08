@@ -17,7 +17,9 @@ export interface IConsumerState{
 
 export enum ConsumerActionTypes {
   GET_PRODUCERS = 'GET_PRODUCERS',
-  ADD_TO_CART = 'ADD_TO_CART'
+  ADD_TO_CART = 'ADD_TO_CART',
+  DELETE_CART_ITEM = 'DELETE_CART_ITEM',
+  REMOVE_ITEM = 'REMOVE_ITEM',
 }
 
 
@@ -29,5 +31,14 @@ export interface IAddToCartAction {
   type: ConsumerActionTypes.ADD_TO_CART;
   payload: IProduct;
 }
+export interface IDeleteCartItem {
+  type: ConsumerActionTypes.DELETE_CART_ITEM;
+  payload: number;
+}
 
-export type ConsumerReducerType = IGetProducersAction | IAddToCartAction
+export interface IRemoveItemAction {
+  type: ConsumerActionTypes.REMOVE_ITEM;
+  payload: IProduct;
+}
+
+export type ConsumerReducerType = IGetProducersAction | IAddToCartAction | IDeleteCartItem | IRemoveItemAction
