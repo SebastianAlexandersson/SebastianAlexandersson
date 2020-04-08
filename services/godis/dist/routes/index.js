@@ -6,9 +6,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const producer_1 = __importDefault(require("./producer"));
 const consumer_1 = __importDefault(require("./consumer"));
 const product_1 = __importDefault(require("./product"));
-const order_1 = __importDefault(require("./order"));
+const admin_1 = __importDefault(require("./admin"));
 exports.default = [
-    ...order_1.default,
+    ...admin_1.default,
     ...product_1.default,
     ...producer_1.default,
     ...consumer_1.default

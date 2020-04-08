@@ -22,25 +22,4 @@ export default [
       controllers.getProductByProducer,
     ],
   },
-  {
-    path: '/godisapi/product',
-    method: 'post',
-    handler: [
-      controllers.createProduct,
-    ],
-  },
-  {
-    path: '/godisapi/product/:id',
-    method: 'put',
-    handler: [
-      controllers.updateProduct,
-    ],
-  },
-  {
-    path: '/godisapi/product/:id',
-    method: 'delete',
-    handler: [
-      controllers.deleteProduct,
-    ],
-  },
 ];

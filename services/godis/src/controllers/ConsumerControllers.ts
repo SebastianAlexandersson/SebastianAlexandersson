@@ -1,92 +1,62 @@
-import { Request, Response } from 'express';
-import { getRepository } from 'typeorm';
+import { Response } from 'express';
+import { MyRequest, ProductObject } from '../types';
+import { getManager } from 'typeorm';
 import { Consumer } from '../entities/Consumer';
+import { Order } from '../entities/Order';
+import { OrderProduct } from '../entities/OrderProduct';
+import { Product } from '../entities/Product';
 import { HTTP400Error } from '../utils/httpErrors';
 
-export async function findAllConsumers(req: Request, res: Response) {
-  const consumerRepository = getRepository(Consumer);
-  const consumers = await consumerRepository.find();
+export async function getOrders(req: MyRequest, res: Response) {
+  const entityManager = await getManager().transaction(async manager => {
+    const consumerId = req.user.godisDbId;
+    const consumer = await manager.findOne(Consumer, consumerId);
 
-  console.log(req.cookies)
+    const orders = await manager.find(Order, {
+      where: {
+        consumer,
+      },
+    });
 
-  res.status(200)
-  .json(consumers);
-};
-
-export async function findConsumerById(req: Request, res: Response) {
-  const { id } = req.params;
-
-  const consumerRepository = getRepository(Consumer);
-  const consumer = await consumerRepository.findOne(id);
-
-  if (!consumer) {
-    throw new HTTP400Error('No such resource.')
-  }
-
-  res.status(200)
-  .json(consumer)
-};
-
-export async function createConsumer(req: Request, res: Response) {
-  const { firstName, lastName, adress } = req.body
-
-  if (!firstName || !lastName || !adress) {
-    throw new HTTP400Error('Missing paramaters in request body.');
-  };
-
-  const consumerRepository = getRepository(Consumer);
-  const consumer = {
-    firstName,
-    lastName,
-    adress
-  };
-  
-  const savedConsumer = await consumerRepository.save(consumer);
-
-  res.status(200)
-  .send({
-    message: 'Resource created.',
-    consumer: savedConsumer,
-  })
-};
-
-export async function updateConsumer(req: Request, res: Response) {
-  const consumerRepository = getRepository(Consumer);
-  const id = Number(req.params.id);
-  const consumer = {
-    id,
-    firstName: req.body.firstName,
-    lastName: req.body.lastName,
-    adress: req.body.adress
-  };
-
-  const resourceExists = await consumerRepository.findOne(id);
-
-  if (!resourceExists) {
-    throw new HTTP400Error('No such resource.');
-  };
-
-  await consumerRepository.save(consumer);
-
-  res.status(200)
-  .send({
-    message: 'Resource updated.'
+    res.status(200)
+    .send({
+      message: '200 OK',
+      orders,
+    });
   });
 };
 
-export async function deleteConsumer(req: Request, res: Response) {
-  const id = Number(req.params.id);
+export async function createOrder(req: MyRequest, res: Response) {
+  const entityManager = await getManager().transaction(async manager => {
+    const { products } = req.body;
 
-  const consumerRepository = getRepository(Consumer);
-  const consumer = await consumerRepository.findOne(id);
+    if (!Array.isArray(products) || products.length < 1) {
+      throw new HTTP400Error('Missing paramaters in request body.');
+    }
 
-  if (!consumer) {
-    throw new HTTP400Error('No such resource.');
-  }
-  await consumerRepository.remove(consumer);
+    const consumerId = req.user.godisDbId;
+    const consumer = await manager.findOne(Consumer, consumerId);
 
-  res.status(200)
-  .send({
-    message: 'Resource deleted.'
+    const orderProduct = await Promise.all(products.map(async (obj: ProductObject) => {
+      const product = await manager.findOne(Product, obj.id);
+
+      return manager.create(OrderProduct, {
+        product,
+        price: product.price,
+        qty: obj.qty,
+      });
+    }));
+
+    const order = manager.create(Order, {
+      consumer,
+      orderProduct,
+    });
+    const savedOrder = await manager.save(order);
+
+    res.status(200)
+    .send({
+      message: '200 OK',
+      savedOrder,
+    });
   });
 };

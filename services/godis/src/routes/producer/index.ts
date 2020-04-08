@@ -1,39 +1,37 @@
 import * as controllers from '../../controllers/ProducerControllers';
+import { validateProducer } from '../../middleware/auth';
 
 export default [
   {
     path: '/godisapi/producer',
     method: 'get',
     handler: [
-      controllers.getAllProducers,
-    ],
-  },
-  {
-    path: '/godisapi/producer/:id',
-    method: 'get',
-    handler: [
-      controllers.getProducerById,
+      validateProducer,
+      controllers.getProducts,
     ],
   },
   {
     path: '/godisapi/producer',
     method: 'post',
     handler: [
-      controllers.createProducer,
+      validateProducer,
+      controllers.createProduct,
     ],
   },
   {
     path: '/godisapi/producer/:id',
     method: 'put',
     handler: [
-      controllers.updateProducer,
+      validateProducer,
+      controllers.updateProduct,
     ],
   },
   {
     path: '/godisapi/producer/:id',
     method: 'delete',
     handler: [
-      controllers.deleteProducer,
+      validateProducer,
+      controllers.deleteProduct,
     ],
   },
 ];

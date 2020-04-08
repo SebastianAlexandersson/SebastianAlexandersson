@@ -8,40 +8,22 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const controllers = __importStar(require("../../controllers/ConsumerControllers"));
+const auth_1 = require("../../middleware/auth");
 exports.default = [
     {
         path: '/godisapi/consumer',
         method: 'post',
         handler: [
-            controllers.createConsumer,
+            auth_1.validateConsumer,
+            controllers.createOrder,
         ],
     },
     {
         path: '/godisapi/consumer',
         method: 'get',
         handler: [
-            controllers.findAllConsumers,
-        ],
-    },
-    {
-        path: '/godisapi/consumer/:id',
-        method: 'get',
-        handler: [
-            controllers.findConsumerById,
-        ],
-    },
-    {
-        path: '/godisapi/consumer/:id',
-        method: 'put',
-        handler: [
-            controllers.updateConsumer,
-        ],
-    },
-    {
-        path: '/godisapi/consumer/:id',
-        method: 'delete',
-        handler: [
-            controllers.deleteConsumer,
+            auth_1.validateConsumer,
+            controllers.getOrders,
         ],
     },
 ];

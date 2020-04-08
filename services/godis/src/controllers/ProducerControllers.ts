@@ -1,91 +1,107 @@
-import { Request, Response } from 'express';
-import { getRepository } from 'typeorm';
+import { Response } from 'express';
+import { MyRequest } from '../types';
+import { getManager } from 'typeorm';
 import { Producer } from '../entities/Producer';
+import { Product } from '../entities/Product';
 import { HTTP400Error } from '../utils/httpErrors';
 
-export async function getAllProducers(req: Request, res: Response) {
-  const id = Number(req.params.id);
+export async function getProducts(req: MyRequest, res: Response) {
+  const entityManager = await getManager().transaction(async manager => {
+    const producerId = req.user.godisDbId;
+    const producer = await manager.findOne(Producer, producerId);
 
-  const producerRepository = getRepository(Producer);
-  const producers = await producerRepository.find();
+    const products = await manager.find(Product, {
+      where: {
+        producer,
+      },
+    });
 
-  res.status(200)
-  .json(producers);
+    res.status(200).send(products);
+  });
 };
 
-export async function getProducerById(req: Request, res: Response) {
-  const id = Number(req.params.id);
+export async function createProduct(req: MyRequest, res: Response) {
+  const entityManager = await getManager().transaction(async manager => {
+    const { name, price, qty } = req.body;
 
-  const producerRepository = getRepository(Producer);
-  const producer = await producerRepository.findOne(id);
+    const producerId = req.user.godisDbId;
+    const producer = await manager.findOne(Producer, producerId);
+    
+    const product = manager.create(Product, {
+      name,
+      price,
+      qty,
+      producer
+    });
+    await manager.save(product);
 
-  if (!producer) {
-    throw new HTTP400Error('No such resource.');
-  };
-
-  res.status(200) 
-  .json(producer);
-}
-
-export async function createProducer(req: Request, res: Response) {
-  const { name } = req.body; 
-
-  if (!name) {
-    throw new HTTP400Error('Missing paramater in request body.');
-  };
-
-  const producer = {
-    name
-  };
-
-  const producerRepository = getRepository(Producer);
-  const savedProducer = await producerRepository.save(producer);
-
-  res.status(200)
-  .send({
-    message: 'Resource created.',
-    producer: savedProducer,
+    res.status(200)
+    .send({
+      message: 'Resource created.',
+      product,
+    });
   });
-}
+};
 
-export async function updateProducer(req: Request, res: Response) {
-  const { name } = req.body
-  const id = Number(req.params.id);
+export async function updateProduct(req: MyRequest, res: Response) {
+  const entityManager = await getManager().transaction(async manager => {
+    const { name, price, qty } = req.body;
 
-  const producerRepository = getRepository(Producer);
-  const resourceExists = await producerRepository.findOne(id);
+    const producerId = req.user.godisDbId;
+    const producer = await manager.findOne(Producer, producerId);
 
-  if (!resourceExists) {
-    throw new HTTP400Error('No such resource.');
-  };
-  
-  const producer = {
-    id,
-    name,
-  };
+    const productId = Number(req.params.id);
+    const product = await manager.findOne(Product, {
+      where: {
+        id: productId,
+        producer,
+      },
+    });
 
-  await producerRepository.save(producer);
+    if (!product) {
+      throw new HTTP400Error('No such product.');
+    };
 
-  res.status(200)
-  .send({
-    message: 'Resource updated.'
-  });
-}
+    const updatedProduct = await manager.save(Product, {
+      id: productId,
+      producer,
+      name,
+      price,
+      qty,
+    });
 
-export async function deleteProducer(req: Request, res: Response) {
-  const id = Number(req.params.id);
+    res.status(200)
+    .send({
+      message: 'Resource updated.',
+      updatedProduct,
+    })
+  })
+};
 
-  const producerRepository = getRepository(Producer);
-  const producer = await producerRepository.findOne(id);
+export async function deleteProduct (req: MyRequest, res: Response) {
+  const entityManager = await getManager().transaction(async manager => {
 
-  if (!producer) {
-    throw new HTTP400Error('No such resource.');
-  };
+    const producerId = Number(req.user.godisDbId);
+    const producer = await manager.findOne(Producer, producerId);
 
-  await producerRepository.remove(producer);
+    const productId = Number(req.params.id);
+    const product = await manager.findOne(Product, {
+      where: {
+        id: productId,
+        producer,
+      },
+    });
 
-  res.status(200)
-  .send({
-    message: 'Resource deleted.'
+    if (!product) {
+      throw new HTTP400Error('No such product.');
+    };
+
+    const deletedProduct = await manager.remove(product);
+
+    res.status(200)
+    .send({
+      message: 'Resource deleted.',
+      deletedProduct,
+    });
   });
 };

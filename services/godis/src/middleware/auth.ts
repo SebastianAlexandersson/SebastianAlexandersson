@@ -24,8 +24,8 @@ export async function validateConsumer(
   if (!response.isValid || response.role !== 'user') {
     throw new HTTP400Error('Unauthorized.');
   }
-
-  req.headers.user = response;
+  //@ts-ignore
+  req.user = response;
 
   next();
 };
@@ -52,8 +52,8 @@ export async function validateProducer(
   if (!response.isValid || response.role !== 'producer') {
     throw new HTTP400Error('Unauthorized.');
   }
-
-  req.headers.user = response;
+  //@ts-ignore
+  req.user = response;
 
   next();
 };
@@ -80,8 +80,8 @@ export async function validateAdmin(
   if (!response.isValid || response.role !== 'admin') {
     throw new HTTP400Error('Unauthorized.');
   }
-
-  req.headers.user = response;
+  //@ts-ignore
+  req.user = response;
 
   next();
 };
