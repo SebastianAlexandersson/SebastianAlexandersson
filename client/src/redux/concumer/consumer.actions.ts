@@ -1,8 +1,9 @@
 import { Dispatch } from 'react';
 import axios from 'axios';
 import {
-  IGetProducersAction, ConsumerActionTypes, IAddConsumerAction, IConsumer,
+  IGetProducersAction, ConsumerActionTypes, IAddToCartAction, IDeleteCartItem, IRemoveItemAction,
 } from './consumer.types';
+import { IProduct } from '../producer/producer.types';
 
 
 export const getProducers = () => async (dispatch: Dispatch<IGetProducersAction>) => {
@@ -20,19 +21,17 @@ export const getProducers = () => async (dispatch: Dispatch<IGetProducersAction>
 };
 
 
-export const addConsumerProfile = (formData: IConsumer) => async (dispatch: Dispatch<IAddConsumerAction>) => {
-  try {
-    const config = {
-      headers: {
-        'Content:Type': 'application/json',
-      },
-    };
-    const res = await axios.post('/godisapi/consumer', formData, config);
-    dispatch({
-      type: ConsumerActionTypes.ADD_CONSUMER_PROFILE,
-      payload: res.data,
-    });
-  } catch (err) {
-    console.error(err);
-  }
-};
+export const addToCart = (product: IProduct): IAddToCartAction => ({
+  type: ConsumerActionTypes.ADD_TO_CART,
+  payload: product,
+});
+
+export const deleteCartItem = (productId: number): IDeleteCartItem => ({
+  type: ConsumerActionTypes.DELETE_CART_ITEM,
+  payload: productId,
+});
+
+export const removeItem = (item: IProduct): IRemoveItemAction => ({
+  type: ConsumerActionTypes.REMOVE_ITEM,
+  payload: item,
+});

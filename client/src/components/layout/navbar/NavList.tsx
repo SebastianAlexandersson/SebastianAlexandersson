@@ -11,12 +11,20 @@ import { connect } from 'react-redux';
 import { AppState } from '../../../redux';
 import { logoutUser } from '../../../redux/auth/auth.actions';
 import { IUserData } from '../../../redux/auth/auth.types';
+import { ReactComponent as CartLogo } from '../../../img/cart.svg';
+import { IProduct } from '../../../redux/producer/producer.types';
+import useToggle from '../../../hooks/useToggle';
+import DropDown from './DropDown';
+import{selectCartCount} from '../../../redux/concumer/consumer.selector'
+
 
 interface Props {
   isAuth: boolean;
   isLoading: boolean;
   user: IUserData | null;
+  userCart: [] | IProduct[] | any;
   logoutUser: () => Promise<void>;
+  cartCount: number;
 }
 
 interface INavLink {
@@ -26,7 +34,7 @@ interface INavLink {
 }
 
 const NavList: React.FC<Props> = ({
-  isAuth, isLoading, logoutUser, user,
+  isAuth, isLoading, logoutUser, user, userCart,cartCount
 }) => {
   const navLinks: INavLink[] = [
 
@@ -41,6 +49,8 @@ const NavList: React.FC<Props> = ({
       path: '/register',
     },
   ];
+
+  const [showCart, toggleCart] = useToggle(false);
   return (
     <ul id="navList">
 
@@ -70,15 +80,22 @@ const NavList: React.FC<Props> = ({
 
 
       {!isLoading && isAuth && user?.role === 'user' && (
-        <li>
-          {' '}
-          <Link to="/user">
-            {' '}
-            {user.username}
-            {' '}
-          </Link>
-          {' '}
-        </li>
+        <>
+          <li>
+            <Link to="/user">
+              {' '}
+              {user.username}
+              {' '}
+            </Link>
+          </li>
+
+          <li>
+            <span className="Cart-logo" onClick={toggleCart}>
+              <CartLogo />
+              <small>{cartCount}</small>
+            </span>
+          </li>
+        </>
       ) }
 
 
@@ -109,6 +126,7 @@ const NavList: React.FC<Props> = ({
         </li>
       )) }
 
+      {showCart && <DropDown />}
 
     </ul>
   );
@@ -118,6 +136,9 @@ const mapStateToProps = (state: AppState) => ({
   isAuth: state.auth.isAuth,
   isLoading: state.auth.loading,
   user: state.auth.user,
+  userCart: state.consumer.cart,
+  cartCount: selectCartCount(state),
+
 });
 
 export default connect(mapStateToProps, { logoutUser })(NavList);

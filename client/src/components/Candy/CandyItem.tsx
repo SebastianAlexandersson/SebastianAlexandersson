@@ -1,13 +1,21 @@
+/* eslint-disable import/no-unresolved */
+/* eslint-disable no-shadow */
+/* eslint-disable react/prop-types */
+/* eslint-disable import/extensions */
 import * as React from 'react';
 import './Candy.css';
-import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 import { IProduct } from '../../redux/producer/producer.types';
+import { addToCart } from '../../redux/concumer/consumer.actions';
+import { AppState } from '../../redux';
+
 
 interface Props {
   product: IProduct;
+  addToCart: (product: IProduct) => void;
 }
 
-const CandyItem: React.FC<Props> = ({ product }) => (
+const CandyItem: React.FC<Props> = ({ product, addToCart }) => (
   <>
     <div className="Candy">
       <div className="Candy-header">
@@ -39,11 +47,17 @@ const CandyItem: React.FC<Props> = ({ product }) => (
 
       </div>
       {/* /Candy-body */}
-      <Link className="Btn" to="/store">Buy</Link>
+      <button className="Btn" type="button" onClick={() => addToCart(product)}>Add To Cart</button>
       {/* /Candy */}
     </div>
 
 
   </>
 );
-export default CandyItem;
+// const mapStateToProps = (state:AppState) => {
+//   return {
+
+//   }
+// }
+
+export default connect(null, { addToCart })(CandyItem);

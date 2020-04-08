@@ -1,24 +1,25 @@
 /* eslint-disable @typescript-eslint/interface-name-prefix */
-import { IProducer } from '../producer/producer.types';
+import { IProducer, IProduct } from '../producer/producer.types';
 
 export interface IConsumer {
-  // id: number;
+  id: number;
   firstName: string;
   lastName: string;
   adress: string;
-  order?: any; // this will be the order type, array of type orders
 }
 
 export interface IConsumerState{
   loading: boolean;
   consumer: null | IConsumer;
-  producers: IProducer[] | [];
   error: null | Record<string, any>;
+  cart: [] | IProduct[] | never;
 }
 
 export enum ConsumerActionTypes {
   GET_PRODUCERS = 'GET_PRODUCERS',
-  ADD_CONSUMER_PROFILE = 'ADD_CONSUMER_PROFILE',
+  ADD_TO_CART = 'ADD_TO_CART',
+  DELETE_CART_ITEM = 'DELETE_CART_ITEM',
+  REMOVE_ITEM = 'REMOVE_ITEM',
 }
 
 
@@ -26,9 +27,19 @@ export interface IGetProducersAction {
   type: ConsumerActionTypes.GET_PRODUCERS;
   payload: IProducer[];
 }
-export interface IAddConsumerAction {
-  type: ConsumerActionTypes.ADD_CONSUMER_PROFILE;
-  payload: IConsumer;
+export interface IAddToCartAction {
+  type: ConsumerActionTypes.ADD_TO_CART;
+  payload: IProduct;
+}
+export interface IDeleteCartItem {
+  type: ConsumerActionTypes.DELETE_CART_ITEM;
+  payload: number;
 }
 
-export type ConsumerReducerType = IGetProducersAction | IAddConsumerAction
+export interface IRemoveItemAction {
+  type: ConsumerActionTypes.REMOVE_ITEM;
+  payload: IProduct;
+}
+
+export type ConsumerReducerType =
+ IGetProducersAction | IAddToCartAction | IDeleteCartItem | IRemoveItemAction
