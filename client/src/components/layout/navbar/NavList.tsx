@@ -15,6 +15,8 @@ import { ReactComponent as CartLogo } from '../../../img/cart.svg';
 import { IProduct } from '../../../redux/producer/producer.types';
 import useToggle from '../../../hooks/useToggle';
 import DropDown from './DropDown';
+import{selectCartCount} from '../../../redux/concumer/consumer.selector'
+
 
 interface Props {
   isAuth: boolean;
@@ -22,6 +24,7 @@ interface Props {
   user: IUserData | null;
   userCart: [] | IProduct[] | any;
   logoutUser: () => Promise<void>;
+  cartCount: number;
 }
 
 interface INavLink {
@@ -31,7 +34,7 @@ interface INavLink {
 }
 
 const NavList: React.FC<Props> = ({
-  isAuth, isLoading, logoutUser, user, userCart,
+  isAuth, isLoading, logoutUser, user, userCart,cartCount
 }) => {
   const navLinks: INavLink[] = [
 
@@ -89,7 +92,7 @@ const NavList: React.FC<Props> = ({
           <li>
             <span className="Cart-logo" onClick={toggleCart}>
               <CartLogo />
-              <small>{userCart.length}</small>
+              <small>{cartCount}</small>
             </span>
           </li>
         </>
@@ -134,6 +137,8 @@ const mapStateToProps = (state: AppState) => ({
   isLoading: state.auth.loading,
   user: state.auth.user,
   userCart: state.consumer.cart,
+  cartCount: selectCartCount(state),
+
 });
 
 export default connect(mapStateToProps, { logoutUser })(NavList);

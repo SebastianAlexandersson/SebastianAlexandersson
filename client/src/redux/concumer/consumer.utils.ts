@@ -1,4 +1,4 @@
-import { IProduct } from './producer.types';
+import { IProduct } from '../producer/producer.types';
 
 export const adDItemToCart = (cartItems: IProduct[], cartItemToAdd: IProduct) => {
   const isThereACartItemAlreadyInBasket = cartItems.find((item) => item.id === cartItemToAdd.id);
@@ -9,9 +9,9 @@ export const adDItemToCart = (cartItems: IProduct[], cartItemToAdd: IProduct) =>
 };
 
 
-export const calculatePrice = (
-  cartItems: IProduct[],
-) => cartItems.map((item) => item.price += item.price);
+// export const calculatePrice = (
+//   cartItems: IProduct[],
+// ) => cartItems.map((item) => item.price += item.price);
 
 
 export const removeFromCartItem = (cartItems: IProduct[], cartItemToRemove: IProduct) => {
@@ -21,5 +21,7 @@ export const removeFromCartItem = (cartItems: IProduct[], cartItemToRemove: IPro
     return cartItems.filter((item) => item.id !== cartItemToRemove.id);
   }
 
-  return cartItems.map((item) => (item.id === cartItemToRemove.id ? { ...item, quantity: item.qty - 1 } : item));
+  return cartItems.map(
+    (item) => (item.id === cartItemToRemove.id ? { ...item, qty: item.qty - 1 } : item),
+  );
 };

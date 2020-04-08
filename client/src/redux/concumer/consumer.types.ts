@@ -41,4 +41,5 @@ export interface IRemoveItemAction {
   payload: IProduct;
 }
 
-export type ConsumerReducerType = IGetProducersAction | IAddToCartAction | IDeleteCartItem | IRemoveItemAction
+export type ConsumerReducerType =
+ IGetProducersAction | IAddToCartAction | IDeleteCartItem | IRemoveItemAction

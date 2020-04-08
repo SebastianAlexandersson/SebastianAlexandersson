@@ -8,57 +8,51 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { AppState } from '../../../redux';
 import { IProduct } from '../../../redux/producer/producer.types';
-import { removeItem } from '../../../redux/concumer/consumer.actions';
+import { deleteCartItem, removeItem, addToCart } from '../../../redux/concumer/consumer.actions';
+import { selectConsumerCartItems, selectCartTotal } from '../../../redux/concumer/consumer.selector';
+import DropDownItem from './DropDownItem';
+
 
 interface Props {
   cartItems: IProduct[] | never;
+  total: number;
+  deleteCartItem: (productId: number) => void;
   removeItem: (item: IProduct) => void;
+  addToCart: (product: IProduct) => void;
 }
 
-const DropDown: React.FC<Props> = ({ cartItems, removeItem }) => (
+const DropDown: React.FC<Props> = ({
+  cartItems, total, deleteCartItem, removeItem, addToCart,
+}) => (
   <div className="DropDownCart">
-    <ul className="cartList">
-      {cartItems.length > 0 && cartItems.map((item) => (
-        <li key={item.id}>
-          <p>{item.name}</p>
-          {' '}
+    {cartItems.length > 0 && cartItems.map((item) => (
+      <DropDownItem
+        key={item.id}
+        item={item}
+        deleteCartItem={deleteCartItem}
+        removeItem={removeItem}
+        addToCart={addToCart}
+      />
+    )) }
+    <div className="CartFooter">
+      <strong className="total">
+        Total Price:
+        {' '}
+        {cartItems.length > 0 && total !== 0 && total}
+        {' '}
+      </strong>
+      <button type="button">Checkout</button>
+    </div>
 
-          {' '}
-          <p>
-            <span className="arrow"> &#8249; </span>
-            {' '}
-            {item.qty}
-            {' '}
-            <span className="arrow">&#8250;</span>
-          </p>
-          {' '}
-
-          {' '}
-
-          {' '}
-          <p>
-            <span className="arrow"> &#8249; </span>
-            {' '}
-            {item.price}
-            {' '}
-            <span className="arrow">&#8250;</span>
-          </p>
-
-          {' '}
-          <p><span className="delete" onClick={() => removeItem(item)}>&#x292C;</span></p>
-        </li>
-      )) }
-      <div className="CartFooter">
-        <strong className="total">Total Price: </strong>
-        <button type="button">Checkout</button>
-      </div>
-    </ul>
 
   </div>
 );
+
+
 const mapStateToProps = (state: AppState) => ({
-  cartItems: state.consumer.cart,
+  total: selectCartTotal(state),
+  cartItems: selectConsumerCartItems(state),
 });
 
 
-export default connect(mapStateToProps, { removeItem })(DropDown);
+export default connect(mapStateToProps, { deleteCartItem, removeItem, addToCart })(DropDown);

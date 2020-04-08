@@ -1,5 +1,6 @@
+/* eslint-disable import/extensions */
 import { IConsumerState, ConsumerActionTypes, ConsumerReducerType } from './consumer.types';
-import { removeFromCartItem, adDItemToCart } from '../producer/producer.utils';
+import { removeFromCartItem, adDItemToCart } from './consumer.utils';
 
 
 const initialState: IConsumerState = {
