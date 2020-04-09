@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { IProduct, IProductUpdateFormData } from '../../redux/producer/producer.types';
-import { updateProduct, clearCurrent } from '../../redux/producer/producer.actions';
+import { updateProduct, clearCurrent, getAllProducts } from '../../redux/producer/producer.actions';
 
 
 interface Props {
@@ -11,10 +11,11 @@ interface Props {
   updateProduct: (formData: IProductUpdateFormData) => Promise<void>;
   toggle: () => void;
   clearCurrent: () => void;
+  getAllProducts: () => Promise<void>;
 }
 
 const EditForm: React.FC<Props> = ({
-  current, updateProduct, toggle, clearCurrent,
+  current, updateProduct, toggle, clearCurrent, getAllProducts,
 }) => {
   const [formData, setFormData] = React.useState({
     name: '',
@@ -47,12 +48,13 @@ const EditForm: React.FC<Props> = ({
       qty: '',
       price: '',
     });
+    getAllProducts();
     clearCurrent();
     toggle();
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="Edit-form">
       <div className="form-group">
         <label htmlFor="name">
           <strong>{ current && current.name}</strong>
@@ -101,4 +103,4 @@ const EditForm: React.FC<Props> = ({
 };
 
 
-export default connect(null, { updateProduct, clearCurrent })(EditForm);
+export default connect(null, { updateProduct, clearCurrent, getAllProducts })(EditForm);

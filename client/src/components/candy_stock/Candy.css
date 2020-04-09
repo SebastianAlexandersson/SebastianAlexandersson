@@ -4,6 +4,11 @@
   justify-content: center;
   box-shadow: 2px 3px 3px 3px #ccc;
   padding: 3rem;
+  margin: 3rem 0;
+}
+
+.CandyList h3 {
+  font-size: 3rem;
 }
 
 .CandyList li {
@@ -12,7 +17,6 @@
   background: #333;
   color: #fff;
   display: flex;
-  /* justify-content: space-between; */
   justify-content: center;
   margin: 1rem 0;
   box-shadow: 2px 2px 3px 2px #ccc;
@@ -50,4 +54,26 @@
 
 .CandyList .cta #delete-icon {
   color: tomato;
+}
+
+.CandyStock {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.CandyStock h3 {
+  font-size: 3rem;
+}
+
+.CandyStock .form-group label {
+  font-size: 1.8rem;
+}
+
+.Edit-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }

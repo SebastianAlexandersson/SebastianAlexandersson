@@ -21,6 +21,7 @@ import Consumer from './components/consumer/Consumer';
 import Admin from './components/admin/Admin';
 import CandyStock from './components/candy_stock/CandyStock';
 import CandyList from './components/candy_stock/CandyList';
+import Checkout from './components/checkout/Checkout';
 
 
 let token: any;
@@ -57,7 +58,7 @@ const App: React.FC <Props> = ({ token, loadUser }) => {
             <Route exact path="/producer" component={Producer} />
             <Route exact path="/add-candy" component={CandyStock} />
             <Route exact path="/candy-list" component={CandyList} />
-
+            <Route exact path="/checkout" component={Checkout} />
           </Switch>
         </div>
       </Layout>

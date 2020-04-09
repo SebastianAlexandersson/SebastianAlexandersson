@@ -20,8 +20,6 @@ const CandyItem: React.FC<Props> = ({ product, addToCart }) => (
     <div className="Candy">
       <div className="Candy-header">
         <h3>
-          Candy:
-          {' '}
           {product.name}
           {' '}
         </h3>
@@ -36,10 +34,13 @@ const CandyItem: React.FC<Props> = ({ product, addToCart }) => (
         <p>
           Price:
           {' '}
-          <span>{product.price}</span>
+          <span>
+            {product.price}
+            $
+          </span>
         </p>
         <p>
-          By Producer:
+          Producer:
           {' '}
           <span>{product.producer.name}</span>
         </p>

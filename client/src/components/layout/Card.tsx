@@ -11,6 +11,7 @@ interface Props {
   path1: string;
   path2?: string;
 }
+//
 
 const Card: React.FC<Props> = ({
   title, subtitle,

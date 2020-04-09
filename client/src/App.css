@@ -29,7 +29,24 @@
    position: relative;
  }
 
- .Card a {}
+ .Card-Body h5 {
+   font-size: 2.5rem;
+ }
+
+ .Card-Text {
+   font-size: 2rem;
+ }
+
+ .Card a {
+   font-size: 1.5rem;
+   text-transform: capitalize;
+   border: 2px solid #333;
+   border-radius: .5rem;
+   padding: .3rem;
+   box-shadow: 2px 3px 2px 2px #ccc;
+   color: #333;
+   cursor: pointer;
+ }
 
  .card-link {
    margin: 2rem 0;
@@ -190,4 +207,9 @@
      -webkit-transform: rotate(450deg);
      transform: rotate(450deg);
    }
+ }
+
+
+ .Welcome-producer {
+   font-size: 3rem;
  }

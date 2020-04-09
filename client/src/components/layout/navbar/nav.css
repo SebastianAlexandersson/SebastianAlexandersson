@@ -147,6 +147,8 @@ svg {
   padding: .4rem;
   margin-top: auto;
   height: 5.5rem;
+  display: flex;
+  justify-content: space-between;
 }
 
 .CartFooter strong {

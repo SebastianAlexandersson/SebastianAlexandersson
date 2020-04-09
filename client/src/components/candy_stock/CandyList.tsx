@@ -6,7 +6,6 @@
 /* eslint-disable jsx-a11y/accessible-emoji */
 /* eslint-disable import/extensions */
 import * as React from 'react';
-
 import { connect } from 'react-redux';
 import { getAllProducts, setCurrent, deleteProduct } from '../../redux/producer/producer.actions';
 import { AppState } from '../../redux';
@@ -30,13 +29,14 @@ interface Props {
 const CandyList: React.FC<Props> = ({
   getAllProducts, storeProducts, isLoading, user, setCurrent, current, deleteProduct,
 }) => {
-  // const fetchProducts = React.useCallback(() => {
-  //   getAllProducts();
-  // }, [storeProducts]);
+  const fetchProducts = React.useCallback(() => {
+    getAllProducts();
+  }, [storeProducts, setCurrent, current]);
+
 
   React.useEffect(() => {
-    getAllProducts();
-    // fetchProducts();
+    // getAllProducts();
+    fetchProducts();
   }, []);
 
   const [showForm, toggleForm] = useToggle(false);
@@ -48,48 +48,49 @@ const CandyList: React.FC<Props> = ({
     toggleForm();
   }, [showForm]);
 
-  return !isLoading ? (
-    <ul className="mt-5 CandyList">
-      <h3 className="display-3">Candy list</h3>
-      {!isLoading && storeProducts.length === 0 && <h3 className="display-3">No products, in Stock </h3> }
-      {storeProducts.length > 0 && storeProducts.filter((x) => x.producer.name === producerName).map((x) => (
-        <li className="">
-          {' '}
-          Name:
-          {' '}
-          <span>{x.name}</span>
-          {' '}
+  return (
+    <React.Suspense fallback={<Spinner />}>
+      <ul className="CandyList">
+        <h3>Candy list</h3>
+        {!isLoading && storeProducts.length === 0 && <h3 className="display-3">No products, in Stock </h3> }
+        {!isLoading && storeProducts.length > 0 && storeProducts && storeProducts.filter((x) => x.producer && x.producer.name === producerName).map((x) => (
+          <li className="">
+            {' '}
+            Name:
+            {' '}
+            <span>{x.name}</span>
+            {' '}
 
-          Qty:
-          {' '}
-          <span>{x.qty}</span>
+            Qty:
+            {' '}
+            <span>{x.qty}</span>
 
-          Price:
-          <span>
+            Price:
+            <span>
 
-            {x.price}
+              {x.price}
 
 
-          </span>
-
-          <div className="cta">
-            <span id="edit-pen" onClick={() => handleCurrent(x)}>
-              &#9998;
             </span>
-            <span id="delete-icon" onClick={() => deleteProduct(x.id)}>
-              &#10008;
-            </span>
-          </div>
-        </li>
-      )) }
 
-      {showForm && current !== null && (
-        <EditForm current={current} toggle={toggleForm} />
-      ) }
+            <div className="cta">
+              <span id="edit-pen" onClick={() => handleCurrent(x)}>
+                &#9998;
+              </span>
+              <span id="delete-icon" onClick={() => deleteProduct(x.id)}>
+                &#10008;
+              </span>
+            </div>
+          </li>
+        )) }
 
-    </ul>
+        {showForm && current !== null && (
+          <EditForm current={current} toggle={toggleForm} />
+        ) }
 
-  ) : <Spinner />;
+      </ul>
+    </React.Suspense>
+  );
 };
 
 const mapStateToProps = (state: AppState) => ({

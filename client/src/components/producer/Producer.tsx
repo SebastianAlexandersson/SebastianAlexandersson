@@ -28,7 +28,7 @@ const Producer: React.FC<Props> = ({ isLoading, user, history }) => {
   return (!isLoading ? (
     <div className="mt-5">
       {!isLoading && user && (
-        <h3 className="display-3">
+        <h3 className="Welcome-producer">
           Welcome
           {' '}
           Producer

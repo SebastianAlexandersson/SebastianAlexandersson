@@ -47,7 +47,7 @@ const CandyStock: React.FC<Props> = ({ user, addNewProduct }) => {
 
   return (
     <div className="CandyStock mt-5">
-      <h3 className="display-3">Add a new candy</h3>
+      <h3>Add a new candy</h3>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="name">

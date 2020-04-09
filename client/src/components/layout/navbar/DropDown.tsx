@@ -6,6 +6,7 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 import * as React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { AppState } from '../../../redux';
 import { IProduct } from '../../../redux/producer/producer.types';
 import { deleteCartItem, removeItem, addToCart } from '../../../redux/concumer/consumer.actions';
@@ -41,7 +42,13 @@ const DropDown: React.FC<Props> = ({
         {cartItems.length > 0 && total !== 0 && total}
         {' '}
       </strong>
-      <button type="button">Checkout</button>
+      {cartItems.length > 0 && (
+        <Link to="/checkout">
+          {' '}
+          <button type="button">Checkout</button>
+          {' '}
+        </Link>
+      )}
     </div>
 
 
