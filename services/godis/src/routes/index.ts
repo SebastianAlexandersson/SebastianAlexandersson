@@ -1,10 +1,10 @@
 import producer from './producer';
 import consumer from './consumer';
 import product from './product';
-import order from './order';
+import admin from './admin';
 
 export default [
-  ...order,
+  ...admin,
   ...product,
   ...producer,
   ...consumer
