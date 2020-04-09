@@ -19,7 +19,7 @@ export default [
     ],
   },
   {
-    path: '/godisapi/admin/controllers/:id',
+    path: '/godisapi/admin/consumer/:id',
     method: 'delete',
     handler: [
       validateAdmin,
