@@ -46,6 +46,9 @@ export async function createOrder(req: MyRequest, res: Response) {
         qty: obj.qty,
       });
     }));
+    await manager.save(orderProduct);
+
+    console.log('ORDER PRODUCT!!!!', orderProduct)
 
     const order = manager.create(Order, {
       consumer,

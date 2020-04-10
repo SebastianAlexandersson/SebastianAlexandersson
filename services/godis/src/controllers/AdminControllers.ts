@@ -73,6 +73,10 @@ export async function createConsumer(req: Request, res: Response) {
   const entityManager = await getManager().transaction(async manager => {
     const { firstName, lastName, adress } = req.body;
 
+    if (!firstName || !lastName || !adress) {
+      throw new HTTP400Error('Missing paramaters in request body.');
+    };
+
     const consumer = manager.create(Consumer, {
       firstName,
       lastName,
