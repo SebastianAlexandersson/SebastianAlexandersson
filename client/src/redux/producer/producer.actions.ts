@@ -3,6 +3,7 @@
 /* eslint-disable import/extensions */
 import { Dispatch } from 'react';
 import axios from 'axios';
+import Cookies from 'js-cookie';
 import {
   IAddProductAction,
   ProducerActionTypes, IDeleteProductAction,
@@ -13,9 +14,6 @@ import {
   IUpdateProductAction,
   IClearCurrent,
 } from './producer.types';
-import Cookies from 'js-cookie';
-import setAuthToken from '../../utils/setAuthToken';
-
 
 
 export interface IProductFormData { // type when adding a new product in candy shop component
@@ -28,7 +26,6 @@ export interface IProductFormData { // type when adding a new product in candy s
 export const addNewProduct = (
   product: IProductFormData,
 ) => async (dispatch: Dispatch<IAddProductAction>) => {
-
   let token: any;
   if (Cookies.get('token')) {
     token = Cookies.get('token');
@@ -38,10 +35,18 @@ export const addNewProduct = (
     const config = {
       headers: {
         'Content-Type': 'application/json',
-        "Authorization": `Bearer ${token}`
+        Authorization: `Bearer ${token}`,
       },
     };
-    const res = await axios.post('/godisapi/product', product, config);
+    const res = await axios({
+      method: 'POST',
+      url: '/godisapi/producer',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      data: product,
+    });
 
     dispatch({
       type: ProducerActionTypes.ADD_PRODUCT,
@@ -111,3 +116,25 @@ export const deleteProduct = (
     console.error(err);
   }
 };
+
+
+// TODO: Delete this when everything works
+// async function apa(product: any) {
+
+//   try {
+//     const res = await fetch('/godisapi/producer', {
+//       method: 'POST',
+//       headers: {
+//         'Content-Type': 'application/json',
+//         Authorization: `Bearer ${token}`,
+//       },
+//       body: JSON.stringify(product),
+//     });
+//     const data = await res.json();
+//     return data;
+//   } catch (err) {
+//     console.error(err);
+//   }
+// }
+
+// // apa({ name: 'Lingon', qty: 122.0, price: 226.0 });
