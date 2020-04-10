@@ -7,7 +7,8 @@
 /* eslint-disable import/extensions */
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { getAllProducts, setCurrent, deleteProduct } from '../../redux/producer/producer.actions';
+import { setCurrent, deleteProduct } from '../../redux/producer/producer.actions';
+import { getAllProducts } from '../../redux/shop/shop.actions';
 import { AppState } from '../../redux';
 import { IProduct } from '../../redux/producer/producer.types';
 import Spinner from '../layout/Spinner';
@@ -15,6 +16,9 @@ import { IUserData } from '../../redux/auth/auth.types';
 import './Candy.css';
 import EditForm from './EditForm';
 import useToggle from '../../hooks/useToggle';
+import { selectProductsIsLoading, selectProducts } from '../../redux/shop/shop.selector';
+import CandyItem from './CandyItem';
+
 
 interface Props {
   getAllProducts: () => Promise<void>;
@@ -43,46 +47,19 @@ const CandyList: React.FC<Props> = ({
 
   const producerName = user && user.username;
 
-  const handleCurrent = React.useCallback((val: IProduct) => {
+  const handleCurrent = (val: IProduct): void => {
     setCurrent(val);
     toggleForm();
-  }, [showForm]);
+  };
 
-  return isLoading ? <Spinner/> : (
+  return isLoading ? <Spinner /> : (
     <>
       <ul className="CandyList">
         <h3>Candy list</h3>
         {!isLoading && storeProducts.length === 0 && <h3 className="display-3">No products, in Stock </h3> }
-        {!isLoading && storeProducts.length > 0 && storeProducts && storeProducts.filter((x) => x.producer && x.producer.name === producerName).map((x) => (
-          <li className="">
-            {' '}
-            Name:
-            {' '}
-            <span>{x.name}</span>
-            {' '}
-
-            Qty:
-            {' '}
-            <span>{x.qty}</span>
-
-            Price:
-            <span>
-
-              {x.price}
-
-
-            </span>
-
-            <div className="cta">
-              <span id="edit-pen" onClick={() => handleCurrent(x)}>
-                &#9998;
-              </span>
-              <span id="delete-icon" onClick={() => deleteProduct(x.id)}>
-                &#10008;
-              </span>
-            </div>
-          </li>
-        )) }
+        {!isLoading && storeProducts.length > 0 && storeProducts && storeProducts.filter(
+          (x) => x.producer && x.producer.name === producerName,
+        ).map((candy) => <CandyItem candy={candy} deleteProduct={deleteProduct} handleCurrent={handleCurrent} />) }
 
         {showForm && current !== null && (
           <EditForm current={current} toggle={toggleForm} />
@@ -94,8 +71,8 @@ const CandyList: React.FC<Props> = ({
 };
 
 const mapStateToProps = (state: AppState) => ({
-  storeProducts: state.producer.products,
-  isLoading: state.producer.loading,
+  storeProducts: selectProducts(state),
+  isLoading: selectProductsIsLoading(state),
   user: state.auth.user,
   current: state.producer.current,
 });

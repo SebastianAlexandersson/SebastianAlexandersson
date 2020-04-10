@@ -1,9 +1,11 @@
+/* eslint-disable import/extensions */
 /* eslint-disable no-shadow */
 /* eslint-disable react/prop-types */
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { IProduct, IProductUpdateFormData } from '../../redux/producer/producer.types';
-import { updateProduct, clearCurrent, getAllProducts } from '../../redux/producer/producer.actions';
+import { updateProduct, clearCurrent } from '../../redux/producer/producer.actions';
+import { getAllProducts } from '../../redux/shop/shop.actions';
 
 
 interface Props {
@@ -57,7 +59,11 @@ const EditForm: React.FC<Props> = ({
     <form onSubmit={handleSubmit} className="Edit-form">
       <div className="form-group">
         <label htmlFor="name">
-          <strong>{ current && current.name}</strong>
+          <strong>
+            Name:
+            {' '}
+            { current && current.name}
+          </strong>
           <input
             type="text"
             className="form-control"
@@ -71,7 +77,11 @@ const EditForm: React.FC<Props> = ({
 
       <div className="form-group">
         <label htmlFor="qty">
-          <strong>{current && current.qty.toString()}</strong>
+          <strong>
+            Qty:
+            {' '}
+            {current && current.qty.toString()}
+          </strong>
           <input
             type="text"
             className="form-control"
@@ -85,7 +95,11 @@ const EditForm: React.FC<Props> = ({
 
       <div className="form-group">
         <label htmlFor="price">
-          <strong>{current && current.price.toString()}</strong>
+          <strong>
+            Price:
+            {' '}
+            {current && current.price.toString()}
+          </strong>
           <input
             type="text"
             className="form-control"
