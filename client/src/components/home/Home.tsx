@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable import/extensions */
 /* eslint-disable react/prop-types */
 /* eslint-disable no-shadow */
@@ -36,15 +38,20 @@ const Home: React.FC<Props> = ({
   return (
     <>
       <div className="Home">
+        <Title
+          title="Easter Egg App"
+          spanOne="By"
+          subTitle="Sebastian the Dev ops hacker"
+          spanTwo="and"
+          subTitle2="Marcell the ...."
+        />
 
-    <Title title="Easter Egg App" spanOne="By" subTitle="Sebastian the Dev ops hacker" spanTwo="and" subTitle2="Marcell the ...." />
-
-      {!isProductsLoading && user?.role !== 'producer' && (
-        <div className="Search">
-          <span id="search-Icon" onClick={toggleSearch}>&#x262F;</span>
-          {showSearch && <SearchBar />}
-        </div>
-      )}
+        {!isProductsLoading && user?.role !== 'producer' && (
+          <div className="Search">
+            <span id="search-Icon" onClick={toggleSearch}>&#x262F;</span>
+            {showSearch && <SearchBar />}
+          </div>
+        )}
 
       </div>
       {isProductsLoading && <Spinner /> }

@@ -1,3 +1,4 @@
+/* eslint-disable import/extensions */
 import { IShopState, ActionTypesShop, ShopActionTypes } from './shop.types';
 
 const initialState: IShopState = {
