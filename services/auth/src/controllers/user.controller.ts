@@ -1,3 +1,5 @@
+/* eslint-disable prefer-destructuring */
+/* eslint-disable no-shadow */
 /* eslint-disable no-return-await */
 /* eslint-disable import/no-unresolved */
 import { Request, Response, NextFunction } from 'express';
@@ -8,11 +10,28 @@ import jsonResponse from '../utils/jsonResponse';
 import { IAuthRequest } from '../middleware/authHandler';
 import ErrorResponse from '../utils/ErroroResponse';
 
+async function login() {
+  return await fetch('http://authapi:4000/authapi/auth/login', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      username: process.env.DB_USER,
+      password: process.env.DB_PASSWORD,
+    }),
+  });
+}
+
 async function sendData(url: string, data: any) {
+  const response = await login();
+  const responseData = await response.json();
+
   return await fetch(url, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
+      Authorization: `Bearer ${responseData.token}`,
     },
     body: JSON.stringify(data),
   });
@@ -28,7 +47,7 @@ export const register = asyncHandler(
         lastName: req.body.lastName,
         adress: req.body.adress,
       };
-      sendData('http://godisapi:5000/godisapi/consumer', resData)
+      sendData('http://godisapi:5000/godisapi/admin/consumer', resData)
         .then(response => response.json())
         .then(async response => {
           user.godisDbId = response.consumer.id;
@@ -39,7 +58,7 @@ export const register = asyncHandler(
 
     if (user.role === 'producer') {
       const resData = { name: user.username };
-      sendData('http://godisapi:5000/godisapi/producer', resData)
+      sendData('http://godisapi:5000/godisapi/admin/producer', resData)
         .then(response => response.json())
         .then(async response => {
           user.godisDbId = response.producer.id;
