@@ -1,9 +1,10 @@
-import { Request, Response, NextFunction } from 'express';
+import { Response, NextFunction } from 'express';
+import { MyRequest } from '../types';
 import fetch from 'node-fetch';
 import { HTTP400Error } from '../utils/httpErrors';
 
 export async function validateConsumer(
-  req: Request,
+  req: MyRequest,
   res: Response,
   next: NextFunction
 ) {
@@ -21,17 +22,18 @@ export async function validateConsumer(
 
   const response = await request.json();
 
+  console.log('Response!!!!!!', response)
+
   if (!response.isValid || response.role !== 'user') {
     throw new HTTP400Error('Unauthorized.');
   }
-  //@ts-ignore
   req.user = response;
 
   next();
 };
 
 export async function validateProducer(
-  req: Request,
+  req: MyRequest,
   res: Response,
   next: NextFunction
 ) {
@@ -49,17 +51,18 @@ export async function validateProducer(
 
   const response = await request.json();
 
+  console.log('Response!!!', response)
+
   if (!response.isValid || response.role !== 'producer') {
     throw new HTTP400Error('Unauthorized.');
   }
-  //@ts-ignore
   req.user = response;
 
   next();
 };
 
 export async function validateAdmin(
-  req: Request,
+  req: MyRequest,
   res: Response,
   next: NextFunction
 ) {
@@ -80,7 +83,6 @@ export async function validateAdmin(
   if (!response.isValid || response.role !== 'admin') {
     throw new HTTP400Error('Unauthorized.');
   }
-  //@ts-ignore
   req.user = response;
 
   next();
