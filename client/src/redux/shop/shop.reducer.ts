@@ -12,7 +12,7 @@ export default (state: IShopState = initialState, action: ShopActionTypes) => {
       return {
         ...state,
         products: action.payload,
-        loading: false,
+        isLoading: false,
       };
     default:
       return state;

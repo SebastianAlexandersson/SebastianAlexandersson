@@ -1,3 +1,4 @@
+/* eslint-disable import/extensions */
 /* eslint-disable @typescript-eslint/interface-name-prefix */
 import { IProducer } from '../producer/producer.types';
 
@@ -7,7 +8,6 @@ export interface IProduct{
   qty: number;
   price: number;
   producer: IProducer;
-  // producer: IProducer['id'];
 }
 
 

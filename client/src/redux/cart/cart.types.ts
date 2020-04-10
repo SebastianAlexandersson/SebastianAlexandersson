@@ -21,16 +21,16 @@ export interface IToggleCartAction {
   type: ActionTypesCart.TOGGLE_CART_HIDDEN;
 }
 
-export interface IAddItemAction {
+export interface IAddProductAction {
   type: ActionTypesCart.ADD_ITEM;
   payload: IProduct;
 }
-export interface DeleteItemFromCartAction {
+export interface IDeleteItemFromCartAction {
   type: ActionTypesCart.DELETE_ITEM_FROM_CART;
   payload: number;
 }
 
-export interface RemoveItemAction {
+export interface IRemoveProductAction {
   type: ActionTypesCart.REMOVE_ITEM;
   payload: IProduct;
 }
@@ -38,6 +38,6 @@ export interface RemoveItemAction {
 
 export type CartActionTypes =
  IToggleCartAction |
- IAddItemAction |
- DeleteItemFromCartAction |
- RemoveItemAction
+ IAddProductAction |
+ IDeleteItemFromCartAction |
+ IRemoveProductAction

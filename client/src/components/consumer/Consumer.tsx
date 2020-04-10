@@ -6,6 +6,8 @@ import { connect } from 'react-redux';
 import { AppState } from '../../redux';
 import { IUserData } from '../../redux/auth/auth.types';
 import Spinner from '../layout/Spinner';
+import './Consumer.css';
+import { Link } from 'react-router-dom';
 
 interface Props {
   user: IUserData | null;
@@ -14,9 +16,9 @@ interface Props {
 }
 
 const Consumer: React.FC<Props> = ({ user, isLoading }) => (!isLoading ? (
-  <div>
+  <div className="Consumer">
     {' '}
-    <h1 className="display-1">
+    <h1>
       {' '}
       Hello
       {' '}
@@ -26,7 +28,8 @@ const Consumer: React.FC<Props> = ({ user, isLoading }) => (!isLoading ? (
       {' '}
     </h1>
 
-    <h3 className="display-3"> Let's shop some Candy </h3>
+    <h3> Let's shop some Candy </h3>
+    <Link to="/" className="Btn candy-cta"> Candies </Link>
   </div>
 ) : <Spinner />);
 

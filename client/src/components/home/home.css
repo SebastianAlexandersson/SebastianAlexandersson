@@ -26,3 +26,65 @@
   font-size: 1.8rem;
   letter-spacing: .2rem;
 }
+
+.Search {
+  margin: 1rem auto;
+  padding: 2rem 0;
+  display: flex;
+  justify-content: center;
+
+  width: 70vw;
+}
+
+#search-Icon {
+  color: black;
+  font-size: 3rem;
+  display: inline-block;
+  margin-right: auto;
+  width: 20%;
+}
+
+@-webkit-keyframes fadeInRight {
+  0% {
+    opacity: 0;
+    -webkit-transform: translate3d(100%, 0, 0);
+    transform: translate3d(100%, 0, 0);
+  }
+
+  100% {
+    opacity: 1;
+    -webkit-transform: none;
+    transform: none;
+  }
+}
+
+@keyframes fadeInRight {
+  0% {
+    opacity: 0;
+    -webkit-transform: translate3d(100%, 0, 0);
+    transform: translate3d(100%, 0, 0);
+  }
+
+  100% {
+    opacity: 1;
+    -webkit-transform: none;
+    transform: none;
+  }
+}
+
+#Searchbar {
+  margin: 0 auto;
+  -webkit-animation-name: fadeInRight;
+  animation-name: fadeInRight;
+  -webkit-animation-duration: .5s;
+  animation-duration: .5s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  transition: 300ms ease-in-out;
+  width: 55vw;
+}
+
+#Searchbar:focus {
+  width: 57vw;
+  box-shadow: 4px 4px 4px 4px #ccc;
+}

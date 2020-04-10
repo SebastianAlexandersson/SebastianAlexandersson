@@ -48,8 +48,8 @@ const CandyList: React.FC<Props> = ({
     toggleForm();
   }, [showForm]);
 
-  return (
-    <React.Suspense fallback={<Spinner />}>
+  return isLoading ? <Spinner/> : (
+    <>
       <ul className="CandyList">
         <h3>Candy list</h3>
         {!isLoading && storeProducts.length === 0 && <h3 className="display-3">No products, in Stock </h3> }
@@ -89,7 +89,7 @@ const CandyList: React.FC<Props> = ({
         ) }
 
       </ul>
-    </React.Suspense>
+    </>
   );
 };
 

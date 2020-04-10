@@ -1,3 +1,4 @@
+/* eslint-disable import/extensions */
 import { createSelector } from 'reselect';
 import { IShopState } from './shop.types';
 import { AppState } from '..';

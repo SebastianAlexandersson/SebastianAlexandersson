@@ -13,6 +13,9 @@ import {
   IUpdateProductAction,
   IClearCurrent,
 } from './producer.types';
+import Cookies from 'js-cookie';
+import setAuthToken from '../../utils/setAuthToken';
+
 
 
 export interface IProductFormData { // type when adding a new product in candy shop component
@@ -25,10 +28,17 @@ export interface IProductFormData { // type when adding a new product in candy s
 export const addNewProduct = (
   product: IProductFormData,
 ) => async (dispatch: Dispatch<IAddProductAction>) => {
+
+  let token: any;
+  if (Cookies.get('token')) {
+    token = Cookies.get('token');
+  }
+
   try {
     const config = {
       headers: {
         'Content-Type': 'application/json',
+        "Authorization": `Bearer ${token}`
       },
     };
     const res = await axios.post('/godisapi/product', product, config);

@@ -1,4 +1,7 @@
+/* eslint-disable import/extensions */
 import { ICartState, ActionTypesCart, CartActionTypes } from './cart.types';
+import { addItemToCart } from './cart.utils';
+import { removeFromCartItem } from '../concumer/consumer.utils';
 
 const initialState: ICartState = {
   hidden: false,
@@ -12,7 +15,7 @@ export default (state: ICartState = initialState, action: CartActionTypes) => {
       return {
         ...state,
         // productsCart: [...state.productsCart, action.payload],
-
+        productsCart: addItemToCart(state.productsCart, action.payload),
         loading: false,
       };
     case ActionTypesCart.DELETE_ITEM_FROM_CART:
@@ -25,9 +28,10 @@ export default (state: ICartState = initialState, action: CartActionTypes) => {
     case ActionTypesCart.REMOVE_ITEM:
       return {
         ...state,
-
+        productsCart: removeFromCartItem(state.productsCart, action.payload),
+        loading: false,
       };
     default:
-      break;
+      return state;
   }
 };
