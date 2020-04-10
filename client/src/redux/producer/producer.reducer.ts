@@ -20,12 +20,7 @@ export default (state: IProducerState = initialState, action: ProducerTypesReduc
         products: [...state.products, action.payload],
         loading: false,
       };
-    case ProducerActionTypes.GET_ALL_PRODUCTS:
-      return {
-        ...state,
-        products: action.payload,
-        loading: false,
-      };
+
     case ProducerActionTypes.DELETE_PRODUCT:
       return {
         ...state,

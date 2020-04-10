@@ -7,7 +7,6 @@ import Cookies from 'js-cookie';
 import {
   IAddProductAction,
   ProducerActionTypes, IDeleteProductAction,
-  IGetAllProducts,
   IProduct,
   ISetCurrent,
   IProductUpdateFormData,
@@ -32,12 +31,6 @@ export const addNewProduct = (
   }
 
   try {
-    const config = {
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-    };
     const res = await axios({
       method: 'POST',
       url: '/godisapi/producer',
@@ -50,19 +43,6 @@ export const addNewProduct = (
 
     dispatch({
       type: ProducerActionTypes.ADD_PRODUCT,
-      payload: res.data,
-    });
-  } catch (err) {
-    console.error(err);
-  }
-};
-
-
-export const getAllProducts = () => async (dispatch: Dispatch<IGetAllProducts>) => {
-  try {
-    const res = await axios.get('/godisapi/product');
-    dispatch({
-      type: ProducerActionTypes.GET_ALL_PRODUCTS,
       payload: res.data,
     });
   } catch (err) {
@@ -84,13 +64,20 @@ export const updateProduct = (
   formData: IProductUpdateFormData,
 ) => async (dispatch: Dispatch<IUpdateProductAction>) => {
   try {
-    const config = {
+    let token: any;
+    if (Cookies.get('token')) {
+      token = Cookies.get('token');
+    }
+
+    const res = await axios({
+      method: 'PUT',
+      url: `/godisapi/producer/${formData.id}`,
       headers: {
         'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
       },
-    };
-
-    const res = await axios.put(`/godisapi/product/${formData.id}`, formData, config);
+      data: formData,
+    });
 
     dispatch({
       type: ProducerActionTypes.UPDATE_PRODUCT,
@@ -106,7 +93,18 @@ export const deleteProduct = (
   productId: number,
 ) => async (dispatch: Dispatch<IDeleteProductAction>) => {
   try {
-    await axios.delete(`/godisapi/product/${productId.toString()}`);
+    let token: any;
+    if (Cookies.get('token')) {
+      token = Cookies.get('token');
+    }
+
+    await axios({
+      method: 'DELETE',
+      url: `/godisapi/producer/${productId.toString()}`,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
     dispatch({
       type: ProducerActionTypes.DELETE_PRODUCT,
@@ -116,25 +114,3 @@ export const deleteProduct = (
     console.error(err);
   }
 };
-
-
-// TODO: Delete this when everything works
-// async function apa(product: any) {
-
-//   try {
-//     const res = await fetch('/godisapi/producer', {
-//       method: 'POST',
-//       headers: {
-//         'Content-Type': 'application/json',
-//         Authorization: `Bearer ${token}`,
-//       },
-//       body: JSON.stringify(product),
-//     });
-//     const data = await res.json();
-//     return data;
-//   } catch (err) {
-//     console.error(err);
-//   }
-// }
-
-// // apa({ name: 'Lingon', qty: 122.0, price: 226.0 });

@@ -33,8 +33,7 @@ export interface IProducerState{
 export enum ProducerActionTypes {
   ADD_PRODUCT = 'ADD_PRODUCT',
   DELETE_PRODUCT = 'DELETE_PRODUCT',
-  GET_PRODUCT_BY_PRODUCER ='GET_PRODUCT_BY_PRODUCER',
-  GET_ALL_PRODUCTS = 'GET_ALL_PRODUCTS',
+  GET_PRODUCTS_BY_PRODUCER ='GET_PRODUCTS_BY_PRODUCER',
   UPDATE_PRODUCT = 'UPDATE_PRODUCT',
   SET_CURRENT = 'SET_CURRENT',
   CLEAR_CURRENT = 'CLEAR_CURRENT',
@@ -47,15 +46,12 @@ export interface IAddProductAction {
 }
 
 
-export interface IGetProductByProducer {
-  type: ProducerActionTypes.GET_PRODUCT_BY_PRODUCER;
-  payload: IProduct;
+export interface IGetProductsByProducer {
+  type: ProducerActionTypes.GET_PRODUCTS_BY_PRODUCER;
+  payload: IProduct[];
 }
 
-export interface IGetAllProducts {
-  type: ProducerActionTypes.GET_ALL_PRODUCTS;
-  payload: IProduct;
-}
+
 export interface IDeleteProductAction {
   type: ProducerActionTypes.DELETE_PRODUCT;
   payload: number; // sending id to the reducer
@@ -79,8 +75,7 @@ export interface IClearCurrent {
 export type ProducerTypesReducer =
    IAddProductAction |
    IDeleteProductAction |
-   IGetProductByProducer |
-   IGetAllProducts |
+   IGetProductsByProducer |
    ISetCurrent |
    IClearCurrent|
    IUpdateProductAction
