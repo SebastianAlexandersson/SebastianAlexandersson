@@ -1,8 +1,12 @@
 /* eslint-disable import/extensions */
-import { IProduct } from '../shop/shop.types';
+import { Dispatch } from 'redux';
+import axios from 'axios';
+import Cookies from 'js-cookie';
 import {
-  ActionTypesCart, IDeleteItemFromCartAction, IAddProductAction, IRemoveProductAction,
+  ActionTypesCart, IDeleteItemFromCartAction, IAddProductAction, IRemoveProductAction, IMakeOrderAction, IOrderProduct,
 } from './cart.types';
+import { IProduct } from '../shop/shop.types';
+
 
 export const addProduct = (product: IProduct): IAddProductAction => ({
   type: ActionTypesCart.ADD_ITEM,
@@ -18,3 +22,43 @@ export const removeProduct = (product: IProduct): IRemoveProductAction => ({
   type: ActionTypesCart.REMOVE_ITEM,
   payload: product,
 });
+
+
+export const makeOrder = (products: any) => async (dispatch: Dispatch<IMakeOrderAction>) => {
+  try {
+    let token: any;
+    if (Cookies.get('token')) {
+      token = Cookies.get('token');
+    }
+
+
+    console.log('form redux ', products);
+
+    const response = await axios({
+      method: 'POST',
+      url: '/godisapi/consumer',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      data: products,
+    });
+
+    // const response = await fetch('/godisapi/consumer', {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //     Authorization: `Bearer ${token}`,
+    //   },
+    //   body: JSON.stringify(products),
+    // });
+
+
+    dispatch({
+      type: ActionTypesCart.MAKE_ORDER,
+      payload: response.data,
+    });
+  } catch (err) {
+    console.error(err);
+  }
+};

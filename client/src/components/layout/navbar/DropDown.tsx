@@ -9,30 +9,30 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { AppState } from '../../../redux';
 import { IProduct } from '../../../redux/shop/shop.types';
-import { deleteCartItem, removeItem, addToCart } from '../../../redux/concumer/consumer.actions';
-import { selectConsumerCartItems, selectCartTotal } from '../../../redux/concumer/consumer.selector';
+import { selectCartTotal, selectCartItems } from '../../../redux/cart/cart.selector';
 import DropDownItem from './DropDownItem';
+import { addProduct, deleteProductFromCart, removeProduct } from '../../../redux/cart/cart.actions';
 
 
 interface Props {
-  cartItems: IProduct[] | never;
+  cartItems: IProduct[];
   total: number;
-  deleteCartItem: (productId: number) => void;
-  removeItem: (item: IProduct) => void;
-  addToCart: (product: IProduct) => void;
+  addProduct: (product: IProduct) => void;
+  deleteProductFromCart: (id: number) => void;
+  removeProduct: (item: IProduct) => void;
 }
 
 const DropDown: React.FC<Props> = ({
-  cartItems, total, deleteCartItem, removeItem, addToCart,
+  cartItems, total, addProduct, deleteProductFromCart, removeProduct,
 }) => (
   <div className="DropDownCart">
     {cartItems.length > 0 && cartItems.map((item) => (
       <DropDownItem
         key={item.id}
         item={item}
-        deleteCartItem={deleteCartItem}
-        removeItem={removeItem}
-        addToCart={addToCart}
+        addProduct={addProduct}
+        deleteProductFromCart={deleteProductFromCart}
+        removeProduct={removeProduct}
       />
     )) }
     <div className="CartFooter">
@@ -58,8 +58,10 @@ const DropDown: React.FC<Props> = ({
 
 const mapStateToProps = (state: AppState) => ({
   total: selectCartTotal(state),
-  cartItems: selectConsumerCartItems(state),
+  cartItems: selectCartItems(state),
 });
 
 
-export default connect(mapStateToProps, { deleteCartItem, removeItem, addToCart })(DropDown);
+export default connect(
+  mapStateToProps, { addProduct, deleteProductFromCart, removeProduct },
+)(DropDown);

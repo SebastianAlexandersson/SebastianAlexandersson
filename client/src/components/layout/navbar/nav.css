@@ -97,7 +97,7 @@ svg {
   background: #fff;
   border: 2px solid #333;
   height: 45rem;
-  width: 36rem;
+  width: 42rem;
   position: fixed;
   overflow: scroll;
   display: flex;
@@ -126,9 +126,11 @@ svg {
 }
 
 .DropDownCart li p {
-  /* border: 1px solid red; */
   align-items: center;
   display: flex;
+  width: 35%;
+  text-align: center;
+  justify-content: center;
 }
 
 .DropDownCart li p .arrow {

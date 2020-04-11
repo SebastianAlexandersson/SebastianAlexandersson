@@ -8,42 +8,39 @@ import { IProduct } from '../../../redux/shop/shop.types';
 
 interface Props {
   item: IProduct;
-  deleteCartItem: (productId: number) => void;
-  removeItem: (item: IProduct) => void;
-  addToCart: (product: IProduct) => void;
+  addProduct: (product: IProduct) => void;
+  deleteProductFromCart: (id: number) => void;
+  removeProduct: (item: IProduct) => void;
 }
 
 const DropDownItem: React.FC<Props> = ({
-  item, removeItem, deleteCartItem, addToCart,
-}) => {
-  let a;
-  return (
-    <li key={item.id}>
-      <p>{item.name}</p>
-      {' '}
+  item, addProduct, deleteProductFromCart, removeProduct,
+}) => (
+  <li key={item.id} id="DropDownItem">
+    <p>{item.name}</p>
+    {' '}
 
+    {' '}
+    <p>
+      <span className="arrow" onClick={() => removeProduct(item)}> &#8249; </span>
       {' '}
-      <p>
-        <span className="arrow" onClick={() => removeItem(item)}> &#8249; </span>
-        {' '}
-        {item.qty}
-        {' '}
-        <span className="arrow" onClick={() => addToCart(item)}>&#8250;</span>
-      </p>
+      {item.qty}
       {' '}
+      <span className="arrow" onClick={() => addProduct(item)}>&#8250;</span>
+    </p>
+    {' '}
 
-      {' '}
+    {' '}
 
+    {' '}
+    <p>
+      {item.price}
       {' '}
-      <p>
-        {item.price}
-        {' '}
-        $
-      </p>
+      $
+    </p>
 
-      {' '}
-      <p><span className="delete" onClick={() => deleteCartItem(item.id)}>&#x292C;</span></p>
-    </li>
-  );
-};
+    {' '}
+    <p><span className="delete" onClick={() => deleteProductFromCart(item.id)}>&#x292C;</span></p>
+  </li>
+);
 export default DropDownItem;

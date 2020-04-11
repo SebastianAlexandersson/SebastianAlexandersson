@@ -1,3 +1,5 @@
+/* eslint-disable import/no-cycle */
+/* eslint-disable import/extensions */
 /* eslint-disable @typescript-eslint/interface-name-prefix */
 import { IProduct } from '../shop/shop.types';
 
@@ -12,20 +14,11 @@ export interface IProducer{
   name: string;
 }
 
-// export interface IProduct{
-//   id: number;
-//   name: string;
-//   qty: number;
-//   price: number;
-//   producer: IProducer;
-//   // producer: IProducer['id'];
-// }
-
 
 export interface IProducerState{
   loading: boolean;
   error: null | Record<string, any>;
-  products: [] | any; // this type need to be fixed
+  products: [] | any; // this type need to be fixed //TODO:
   current: null | IProduct;
 }
 

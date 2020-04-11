@@ -1,7 +1,6 @@
 /* eslint-disable import/extensions */
 /* eslint-disable @typescript-eslint/interface-name-prefix */
-import { IProducer } from '../producer/producer.types';
-import { IProduct } from '../shop/shop.types';
+
 
 export interface IConsumer {
   id: number;
@@ -14,34 +13,27 @@ export interface IConsumerState{
   loading: boolean;
   consumer: null | IConsumer;
   error: null | Record<string, any>;
-  cart: [] | IProduct[] | never;
+  currentUser: null | IConsumer;
 }
 
 export enum ConsumerActionTypes {
-  GET_PRODUCERS = 'GET_PRODUCERS',
-  ADD_TO_CART = 'ADD_TO_CART',
-  DELETE_CART_ITEM = 'DELETE_CART_ITEM',
-  REMOVE_ITEM = 'REMOVE_ITEM',
+  GET_USERS = 'GET_USERS',
+  LOGIN = 'LOGIN',
+  REMOVE_USER = 'REMOVE_USER',
+  SET_CURRENT_USER = 'SET_CURRENT_USER',
+
 }
 
 
-export interface IGetProducersAction {
-  type: ConsumerActionTypes.GET_PRODUCERS;
-  payload: IProducer[];
-}
-export interface IAddToCartAction {
-  type: ConsumerActionTypes.ADD_TO_CART;
-  payload: IProduct;
-}
-export interface IDeleteCartItem {
-  type: ConsumerActionTypes.DELETE_CART_ITEM;
-  payload: number;
+export interface GetUsersAction {
+  type: ConsumerActionTypes.GET_USERS;
+  payload: IConsumer[];
 }
 
-export interface IRemoveItemAction {
-  type: ConsumerActionTypes.REMOVE_ITEM;
-  payload: IProduct;
+export interface SetCurrentUserAction {
+  type: ConsumerActionTypes.SET_CURRENT_USER;
+  payload: IConsumer;
 }
 
-export type ConsumerReducerType =
- IGetProducersAction | IAddToCartAction | IDeleteCartItem | IRemoveItemAction
+
+export type ConsumerReducerType = GetUsersAction | SetCurrentUserAction

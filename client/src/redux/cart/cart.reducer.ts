@@ -7,6 +7,7 @@ const initialState: ICartState = {
   hidden: false,
   loading: true,
   productsCart: [],
+  products: null, // finalorder
 };
 
 export default (state: ICartState = initialState, action: CartActionTypes) => {
@@ -14,7 +15,6 @@ export default (state: ICartState = initialState, action: CartActionTypes) => {
     case ActionTypesCart.ADD_ITEM:
       return {
         ...state,
-        // productsCart: [...state.productsCart, action.payload],
         productsCart: addItemToCart(state.productsCart, action.payload),
         loading: false,
       };
@@ -24,6 +24,13 @@ export default (state: ICartState = initialState, action: CartActionTypes) => {
         productsCart: state.productsCart.filter((product) => product.id !== action.payload),
         loading: false,
       };
+    case ActionTypesCart.MAKE_ORDER:
+      return {
+        ...state,
+        products: action.payload,
+        loading: false,
+      };
+
 
     case ActionTypesCart.REMOVE_ITEM:
       return {
