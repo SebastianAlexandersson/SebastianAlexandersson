@@ -4,6 +4,8 @@ import {
   ActionTypesCart, IDeleteItemFromCartAction, IAddProductAction, IRemoveProductAction,
 } from './cart.types';
 
+//
+
 export const addProduct = (product: IProduct): IAddProductAction => ({
   type: ActionTypesCart.ADD_ITEM,
   payload: product,

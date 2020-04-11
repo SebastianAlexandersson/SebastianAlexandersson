@@ -7,26 +7,25 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { IProduct } from '../../redux/shop/shop.types';
-import { removeItem, addToCart } from '../../redux/concumer/consumer.actions';
 
 
 interface Props {
   item: IProduct;
-  removeItem: (item: IProduct) => void;
-  addToCart: (product: IProduct) => void;
+  // removeItem: (item: IProduct) => void;
+  // addToCart: (product: IProduct) => void;
 }
 
 
-const CartItem: React.FC<Props> = ({ item, removeItem, addToCart }) => (
+const CartItem: React.FC<Props> = ({ item }) => (
   <div className="CheckoutItem">
     <p>{item.name}</p>
     <p>
       {' '}
-      <em onClick={() => removeItem(item)}>&#8249;</em>
+      <em>&#8249;</em>
       {' '}
       {item.qty}
       {' '}
-      <em onClick={() => addToCart(item)}>&#8250;</em>
+      <em>&#8250;</em>
       {' '}
     </p>
     <p>{item.price}</p>
@@ -34,4 +33,4 @@ const CartItem: React.FC<Props> = ({ item, removeItem, addToCart }) => (
 );
 
 
-export default connect(null, { removeItem, addToCart })(CartItem);
+export default connect(null)(CartItem);

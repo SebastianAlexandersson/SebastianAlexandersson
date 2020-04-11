@@ -3,14 +3,19 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { AppState } from '../../redux';
-import { selectConsumerCartItems, selectCartTotal } from '../../redux/concumer/consumer.selector';
+
 import { IProduct } from '../../redux/shop/shop.types';
 import CartItem from './CartItem';
 import './Checkout.css';
+import { selectCartItemCount, selectCartTotal } from '../../redux/cart/cart.selector';
 
 interface Props {
-  userCart: IProduct[];
-  total: number;
+  // userCart: IProduct[];
+  // userCart: IProduct[];
+  userCart: any;
+  total: any;
+
+
 }
 
 
@@ -32,7 +37,7 @@ const Checkout: React.FC<Props> = ({ userCart, total }) => (
         </h4>
         <h4>Price</h4>
       </div>
-      {userCart.length > 0 && userCart.map((item) => (
+      {userCart.length > 0 && userCart.map((item: any) => (
         <CartItem key={item.id} item={item} />
       ))}
       <div className="Checkout-footer">
@@ -48,7 +53,8 @@ const Checkout: React.FC<Props> = ({ userCart, total }) => (
 );
 
 const mapStateToProps = (state: AppState) => ({
-  userCart: selectConsumerCartItems(state),
+  userCart: selectCartItemCount(state),
   total: selectCartTotal(state),
+
 });
 export default connect(mapStateToProps)(Checkout);

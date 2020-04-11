@@ -18,6 +18,7 @@ export const cartLoading = createSelector(
   (cart: ICartState) => cart.loading,
 );
 
+
 export const selectCartItemCount = createSelector(
   [selectCartItems],
   (cartItems: IProduct[]) => cartItems.reduce((quantity, item) => quantity + item.qty, 0),

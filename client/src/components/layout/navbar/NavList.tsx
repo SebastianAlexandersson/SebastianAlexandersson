@@ -12,17 +12,16 @@ import { AppState } from '../../../redux';
 import { logoutUser } from '../../../redux/auth/auth.actions';
 import { IUserData } from '../../../redux/auth/auth.types';
 import { ReactComponent as CartLogo } from '../../../img/cart.svg';
-import { IProduct } from '../../../redux/shop/shop.types';
 import useToggle from '../../../hooks/useToggle';
 import DropDown from './DropDown';
-import { selectCartCount } from '../../../redux/concumer/consumer.selector';
+import { selectUser } from '../../../redux/auth/aut.selector';
+import { selectCartItemCount } from '../../../redux/cart/cart.selector';
 
 
 interface Props {
   isAuth: boolean;
   isLoading: boolean;
   user: IUserData | null;
-  userCart: [] | IProduct[] | any;
   logoutUser: () => Promise<void>;
   cartCount: number;
 }
@@ -34,7 +33,7 @@ interface INavLink {
 }
 
 const NavList: React.FC<Props> = ({
-  isAuth, isLoading, logoutUser, user, userCart, cartCount,
+  isAuth, isLoading, logoutUser, user, cartCount,
 }) => {
   const navLinks: INavLink[] = [
 
@@ -135,10 +134,8 @@ const NavList: React.FC<Props> = ({
 const mapStateToProps = (state: AppState) => ({
   isAuth: state.auth.isAuth,
   isLoading: state.auth.loading,
-  user: state.auth.user,
-  userCart: state.consumer.cart,
-  cartCount: selectCartCount(state),
-
+  user: selectUser(state),
+  cartCount: selectCartItemCount(state),
 });
 
 export default connect(mapStateToProps, { logoutUser })(NavList);

@@ -6,16 +6,15 @@ import * as React from 'react';
 import './Candy.css';
 import { connect } from 'react-redux';
 import { IProduct } from '../../redux/shop/shop.types';
-import { addToCart } from '../../redux/concumer/consumer.actions';
-import { AppState } from '../../redux';
+import { addProduct } from '../../redux/cart/cart.actions';
 
 
 interface Props {
   product: IProduct;
-  addToCart: (product: IProduct) => void;
+  addProduct: (product: IProduct) => void;
 }
 
-const CandyItem: React.FC<Props> = ({ product, addToCart }) => (
+const CandyItem: React.FC<Props> = ({ product, addProduct }) => (
   <>
     <div className="Candy">
       <div className="Candy-header">
@@ -29,13 +28,18 @@ const CandyItem: React.FC<Props> = ({ product, addToCart }) => (
         <p>
           Quantity:
           {' '}
-          <span>{product.qty}</span>
+          <span>
+            {product.qty}
+            {' '}
+            kg
+          </span>
         </p>
         <p>
           Price:
           {' '}
           <span>
             {product.price}
+            {' '}
             $
           </span>
         </p>
@@ -48,17 +52,13 @@ const CandyItem: React.FC<Props> = ({ product, addToCart }) => (
 
       </div>
       {/* /Candy-body */}
-      <button className="Btn" type="button" onClick={() => addToCart(product)}>Add To Cart</button>
+      <button className="Btn" type="button" onClick={() => addProduct(product)}>Add To Cart</button>
       {/* /Candy */}
     </div>
 
 
   </>
 );
-// const mapStateToProps = (state:AppState) => {
-//   return {
 
-//   }
-// }
 
-export default connect(null, { addToCart })(CandyItem);
+export default connect(null, { addProduct })(CandyItem);
