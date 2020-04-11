@@ -8,7 +8,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { AppState } from '../../../redux';
-import { IProduct } from '../../../redux/producer/producer.types';
+import { IProduct } from '../../../redux/shop/shop.types';
 import { deleteCartItem, removeItem, addToCart } from '../../../redux/concumer/consumer.actions';
 import { selectConsumerCartItems, selectCartTotal } from '../../../redux/concumer/consumer.selector';
 import DropDownItem from './DropDownItem';

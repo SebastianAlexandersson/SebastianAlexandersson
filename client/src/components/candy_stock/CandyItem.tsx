@@ -14,23 +14,24 @@ interface Props {
 
 const CandyItem: React.FC<Props> = ({ candy, deleteProduct, handleCurrent }) => (
   <>
-    <li className="">
-      {' '}
-      Name:
-      {' '}
-      <span>{candy.name}</span>
-      {' '}
+    <li id="CandyItem">
+      <p>
+        Name:
+        <span>{candy.name}</span>
+      </p>
 
-      Qty:
-      {' '}
-      <span>{candy.qty}</span>
+      <p>
+        Qty:
 
-      Price:
-      <span>
+        <span>{candy.qty}</span>
+      </p>
 
-        {candy.price}
-
-      </span>
+      <p>
+        Price:
+        <span>
+          {candy.price}
+        </span>
+      </p>
 
       <div className="cta">
         <span id="edit-pen" onClick={() => handleCurrent(candy)}>

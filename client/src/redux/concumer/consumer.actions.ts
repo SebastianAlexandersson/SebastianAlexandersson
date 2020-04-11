@@ -1,9 +1,10 @@
+/* eslint-disable import/extensions */
 import { Dispatch } from 'react';
 import axios from 'axios';
 import {
   IGetProducersAction, ConsumerActionTypes, IAddToCartAction, IDeleteCartItem, IRemoveItemAction,
 } from './consumer.types';
-import { IProduct } from '../producer/producer.types';
+import { IProduct } from '../shop/shop.types';
 
 
 export const getProducers = () => async (dispatch: Dispatch<IGetProducersAction>) => {

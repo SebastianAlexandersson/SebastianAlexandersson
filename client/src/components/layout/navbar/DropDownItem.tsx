@@ -4,7 +4,7 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 import * as React from 'react';
-import { IProduct } from '../../../redux/producer/producer.types';
+import { IProduct } from '../../../redux/shop/shop.types';
 
 interface Props {
   item: IProduct;

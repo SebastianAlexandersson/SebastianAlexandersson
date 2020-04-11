@@ -4,14 +4,15 @@
 import { Dispatch } from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import { IProduct } from '../shop/shop.types';
 import {
   IAddProductAction,
   ProducerActionTypes, IDeleteProductAction,
-  IProduct,
   ISetCurrent,
   IProductUpdateFormData,
   IUpdateProductAction,
   IClearCurrent,
+  IGetProductsByProducer,
 } from './producer.types';
 
 
@@ -109,6 +110,30 @@ export const deleteProduct = (
     dispatch({
       type: ProducerActionTypes.DELETE_PRODUCT,
       payload: productId,
+    });
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+
+export const getProductsByProducer = () => async (dispatch: Dispatch<IGetProductsByProducer>) => {
+  try {
+    let token: any;
+    if (Cookies.get('token')) {
+      token = Cookies.get('token');
+    }
+    const response = await axios({
+      method: 'GET',
+      url: '/godisapi/producer',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    dispatch({
+      type: ProducerActionTypes.GET_PRODUCTS_BY_PRODUCER,
+      payload: response.data,
     });
   } catch (err) {
     console.error(err);

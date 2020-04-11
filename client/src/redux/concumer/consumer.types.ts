@@ -1,5 +1,7 @@
+/* eslint-disable import/extensions */
 /* eslint-disable @typescript-eslint/interface-name-prefix */
-import { IProducer, IProduct } from '../producer/producer.types';
+import { IProducer } from '../producer/producer.types';
+import { IProduct } from '../shop/shop.types';
 
 export interface IConsumer {
   id: number;

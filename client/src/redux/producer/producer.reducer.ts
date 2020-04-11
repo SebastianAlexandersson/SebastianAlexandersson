@@ -2,8 +2,9 @@
 /* eslint-disable no-undef */
 
 import {
-  IProducerState, ProducerActionTypes, ProducerTypesReducer, IProduct,
+  IProducerState, ProducerActionTypes, ProducerTypesReducer,
 } from './producer.types';
+import { IProduct } from '../shop/shop.types';
 
 const initialState: IProducerState = {
   loading: true,
@@ -20,7 +21,12 @@ export default (state: IProducerState = initialState, action: ProducerTypesReduc
         products: [...state.products, action.payload],
         loading: false,
       };
-
+    case ProducerActionTypes.GET_PRODUCTS_BY_PRODUCER:
+      return {
+        ...state,
+        products: action.payload,
+        loading: false,
+      };
     case ProducerActionTypes.DELETE_PRODUCT:
       return {
         ...state,

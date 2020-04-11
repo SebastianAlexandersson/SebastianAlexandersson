@@ -1,9 +1,10 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable import/extensions */
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { AppState } from '../../redux';
 import { selectConsumerCartItems, selectCartTotal } from '../../redux/concumer/consumer.selector';
-import { IProduct } from '../../redux/producer/producer.types';
+import { IProduct } from '../../redux/shop/shop.types';
 import CartItem from './CartItem';
 import './Checkout.css';
 
