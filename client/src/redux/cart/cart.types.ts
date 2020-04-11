@@ -3,11 +3,15 @@
 
 import { IProduct } from '../shop/shop.types';
 
-
+export interface IOrderProduct {
+  id: number;
+  qty: number;
+}
 export interface ICartState {
   hidden: boolean;
   productsCart: IProduct[];
   loading: boolean;
+  products: null | IOrderProduct[];// final order
 }
 
 export enum ActionTypesCart {
@@ -15,6 +19,7 @@ export enum ActionTypesCart {
   ADD_ITEM = 'ADD_ITEM',
   DELETE_ITEM_FROM_CART = 'DELETE_ITEM_FROM_CART',
   REMOVE_ITEM = 'REMOVE_ITEM',
+  MAKE_ORDER = 'MAKE_ORDER'
 }
 
 export interface IToggleCartAction {
@@ -34,10 +39,16 @@ export interface IRemoveProductAction {
   type: ActionTypesCart.REMOVE_ITEM;
   payload: IProduct;
 }
+export interface IMakeOrderAction {
+  type: ActionTypesCart.MAKE_ORDER;
+  // payload: IOrderProduct[];
+  payload: any;
+}
 
 
 export type CartActionTypes =
  IToggleCartAction |
  IAddProductAction |
  IDeleteItemFromCartAction |
- IRemoveProductAction
+ IRemoveProductAction |
+ IMakeOrderAction

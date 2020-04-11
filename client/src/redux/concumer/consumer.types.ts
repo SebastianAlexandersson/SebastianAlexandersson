@@ -21,6 +21,7 @@ export enum ConsumerActionTypes {
   LOGIN = 'LOGIN',
   REMOVE_USER = 'REMOVE_USER',
   SET_CURRENT_USER = 'SET_CURRENT_USER',
+
 }
 
 

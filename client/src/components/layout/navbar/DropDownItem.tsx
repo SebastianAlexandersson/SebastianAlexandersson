@@ -16,7 +16,7 @@ interface Props {
 const DropDownItem: React.FC<Props> = ({
   item, addProduct, deleteProductFromCart, removeProduct,
 }) => (
-  <li key={item.id}>
+  <li key={item.id} id="DropDownItem">
     <p>{item.name}</p>
     {' '}
 

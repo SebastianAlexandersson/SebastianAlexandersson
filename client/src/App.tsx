@@ -36,6 +36,12 @@ const App: React.FC <Props> = ({ token, loadUser }) => {
     }
   }, []);
 
+  const products = [{ id: 2, qty: '32' }];
+
+  // console.log(products);
+
+  const jsProd = JSON.stringify('products: [{id: 2,qty: 333}]');
+  console.log(jsProd);
 
   return (
     <div className="App">
