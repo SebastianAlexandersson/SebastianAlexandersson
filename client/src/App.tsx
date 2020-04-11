@@ -36,12 +36,36 @@ const App: React.FC <Props> = ({ token, loadUser }) => {
     }
   }, []);
 
-  const products = [{ id: 2, qty: '32' }];
-
-  // console.log(products);
-
-  const jsProd = JSON.stringify('products: [{id: 2,qty: 333}]');
-  console.log(jsProd);
+  async function apiTest(products: any) {
+    const response = await fetch('http://localhost/godisapi/consumer', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(products),
+    });
+    const data = await response.json();
+    return data;
+  }
+  // const productsArr = [{ id: 1, qty: 3 }];
+  const xs = {
+    products: [
+      {
+        id: 1,
+        qty: 99.0,
+      },
+    ],
+  };
+  // apiTest({
+  //   products: [
+  //     {
+  //       id: 1,
+  //       qty: 2.0,
+  //     },
+  //   ],
+  // });
+  // console.log(JSON.stringify(xs));
 
   return (
     <div className="App">

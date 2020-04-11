@@ -5,6 +5,7 @@ const initialState: IShopState = {
   isLoading: true,
   error: null,
   products: [],
+  filteredProducts: null,
 };
 
 export default (state: IShopState = initialState, action: ShopActionTypes) => {
@@ -14,6 +15,21 @@ export default (state: IShopState = initialState, action: ShopActionTypes) => {
         ...state,
         products: action.payload,
         isLoading: false,
+      };
+    case ActionTypesShop.SEARCH_BY_PRODUCER:
+      return {
+        ...state,
+      };
+    case ActionTypesShop.CLEAR_SEARCH:
+      return {
+        ...state,
+        filteredProducts: null,
+      };
+    case ActionTypesShop.GET_PRODUCTS_ERROR:
+      return {
+        ...state,
+        error: action.payload,
+        loading: false,
       };
     default:
       return state;
