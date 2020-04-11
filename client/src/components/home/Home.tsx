@@ -13,7 +13,7 @@ import './home.css';
 import CandyItem from '../candy/CandyItem';
 import { selectUser, selectUserToken } from '../../redux/auth/aut.selector';
 import { IUserData } from '../../redux/auth/auth.types';
-import { selectProducts, selectProductsIsLoading } from '../../redux/shop/shop.selector';
+import { selectProducts, selectProductsIsLoading, selectFilteredProducts } from '../../redux/shop/shop.selector';
 import SearchBar from './SearchBar';
 import useToggle from '../../hooks/useToggle';
 import Title from '../title/Title';
@@ -23,11 +23,11 @@ interface Props{
   getAllProducts: () => Promise<void>;
   isProductsLoading: boolean;
   user: IUserData | null;
-  isThereAToken: string | null | undefined;
+  filteredProducts: null | IProduct[];
 }
 
 const Home: React.FC<Props> = ({
-  allProducts, getAllProducts, isProductsLoading, user, isThereAToken,
+  allProducts, getAllProducts, isProductsLoading, user, filteredProducts,
 }) => {
   const [showSearch, toggleSearch] = useToggle(false);
 
@@ -48,7 +48,7 @@ const Home: React.FC<Props> = ({
 
         {!isProductsLoading && user?.role !== 'producer' && (
           <div className="Search">
-            <span id="search-Icon" onClick={toggleSearch}>&#x262F;</span>
+            <span id="search-Icon" onClick={toggleSearch}>&#x26B2;</span>
             {showSearch && <SearchBar />}
           </div>
         )}
@@ -57,9 +57,17 @@ const Home: React.FC<Props> = ({
       {isProductsLoading && <Spinner /> }
 
       <div className="CandyGrid">
-        {!isProductsLoading && user?.role !== 'producer' && allProducts.length > 0 && allProducts.map((prod) => (
+        {/* {!isProductsLoading && user?.role !== 'producer' && allProducts.length > 0 && allProducts.map((prod) => (
           <CandyItem key={prod.id} product={prod} />
-        )) }
+        )) } */}
+
+        {/* TODO: HERE GOES A SELECT OPTION TO CHOOSE WHAt PRODUCER, this is a async call to the GODIS DB!!!! */}
+
+        {!isProductsLoading && user?.role !== 'producer' && filteredProducts !== null ? filteredProducts.map(
+          (prod) => <CandyItem key={prod.id} product={prod} />,
+        ) : allProducts.map(
+          (prod) => <CandyItem key={prod.id} product={prod} />,
+        ) }
       </div>
     </>
   );
@@ -67,9 +75,9 @@ const Home: React.FC<Props> = ({
 
 const mapStateToProps = (state: AppState) => ({
   user: selectUser(state),
-  isThereAToken: selectUserToken(state),
   allProducts: selectProducts(state),
   isProductsLoading: selectProductsIsLoading(state),
+  filteredProducts: selectFilteredProducts(state),
 });
 
 export default connect(mapStateToProps, { getAllProducts })(Home);

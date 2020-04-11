@@ -5,6 +5,7 @@ import {
   IGetProductsAction, ActionTypesShop,
   IGetErrorAction, ISearchAction,
   IClearSearchAction,
+  ISearchProductAction,
 } from './shop.types';
 
 
@@ -49,3 +50,8 @@ export const searchByProducer = (
 export const clearSearch = (): IClearSearchAction => ({
   type: ActionTypesShop.CLEAR_SEARCH,
 });
+
+
+export const searchByProduct = (
+  text: string,
+): ISearchProductAction => ({ type: ActionTypesShop.FILTER_PRODUCTS, payload: text });

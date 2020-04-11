@@ -19,6 +19,17 @@ export default (state: IShopState = initialState, action: ShopActionTypes) => {
     case ActionTypesShop.SEARCH_BY_PRODUCER:
       return {
         ...state,
+        filteredProducts: action.payload,
+        loading: false,
+      };
+    case ActionTypesShop.FILTER_PRODUCTS:
+      return {
+        ...state,
+        filteredProducts: state.products.filter((product) => {
+          const reg = new RegExp(`${action.payload}`, 'gi');
+          return product.name.match(reg) || product.producer.name.match(reg);
+        }),
+        loading: false,
       };
     case ActionTypesShop.CLEAR_SEARCH:
       return {

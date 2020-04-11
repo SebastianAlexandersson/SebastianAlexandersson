@@ -17,3 +17,9 @@ export const selectProductsIsLoading = createSelector(
   [selectShop],
   (shop: IShopState) => shop.isLoading,
 );
+
+
+export const selectFilteredProducts = createSelector(
+  [selectShop],
+  (shop: IShopState) => shop.filteredProducts,
+);

@@ -32,16 +32,32 @@
   padding: 2rem 0;
   display: flex;
   justify-content: center;
-
   width: 70vw;
+
 }
 
 #search-Icon {
   color: black;
-  font-size: 3rem;
+  font-size: 5rem;
   display: inline-block;
   margin-right: auto;
-  width: 20%;
+  width: 7rem;
+  height: 7rem;
+  transform: rotate(-45deg);
+  border-radius: 50%;
+  border: 2px solid black;
+  padding: 1rem;
+  box-shadow: 2px 3px 1px 3px #ccc;
+  transition: 300ms ease-in-out;
+}
+
+#search-Icon:hover {
+  box-shadow: 4px 4px 3px 3px #ccc;
+}
+
+#search-Icon:active {
+  top: 6px;
+  position: relative;
 }
 
 @-webkit-keyframes fadeInRight {

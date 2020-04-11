@@ -1,3 +1,4 @@
+/* eslint-disable import/no-cycle */
 /* eslint-disable import/extensions */
 /* eslint-disable @typescript-eslint/interface-name-prefix */
 import { IProducer } from '../producer/producer.types';
@@ -24,6 +25,8 @@ export enum ActionTypesShop{
   GET_PRODUCTS_ERROR = 'GET_PRODUCTS_ERROR',
   SEARCH_BY_PRODUCER='SEARCH_BY_PRODUCER',
   CLEAR_SEARCH='CLEAR_SEARCH',
+  FILTER_PRODUCTS = 'FILTER_PRODUCTS',
+  CLEAR_FILTER_PRODUCTS='CLEAR_FILTER_PRODUCTS'
 }
 
 
@@ -44,8 +47,12 @@ export interface ISearchAction {
 export interface IClearSearchAction {
   type: ActionTypesShop.CLEAR_SEARCH;
 }
+export interface ISearchProductAction {
+  type: ActionTypesShop.FILTER_PRODUCTS;
+  payload: string;
+}
 
 
 export type ShopActionTypes =
   IGetProductsAction |
-  IGetErrorAction | ISearchAction| IClearSearchAction
+  IGetErrorAction | ISearchAction| IClearSearchAction | ISearchProductAction
