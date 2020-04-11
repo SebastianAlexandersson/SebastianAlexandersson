@@ -7,7 +7,7 @@ exports.notFoundError = () => {
 exports.clientError = (err, res, next) => {
     if (err instanceof httpErrors_1.HTTPClientError) {
         console.warn(err);
-        res.status(err.statusCode).send(err.message);
+        res.status(err.statusCode).send({ message: err.message });
     }
     else {
         next(err);
@@ -15,11 +15,6 @@ exports.clientError = (err, res, next) => {
 };
 exports.serverError = (err, res, next) => {
     console.error(err);
-    if (process.env.NODE_END === 'production') {
-        res.status(500).send('Internal Server Error');
-    }
-    else {
-        res.status(500).send(err.stack);
-    }
+    res.status(500).send({ message: err.stack });
 };
 //# sourceMappingURL=ErrorHandler.js.map

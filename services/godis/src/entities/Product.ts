@@ -8,13 +8,27 @@ export class Product {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({
+    type: 'datetime',
+    default: () => 'NOW()'
+  })
+  created_at: string;
+
+  @Column({
+    default: 'No name'
+  })
   name: string;
 
-  @Column('double')
+  @Column({
+    type: 'double',
+    default: 0
+  })
   qty: number;
 
-  @Column('double')
+  @Column({
+    type: 'double',
+    default: 0
+  })
   price: number;
 
   @ManyToOne(type => Producer, producer => producer.id)

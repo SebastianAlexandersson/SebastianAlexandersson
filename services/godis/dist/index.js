@@ -19,23 +19,30 @@ const utils_1 = require("./utils");
 const middleware_1 = __importDefault(require("./middleware"));
 const routes_1 = __importDefault(require("./routes"));
 const errorHandlers_1 = __importDefault(require("./middleware/errorHandlers"));
-typeorm_1.createConnection()
-    .then((connection) => __awaiter(void 0, void 0, void 0, function* () {
-    process.on('uncaughtException', error => {
-        console.log(error);
-        process.exit(1);
+function startServer() {
+    return __awaiter(this, void 0, void 0, function* () {
+        typeorm_1.createConnection()
+            .then((connection) => __awaiter(this, void 0, void 0, function* () {
+            process.on('uncaughtException', error => {
+                console.log(error);
+                process.exit(1);
+            });
+            process.on('unhandledRejection', error => {
+                console.log(error);
+                process.exit(1);
+            });
+            const app = express_1.default();
+            utils_1.applyMiddleware(middleware_1.default, app);
+            utils_1.applyRoutes(routes_1.default, app);
+            utils_1.applyMiddleware(errorHandlers_1.default, app);
+            app.listen(5000, () => console.log('Godisapi listening on port 5000'));
+        }))
+            .catch(error => {
+            console.log('TypeORM connection error: ', error, 'Reconnecting in 30s...');
+            setTimeout(() => startServer(), 30000);
+        });
     });
-    process.on('unhandledRejection', error => {
-        console.log(error);
-        process.exit(1);
-    });
-    const app = express_1.default();
-    utils_1.applyMiddleware(middleware_1.default, app);
-    utils_1.applyRoutes(routes_1.default, app);
-    utils_1.applyMiddleware(errorHandlers_1.default, app);
-    app.listen(5000, () => console.log('Godisapi listening on port 5000'));
-}))
-    .catch(error => {
-    console.log('TypeORM connection error: ', error);
-});
+}
+;
+startServer();
 //# sourceMappingURL=index.js.map

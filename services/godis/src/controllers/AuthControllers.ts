@@ -1,7 +1,7 @@
 import { Response, NextFunction } from 'express';
 import { MyRequest } from '../types';
 import fetch from 'node-fetch';
-import { HTTP400Error } from '../utils/httpErrors';
+import { HTTP401Error } from '../utils/httpErrors';
 
 export async function validateConsumer(
   req: MyRequest,
@@ -22,10 +22,8 @@ export async function validateConsumer(
 
   const response = await request.json();
 
-  console.log('Response!!!!!!', response)
-
   if (!response.isValid || response.role !== 'user') {
-    throw new HTTP400Error('Unauthorized.');
+    throw new HTTP401Error('Unauthorized.');
   }
   req.user = response;
 
@@ -54,7 +52,7 @@ export async function validateProducer(
   console.log('Response!!!', response)
 
   if (!response.isValid || response.role !== 'producer') {
-    throw new HTTP400Error('Unauthorized.');
+    throw new HTTP401Error('Unauthorized.');
   }
   req.user = response;
 
@@ -81,7 +79,7 @@ export async function validateAdmin(
   const response = await request.json();
 
   if (!response.isValid || response.role !== 'admin') {
-    throw new HTTP400Error('Unauthorized.');
+    throw new HTTP401Error('Unauthorized.');
   }
   req.user = response;
 

@@ -48,8 +48,6 @@ export async function createOrder(req: MyRequest, res: Response) {
     }));
     await manager.save(orderProduct);
 
-    console.log('ORDER PRODUCT!!!!', orderProduct)
-
     const order = manager.create(Order, {
       consumer,
       orderProduct,

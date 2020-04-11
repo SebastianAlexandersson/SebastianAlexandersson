@@ -6,13 +6,25 @@ export class Consumer {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({
+    type: 'datetime',
+    default: () => 'NOW()'
+  })
+  created_at: string;
+
+  @Column({
+    default: 'No first name'
+  })
   firstName: string;
 
-  @Column()
+  @Column({
+    default: 'No last name'
+  })
   lastName: string;
 
-  @Column()
+  @Column({
+    default: 'No address'
+  })
   adress: string;
 
   @OneToMany(type => Order, order => order.id)

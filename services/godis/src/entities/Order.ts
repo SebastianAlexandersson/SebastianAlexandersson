@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, OneToMany, ManyToOne } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, OneToMany, ManyToOne, Column } from 'typeorm';
 import { Consumer } from './Consumer';
 import { OrderProduct } from './OrderProduct';
 
@@ -6,6 +6,11 @@ import { OrderProduct } from './OrderProduct';
 export class Order {
   @PrimaryGeneratedColumn()
   id: number;
+
+  @Column({
+    type: 'datetime',
+    default: () => 'NOW()'
+  })
 
   @ManyToOne(type => Consumer, consumer => consumer.id)
   consumer: Consumer;
