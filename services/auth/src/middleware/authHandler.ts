@@ -36,6 +36,7 @@ export const authHandler = asyncHandler(
         new ErrorResponse('Not authorized to access this route', 401)
       );
     }
+    
     const decoded: any = jwt.verify(token, 'secret');
 
     try {

@@ -8,13 +8,13 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const controllers = __importStar(require("../../controllers/ProducerControllers"));
-const auth_1 = require("../../middleware/auth");
+const AuthControllers_1 = require("../../controllers/AuthControllers");
 exports.default = [
     {
         path: '/godisapi/producer',
         method: 'get',
         handler: [
-            auth_1.validateProducer,
+            AuthControllers_1.validateProducer,
             controllers.getProducts,
         ],
     },
@@ -22,7 +22,7 @@ exports.default = [
         path: '/godisapi/producer',
         method: 'post',
         handler: [
-            auth_1.validateProducer,
+            AuthControllers_1.validateProducer,
             controllers.createProduct,
         ],
     },
@@ -30,7 +30,7 @@ exports.default = [
         path: '/godisapi/producer/:id',
         method: 'put',
         handler: [
-            auth_1.validateProducer,
+            AuthControllers_1.validateProducer,
             controllers.updateProduct,
         ],
     },
@@ -38,7 +38,7 @@ exports.default = [
         path: '/godisapi/producer/:id',
         method: 'delete',
         handler: [
-            auth_1.validateProducer,
+            AuthControllers_1.validateProducer,
             controllers.deleteProduct,
         ],
     },

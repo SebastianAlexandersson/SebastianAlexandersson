@@ -7,10 +7,22 @@ export class OrderProduct {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column('double')
+  @Column({
+    type: 'datetime',
+    default: () => 'NOW()'
+  })
+  created_at: string;
+
+  @Column({
+    type: 'double',
+    default: 0,
+  })
   qty: number;
 
-  @Column('double')
+  @Column({
+    type: 'double',
+    default: 0,
+  })
   price: number;
 
   @ManyToOne(type => Order, order => order.id)

@@ -1,5 +1,5 @@
 import * as controllers from '../../controllers/ProducerControllers';
-import { validateProducer } from '../../middleware/auth';
+import { validateProducer } from '../../controllers/AuthControllers';
 
 export default [
   {

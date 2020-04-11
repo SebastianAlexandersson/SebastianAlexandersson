@@ -1,5 +1,5 @@
 import * as controllers from '../../controllers/AdminControllers';
-import { validateAdmin } from '../../middleware/auth';
+import { validateAdmin } from '../../controllers/AuthControllers';
 
 export default [
   {

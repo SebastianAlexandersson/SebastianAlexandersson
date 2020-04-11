@@ -9,29 +9,14 @@ import User from '../models/User';
 import jsonResponse from '../utils/jsonResponse';
 import { IAuthRequest } from '../middleware/authHandler';
 import ErrorResponse from '../utils/ErroroResponse';
-
-async function login() {
-  return await fetch('http://authapi:4000/authapi/auth/login', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      username: process.env.DB_USER,
-      password: process.env.DB_PASSWORD,
-    }),
-  });
-}
+import getToken from '../config/token';
 
 async function sendData(url: string, data: any) {
-  const response = await login();
-  const responseData = await response.json();
-
   return await fetch(url, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${responseData.token}`,
+      Authorization: `Bearer ${await getToken}`,
     },
     body: JSON.stringify(data),
   });
@@ -53,7 +38,7 @@ export const register = asyncHandler(
           user.godisDbId = response.consumer.id;
           await user.save();
           console.log(response);
-        });
+        })
     }
 
     if (user.role === 'producer') {
@@ -64,7 +49,7 @@ export const register = asyncHandler(
           user.godisDbId = response.producer.id;
           await user.save();
           console.log(response);
-        });
+        })
     }
 
     // await user.save();

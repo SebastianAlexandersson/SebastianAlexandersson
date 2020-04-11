@@ -157,6 +157,7 @@ export async function createOrder(req: Request, res: Response) {
         qty: obj.qty,
       });
     }));
+    await manager.save(orderProducts);
 
     const order = manager.create(Order, {
       consumer,
@@ -182,7 +183,13 @@ export async function deleteOrder(req: Request, res: Response) {
       throw new HTTP400Error('No such order.');
     };
 
-    await manager.remove(order.orderProduct);
+    const orderProducts = await manager.find(OrderProduct, {
+      where: {
+        order,
+      },
+    });
+
+    const deletedOrderProducts = await manager.remove(orderProducts);
 
     const deletedOrder = await manager.remove(order);
 
@@ -190,6 +197,7 @@ export async function deleteOrder(req: Request, res: Response) {
     .send({
       message: '200 OK',
       order: deletedOrder,
+      orderProducts: deletedOrderProducts,
     });
   });
 };
@@ -235,7 +243,7 @@ export async function updateProduct(req: Request, res: Response) {
       throw new HTTP400Error('No such product.');
     };
 
-    const updatedProduct = manager.save(manager.create(Product, {
+    const updatedProduct = await manager.save(manager.create(Product, {
       id,
       price,
       qty,

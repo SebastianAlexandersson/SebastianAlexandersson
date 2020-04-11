@@ -3,7 +3,6 @@ import { getRepository } from 'typeorm';
 import { Product } from '../entities/Product';
 import { Producer } from '../entities/Producer';
 import { HTTP400Error } from '../utils/httpErrors';
-import { validateProducer } from '../middleware/auth';
 
 export async function getAllProducts(req: Request, res: Response) {
   const productRepository = getRepository(Product);

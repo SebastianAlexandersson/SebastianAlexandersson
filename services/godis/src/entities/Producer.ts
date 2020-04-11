@@ -6,7 +6,15 @@ export class Producer {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({
+    type: 'datetime',
+    default: () => 'NOW()'
+  })
+  created_at: string;
+
+  @Column({
+    default: 'No name'
+  })
   name: string;
 
   @OneToMany(type => Product, product => product.producer)
