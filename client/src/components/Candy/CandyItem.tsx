@@ -5,7 +5,7 @@
 import * as React from 'react';
 import './Candy.css';
 import { connect } from 'react-redux';
-import { IProduct } from '../../redux/producer/producer.types';
+import { IProduct } from '../../redux/shop/shop.types';
 import { addToCart } from '../../redux/concumer/consumer.actions';
 import { AppState } from '../../redux';
 

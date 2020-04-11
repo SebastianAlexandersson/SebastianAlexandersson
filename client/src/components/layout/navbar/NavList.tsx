@@ -12,10 +12,10 @@ import { AppState } from '../../../redux';
 import { logoutUser } from '../../../redux/auth/auth.actions';
 import { IUserData } from '../../../redux/auth/auth.types';
 import { ReactComponent as CartLogo } from '../../../img/cart.svg';
-import { IProduct } from '../../../redux/producer/producer.types';
+import { IProduct } from '../../../redux/shop/shop.types';
 import useToggle from '../../../hooks/useToggle';
 import DropDown from './DropDown';
-import{selectCartCount} from '../../../redux/concumer/consumer.selector'
+import { selectCartCount } from '../../../redux/concumer/consumer.selector';
 
 
 interface Props {
@@ -34,7 +34,7 @@ interface INavLink {
 }
 
 const NavList: React.FC<Props> = ({
-  isAuth, isLoading, logoutUser, user, userCart,cartCount
+  isAuth, isLoading, logoutUser, user, userCart, cartCount,
 }) => {
   const navLinks: INavLink[] = [
 

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/interface-name-prefix */
-
+import { IProduct } from '../shop/shop.types';
 
 export interface IProductUpdateFormData {
   id: number | undefined;
@@ -12,14 +12,14 @@ export interface IProducer{
   name: string;
 }
 
-export interface IProduct{
-  id: number;
-  name: string;
-  qty: number;
-  price: number;
-  producer: IProducer;
-  // producer: IProducer['id'];
-}
+// export interface IProduct{
+//   id: number;
+//   name: string;
+//   qty: number;
+//   price: number;
+//   producer: IProducer;
+//   // producer: IProducer['id'];
+// }
 
 
 export interface IProducerState{

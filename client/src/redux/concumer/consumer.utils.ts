@@ -1,4 +1,5 @@
-import { IProduct } from '../producer/producer.types';
+/* eslint-disable import/extensions */
+import { IProduct } from '../shop/shop.types';
 
 export const adDItemToCart = (cartItems: IProduct[], cartItemToAdd: IProduct) => {
   const isThereACartItemAlreadyInBasket = cartItems.find((item) => item.id === cartItemToAdd.id);

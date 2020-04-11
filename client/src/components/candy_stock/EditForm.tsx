@@ -3,21 +3,20 @@
 /* eslint-disable react/prop-types */
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { IProduct, IProductUpdateFormData } from '../../redux/producer/producer.types';
-import { updateProduct, clearCurrent } from '../../redux/producer/producer.actions';
-import { getAllProducts } from '../../redux/shop/shop.actions';
-
+import { IProductUpdateFormData } from '../../redux/producer/producer.types';
+import { updateProduct, clearCurrent, getProductsByProducer } from '../../redux/producer/producer.actions';
+import { IProduct } from '../../redux/shop/shop.types';
 
 interface Props {
   current: null | IProduct;
   updateProduct: (formData: IProductUpdateFormData) => Promise<void>;
   toggle: () => void;
   clearCurrent: () => void;
-  getAllProducts: () => Promise<void>;
+  getProductsByProducer: () => Promise<void>;
 }
 
 const EditForm: React.FC<Props> = ({
-  current, updateProduct, toggle, clearCurrent, getAllProducts,
+  current, updateProduct, toggle, clearCurrent, getProductsByProducer,
 }) => {
   const [formData, setFormData] = React.useState({
     name: '',
@@ -50,7 +49,7 @@ const EditForm: React.FC<Props> = ({
       qty: '',
       price: '',
     });
-    getAllProducts();
+    getProductsByProducer();
     clearCurrent();
     toggle();
   };
@@ -117,4 +116,4 @@ const EditForm: React.FC<Props> = ({
 };
 
 
-export default connect(null, { updateProduct, clearCurrent, getAllProducts })(EditForm);
+export default connect(null, { updateProduct, clearCurrent, getProductsByProducer })(EditForm);
