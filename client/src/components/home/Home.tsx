@@ -11,12 +11,13 @@ import { getAllProducts } from '../../redux/shop/shop.actions';
 import Spinner from '../layout/Spinner';
 import './home.css';
 import CandyItem from '../candy/CandyItem';
-import { selectUser, selectUserToken } from '../../redux/auth/aut.selector';
+import { selectUser } from '../../redux/auth/aut.selector';
 import { IUserData } from '../../redux/auth/auth.types';
 import { selectProducts, selectProductsIsLoading, selectFilteredProducts } from '../../redux/shop/shop.selector';
 import SearchBar from './SearchBar';
 import useToggle from '../../hooks/useToggle';
 import Title from '../title/Title';
+import Label from './Label';
 
 interface Props{
   allProducts: IProduct[];
@@ -54,16 +55,14 @@ const Home: React.FC<Props> = ({
           </div>
         )}
 
+        <div className="LabelWrapper">
+          <Label allProducts={allProducts} isLoading={isProductsLoading} />
+        </div>
+
       </div>
       {isProductsLoading && <Spinner /> }
 
       <div className="CandyGrid">
-        {/* {!isProductsLoading && user?.role !== 'producer' && allProducts.length > 0 && allProducts.map((prod) => (
-          <CandyItem key={prod.id} product={prod} />
-        )) } */}
-
-        {/* TODO: HERE GOES A SELECT OPTION TO CHOOSE WHAt PRODUCER, this is a async call to the GODIS DB!!!! */}
-
         {!isProductsLoading && user?.role !== 'producer' && filteredProducts !== null ? filteredProducts.map(
           (prod) => <CandyItem key={prod.id} product={prod} />,
         ) : allProducts.map(
