@@ -104,3 +104,29 @@
   width: 57vw;
   box-shadow: 4px 4px 4px 4px #ccc;
 }
+
+.Label-producers {
+  display: flex;
+  max-width: 40vw;
+  margin: 1rem auto;
+  justify-content: center;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  padding: 1rem;
+}
+
+.LabelItem {
+  padding: 1rem .5rem;
+  background: #333;
+  color: #fff;
+  font-size: 1.7rem;
+  letter-spacing: .3rem;
+  cursor: pointer;
+  transition: 300ms ease-in-out;
+  box-shadow: 0 8px 6px -6px #333;
+  margin: .6rem 0;
+}
+
+.LabelItem:hover {
+  box-shadow: 3px 8px 16px -4px #333;
+}

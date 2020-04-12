@@ -11,7 +11,7 @@ export interface ICartState {
   hidden: boolean;
   productsCart: IProduct[];
   loading: boolean;
-  products: null | IOrderProduct[];// final order
+  products: IOrderProduct[];// final order
 }
 
 export enum ActionTypesCart {
