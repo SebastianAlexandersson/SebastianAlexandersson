@@ -24,7 +24,7 @@ export const removeProduct = (product: IProduct): IRemoveProductAction => ({
 });
 
 
-export const makeOrder = (products: any) => async (dispatch: Dispatch<IMakeOrderAction>) => {
+export const makeOrder = (products: IOrderProduct[]) => async (dispatch: Dispatch<IMakeOrderAction>) => {
   try {
     let token: any;
     if (Cookies.get('token')) {
@@ -32,7 +32,9 @@ export const makeOrder = (products: any) => async (dispatch: Dispatch<IMakeOrder
     }
 
 
-    console.log('form redux ', products);
+    // console.log('form redux ', products);
+    console.log('form redux2 ', JSON.stringify({ products }, null, 2));
+
 
     const response = await axios({
       method: 'POST',
@@ -41,7 +43,7 @@ export const makeOrder = (products: any) => async (dispatch: Dispatch<IMakeOrder
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
       },
-      data: products,
+      data: { products },
     });
 
     // const response = await fetch('/godisapi/consumer', {
