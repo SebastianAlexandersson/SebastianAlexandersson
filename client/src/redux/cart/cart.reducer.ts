@@ -7,7 +7,7 @@ const initialState: ICartState = {
   hidden: false,
   loading: true,
   productsCart: [],
-  products: null, // finalorder
+  products: [], // finalorder
 };
 
 export default (state: ICartState = initialState, action: CartActionTypes) => {

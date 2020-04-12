@@ -16,8 +16,7 @@ interface Props {
   userCart: IProduct[];
   total: number;
   isLoading: boolean;
-  makeOrder: (products: any) => Promise<void>;
-  // makeOrder: (products: IOrderProduct[]) => Promise<void>;
+  makeOrder: (products: IOrderProduct[]) => Promise<void>;
 }
 
 
@@ -26,7 +25,7 @@ const Checkout: React.FC<Props> = ({
 }) => {
   const handleMakeOrder = () => {
     const products = userCart.map((x) => {
-      const order = { id: x.id, qty: x.qty };
+      const order: IOrderProduct = { id: x.id, qty: x.qty };
       return order;
     });
 
