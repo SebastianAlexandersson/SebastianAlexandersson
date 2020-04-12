@@ -49,6 +49,7 @@ const Home: React.FC<Props> = ({
         {!isProductsLoading && user?.role !== 'producer' && (
           <div className="Search">
             <span id="search-Icon" onClick={toggleSearch}>&#x26B2;</span>
+
             {showSearch && <SearchBar />}
           </div>
         )}
