@@ -11,6 +11,7 @@ export class Order {
     type: 'datetime',
     default: () => 'NOW()'
   })
+  created_at: string;
 
   @ManyToOne(type => Consumer, consumer => consumer.id)
   consumer: Consumer;

@@ -42,5 +42,21 @@ exports.default = [
             controllers.deleteProduct,
         ],
     },
+    {
+        path: '/godisapi/producer/deal',
+        method: 'post',
+        handler: [
+            AuthControllers_1.validateProducer,
+            controllers.createDeal,
+        ],
+    },
+    {
+        path: '/godisapi/producer/deal/:id',
+        method: 'delete',
+        handler: [
+            AuthControllers_1.validateProducer,
+            controllers.deleteDeal,
+        ],
+    },
 ];
 //# sourceMappingURL=index.js.map

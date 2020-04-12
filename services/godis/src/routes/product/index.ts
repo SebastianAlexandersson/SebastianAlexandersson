@@ -9,6 +9,13 @@ export default [
     ],
   },
   {
+    path: '/godisapi/product/deals',
+    method: 'get',
+    handler: [
+      controllers.getAllDeal,
+    ],
+  },
+  {
     path: '/godisapi/product/:id',
     method: 'get',
     handler: [

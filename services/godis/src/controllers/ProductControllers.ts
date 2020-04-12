@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import { getRepository } from 'typeorm';
 import { Product } from '../entities/Product';
 import { Producer } from '../entities/Producer';
+import { Deal } from '../entities/Deals';
 import { HTTP400Error } from '../utils/httpErrors';
 
 export async function getAllProducts(req: Request, res: Response) {
@@ -54,4 +55,13 @@ export async function getProductByProducer(req: Request, res: Response) {
   });
 
   res.status(200).json(products);
+};
+
+export async function getAllDeal(req: Request, res: Response) {
+  const dealRepository = getRepository(Deal)
+
+  const deals = await dealRepository.find();
+
+  res.status(200)
+  .json(deals);
 };
