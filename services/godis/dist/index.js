@@ -13,13 +13,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
+const socket_io_1 = __importDefault(require("socket.io"));
+const http_1 = __importDefault(require("http"));
 require("reflect-metadata");
 const typeorm_1 = require("typeorm");
 const utils_1 = require("./utils");
 const middleware_1 = __importDefault(require("./middleware"));
 const routes_1 = __importDefault(require("./routes"));
 const errorHandlers_1 = __importDefault(require("./middleware/errorHandlers"));
-function startServer() {
+(function startServer() {
     return __awaiter(this, void 0, void 0, function* () {
         typeorm_1.createConnection()
             .then((connection) => __awaiter(this, void 0, void 0, function* () {
@@ -35,14 +37,14 @@ function startServer() {
             utils_1.applyMiddleware(middleware_1.default, app);
             utils_1.applyRoutes(routes_1.default, app);
             utils_1.applyMiddleware(errorHandlers_1.default, app);
-            app.listen(5000, () => console.log('Godisapi listening on port 5000'));
+            const server = http_1.default.createServer(app);
+            const socket = socket_io_1.default(server);
+            server.listen(5000, () => console.log('Godisapi listening on port 5000'));
         }))
             .catch(error => {
             console.log('TypeORM connection error: ', error, 'Reconnecting in 30s...');
             setTimeout(() => startServer(), 30000);
         });
     });
-}
-;
-startServer();
+})();
 //# sourceMappingURL=index.js.map

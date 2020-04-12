@@ -1,4 +1,6 @@
 import express from 'express';
+import io from 'socket.io';
+import http from 'http';
 import 'reflect-metadata';
 import { createConnection } from 'typeorm';
 import { applyMiddleware, applyRoutes } from './utils';
@@ -6,7 +8,7 @@ import middleware from './middleware';
 import routes from './routes';
 import errorHandlers from './middleware/errorHandlers';
 
-async function startServer() {
+(async function startServer() {
   createConnection()
     .then(async connection => {
       process.on('uncaughtException', error => {
@@ -25,12 +27,14 @@ async function startServer() {
       applyRoutes(routes, app);
       applyMiddleware(errorHandlers, app);
 
-      app.listen(5000, () => console.log('Godisapi listening on port 5000'));
+      const server = http.createServer(app);
+      const socket = io(server);
+
+      server.listen(5000, () => console.log('Godisapi listening on port 5000'));
     })
     .catch(error => {
       console.log('TypeORM connection error: ', error, 'Reconnecting in 30s...');
       setTimeout(() => startServer(), 30000);
     });
-};
+})();
 
-startServer();
