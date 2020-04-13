@@ -11,6 +11,15 @@ import { configureStore } from './redux';
 const store = configureStore();
 const socket = io('http://localhost/socket');
 
+socket.on('connect', (message: any) => {
+  console.log(message);
+});
+
+socket.on('newDeal', (data: any) => {
+  console.log('NEW DEAL!!!');
+  console.log(data);
+});
+
 ReactDOM.render(
   <Router>
     <Provider store={store}>

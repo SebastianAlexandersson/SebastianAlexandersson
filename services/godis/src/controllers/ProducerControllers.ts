@@ -5,7 +5,7 @@ import { Producer } from '../entities/Producer';
 import { Product } from '../entities/Product';
 import { Deal } from '../entities/Deals';
 import { HTTP400Error, HTTP401Error } from '../utils/httpErrors';
-import { sockets } from '../index';
+import { io } from '../index';
 
 export async function getProducts(req: MyRequest, res: Response) {
   const entityManager = await getManager().transaction(async manager => {
@@ -152,6 +152,8 @@ export async function createDeal(req: MyRequest, res: Response) {
       producer,
     });
     const savedDeal = await manager.save(deal);
+
+    io.of('/socket').emit('newDeal', { message: 'NEW DEAL'});
 
     res.status(200)
     .send({
