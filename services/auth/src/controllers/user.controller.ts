@@ -34,6 +34,7 @@ export const register = asyncHandler(
         lastName: req.body.lastName,
         adress: req.body.adress,
       };
+
       sendData('http://godisapi:5000/godisapi/admin/consumer', resData)
         .then(response => {
           if (response.status !== 200) {
@@ -44,13 +45,21 @@ export const register = asyncHandler(
         })
         .then(async response => {
           user.godisDbId = response.consumer.id;
+          console.log('RES.STATUS IS ', res.status);
+          if (Number(res.status) !== 200) {
+            throw new Error(`ooops something went wrong`);
+          }
           await user.save();
           console.log(response);
         })
+<<<<<<< HEAD
         .catch(err => {
           console.log(err)
           throw Error(err)
         })
+=======
+        .catch(err => console.log(err));
+>>>>>>> 26c2907a5ecc886f6ad4de73c2185c74c66221ba
     }
 
     if (user.role === 'producer') {
@@ -64,14 +73,15 @@ export const register = asyncHandler(
           }
         })
         .then(async response => {
+          console.log('RES.STATUS IS ', res.status);
+          if (Number(res.status) !== 200) {
+            throw new Error(`ooops something went wrong`);
+          }
           user.godisDbId = response.producer.id;
           await user.save();
           console.log(response);
         })
-        .catch(err => {
-          console.log(err)
-          throw Error(err)
-        })
+        .catch(err => console.log(err));
     }
 
     // await user.save();
@@ -82,7 +92,6 @@ export const register = asyncHandler(
 
 export const getMe = asyncHandler(
   async (req: IAuthRequest, res: Response, next: NextFunction) => {
-    // console.log(req);
     if (!req.user) {
       return next(new ErrorResponse('Not authorized', 404));
     }
