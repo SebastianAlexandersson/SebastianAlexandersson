@@ -11,7 +11,7 @@ export interface ICartState {
   hidden: boolean;
   productsCart: IProduct[];
   loading: boolean;
-  products: IOrderProduct[];// final order
+  products: IOrderProduct[] | null;// final order
 }
 
 export enum ActionTypesCart {
@@ -19,7 +19,8 @@ export enum ActionTypesCart {
   ADD_ITEM = 'ADD_ITEM',
   DELETE_ITEM_FROM_CART = 'DELETE_ITEM_FROM_CART',
   REMOVE_ITEM = 'REMOVE_ITEM',
-  MAKE_ORDER = 'MAKE_ORDER'
+  MAKE_ORDER = 'MAKE_ORDER',
+  CLEAR_ORDER = 'CLEAR_ORDER',
 }
 
 export interface IToggleCartAction {
@@ -41,14 +42,18 @@ export interface IRemoveProductAction {
 }
 export interface IMakeOrderAction {
   type: ActionTypesCart.MAKE_ORDER;
-  // payload: IOrderProduct[];
-  payload: any;
+  payload: IOrderProduct[];
 }
 
+
+export interface IClearOrderAction {
+  type: ActionTypesCart.CLEAR_ORDER;
+}
 
 export type CartActionTypes =
  IToggleCartAction |
  IAddProductAction |
  IDeleteItemFromCartAction |
  IRemoveProductAction |
- IMakeOrderAction
+ IMakeOrderAction |
+ IClearOrderAction

@@ -14,12 +14,20 @@ export interface IProducer{
   name: string;
 }
 
+export interface IDeal { // interface for det producers deal
+  productId: number;
+  price: number;
+}
+
 
 export interface IProducerState{
   loading: boolean;
   error: null | Record<string, any>;
-  products: [] | any; // this type need to be fixed //TODO:
+  products: [] | IProduct[];
   current: null | IProduct;
+  currentDeal: null | IDeal;
+  deals: []| Record<string, any>[];
+
 }
 
 
@@ -30,6 +38,11 @@ export enum ProducerActionTypes {
   UPDATE_PRODUCT = 'UPDATE_PRODUCT',
   SET_CURRENT = 'SET_CURRENT',
   CLEAR_CURRENT = 'CLEAR_CURRENT',
+  CREATE_DEAL = 'CREATE_DEAL',
+  DELETE_DEAL = 'DELETE_DEAL',
+  HANDLE_ERROR='HANDLE_ERROR',
+  SET_DEAL = 'SET_DEAL',
+  CLEAR_DEAL = 'CLEAR_DEAL',
 }
 
 
@@ -43,11 +56,21 @@ export interface IGetProductsByProducer {
   type: ProducerActionTypes.GET_PRODUCTS_BY_PRODUCER;
   payload: IProduct[];
 }
+export interface ICreateDealAction {
+  type: ProducerActionTypes.CREATE_DEAL;
+  payload: IDeal;
+}
+
+
+export interface IDeleteDealAction {
+  type: ProducerActionTypes.DELETE_DEAL;
+  payload: number ; // sending id
+}
 
 
 export interface IDeleteProductAction {
   type: ProducerActionTypes.DELETE_PRODUCT;
-  payload: number; // sending id to the reducer
+  payload: number;
 }
 
 export interface IUpdateProductAction {
@@ -63,6 +86,20 @@ export interface ISetCurrent {
 export interface IClearCurrent {
   type: ProducerActionTypes.CLEAR_CURRENT;
 }
+export interface ISetDeal {
+  type: ProducerActionTypes.SET_DEAL;
+  payload: IDeal;
+}
+
+export interface IClearDeal {
+  type: ProducerActionTypes.CLEAR_DEAL;
+}
+
+
+export interface IHandleErrorAction {
+  type: ProducerActionTypes.HANDLE_ERROR;
+  payload: Record<string, any>;
+}
 
 
 export type ProducerTypesReducer =
@@ -71,4 +108,9 @@ export type ProducerTypesReducer =
    IGetProductsByProducer |
    ISetCurrent |
    IClearCurrent|
-   IUpdateProductAction
+   IUpdateProductAction|
+   ICreateDealAction|
+   IDeleteDealAction|
+   ISetDeal|
+   IClearDeal|
+   IHandleErrorAction;

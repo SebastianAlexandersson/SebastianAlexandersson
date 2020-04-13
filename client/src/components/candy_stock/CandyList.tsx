@@ -7,7 +7,9 @@
 /* eslint-disable import/extensions */
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { setCurrent, deleteProduct, getProductsByProducer } from '../../redux/producer/producer.actions';
+import {
+  setCurrent, deleteProduct, getProductsByProducer, setDeal, clearDeal,
+} from '../../redux/producer/producer.actions';
 import { AppState } from '../../redux';
 import { IProduct } from '../../redux/shop/shop.types';
 import Spinner from '../layout/Spinner';
@@ -15,7 +17,11 @@ import './Candy.css';
 import EditForm from './EditForm';
 import useToggle from '../../hooks/useToggle';
 import CandyItem from './CandyItem';
-import { selectProducerProducts, selectProducerIsLoading } from '../../redux/producer/producer.select';
+import {
+  selectProducerProducts, selectProducerIsLoading, selectCurrent, selectDealCurrent,
+} from '../../redux/producer/producer.select';
+import { IDeal } from '../../redux/producer/producer.types';
+import DealForm from './DealForm';
 
 
 interface Props {
@@ -25,27 +31,33 @@ interface Props {
   myProducts: IProduct[];
   isLoading: boolean;
   current: null | IProduct;
+  setDeal: (deal: IDeal) => void;
+  clearDeal: () => void;
+  dealCurrent: IDeal | null;
 }
 
 const CandyList: React.FC<Props> = ({
-  getProductsByProducer, myProducts, isLoading, setCurrent, current, deleteProduct,
+  getProductsByProducer, myProducts, isLoading,
+  setCurrent, current, deleteProduct, setDeal, clearDeal, dealCurrent,
 }) => {
-  const fetchProducts = React.useCallback(() => {
-    getProductsByProducer();
-  }, [myProducts, setCurrent, current]);
-
-
   React.useEffect(() => {
     getProductsByProducer();
   }, []);
 
   const [showForm, toggleForm] = useToggle(false);
+  const [showDealForm, toggleDealForm] = useToggle(false);
 
 
   const handleCurrent = (val: IProduct): void => {
     setCurrent(val);
     toggleForm();
   };
+
+  const handleSetDeal = (deal: IDeal): void => {
+    setDeal(deal);
+    toggleDealForm();
+  };
+
 
   return isLoading ? <Spinner /> : (
     <>
@@ -59,12 +71,15 @@ const CandyList: React.FC<Props> = ({
             candy={candy}
             handleCurrent={handleCurrent}
             deleteProduct={deleteProduct}
+            handleSetDeal={handleSetDeal}
           />
         ))}
 
         {showForm && current !== null && (
           <EditForm current={current} toggle={toggleForm} />
         ) }
+
+        {showDealForm && dealCurrent !== null && <DealForm toggle={toggleDealForm} dealCurrent={dealCurrent} clearDeal={clearDeal} /> }
 
       </ul>
     </>
@@ -74,11 +89,17 @@ const CandyList: React.FC<Props> = ({
 const mapStateToProps = (state: AppState) => ({
   myProducts: selectProducerProducts(state),
   isLoading: selectProducerIsLoading(state),
-  current: state.producer.current,
+  current: selectCurrent(state),
+  dealCurrent: selectDealCurrent(state),
 });
-//
 
 
 export default connect(
-  mapStateToProps, { getProductsByProducer, setCurrent, deleteProduct },
+  mapStateToProps, {
+    getProductsByProducer,
+    setCurrent,
+    deleteProduct,
+    setDeal,
+    clearDeal,
+  },
 )(CandyList);

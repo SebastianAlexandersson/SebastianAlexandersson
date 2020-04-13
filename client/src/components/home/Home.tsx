@@ -1,3 +1,4 @@
+/* eslint-disable import/no-unresolved */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable import/extensions */
@@ -10,8 +11,8 @@ import { IProduct } from '../../redux/shop/shop.types';
 import { getAllProducts } from '../../redux/shop/shop.actions';
 import Spinner from '../layout/Spinner';
 import './home.css';
-import CandyItem from '../Candy/CandyItem';
-import { selectUser, selectUserToken } from '../../redux/auth/aut.selector';
+import CandyItem from '../candy/CandyItem';
+import { selectUser } from '../../redux/auth/aut.selector';
 import { IUserData } from '../../redux/auth/auth.types';
 import { selectProducts, selectProductsIsLoading, selectFilteredProducts } from '../../redux/shop/shop.selector';
 import SearchBar from './SearchBar';
@@ -55,20 +56,26 @@ const Home: React.FC<Props> = ({
           </div>
         )}
 
-        <div className="LabelWrapper">
-          <Label allProducts={allProducts} isLoading={isProductsLoading} />
-        </div>
 
       </div>
       {isProductsLoading && <Spinner /> }
 
-      <div className="CandyGrid">
-        {!isProductsLoading && user?.role !== 'producer' && filteredProducts !== null ? filteredProducts.map(
-          (prod) => <CandyItem key={prod.id} product={prod} />,
-        ) : allProducts.map(
-          (prod) => <CandyItem key={prod.id} product={prod} />,
-        ) }
-      </div>
+      {!isProductsLoading && user?.role !== 'producer' ? (
+        <>
+          <div className="LabelWrapper">
+            <Label allProducts={allProducts} isLoading={isProductsLoading} />
+          </div>
+
+
+          <div className="CandyGrid">
+            {!isProductsLoading && filteredProducts !== null ? filteredProducts.map(
+              (prod) => <CandyItem key={prod.id} product={prod} />,
+            ) : allProducts.map(
+              (prod) => <CandyItem key={prod.id} product={prod} />,
+            ) }
+          </div>
+        </>
+      ) : <div /> }
     </>
   );
 };

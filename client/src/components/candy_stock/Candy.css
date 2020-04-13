@@ -79,6 +79,39 @@
 }
 
 
+.cta {
+  display: flex;
+}
+
+.cta span {
+  font-size: 2.8rem;
+}
+
+.Deal-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.Deal-form h3 {
+  border-bottom: none;
+  margin: 1rem 0;
+}
+
+.Deal-form input {
+  margin: 1rem auto;
+  width: 60vw;
+  box-shadow: 2px 2px 2px 3px #ccc;
+  border: 2px solid #333;
+  padding: .3rem .6rem;
+  font-size: 1.5rem;
+  border-radius: .5rem;
+  transition: 300ms all;
+}
+
+.Deal-form input:focus {
+  width: 58vw;
+}
+
 @media(max-width:950px) {
   #CandyItem {
     flex-direction: column;

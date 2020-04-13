@@ -15,3 +15,12 @@ export const selectUserToken = createSelector(
   [authState],
   (state: IAuthState) => state.token,
 );
+export const selectIsAuth = createSelector(
+  [authState],
+  (state: IAuthState) => state.isAuth,
+);
+
+export const selectUserLoading = createSelector(
+  [authState],
+  (state: IAuthState) => state.loading,
+);

@@ -18,6 +18,9 @@ import Checkout from '../checkout/Checkout';
 import { AppState } from '../../redux';
 import { selectUser } from '../../redux/auth/aut.selector';
 import { IUserData } from '../../redux/auth/auth.types';
+import ProducerList from '../admin/ProducerList';
+import ConsumerList from '../admin/ConsumerList';
+
 
 interface Props {
   user: IUserData | null;
@@ -26,7 +29,7 @@ interface Props {
 interface PrivetRoutesProp {
   path: string;
   exact?: boolean;
-  user?: IUserData | null;
+  user?: IUserData | null ;
   component: React.ComponentType<RouteComponentProps<any>> | React.ComponentType<any>;
   // component?: React.ComponentType<RouteComponentProps<any>> | React.ComponentType<any>;
 
@@ -39,6 +42,7 @@ const PrivateRoute: React.FC<PrivetRoutesProp> = ({
   return <Route exact={exact} path={path} component={finalComponent} />;
 };
 
+
 const Router: React.FC<Props> = ({ user }) => (
   <Switch>
     {/* <Redirect from="/" to="/login" /> */}
@@ -46,11 +50,13 @@ const Router: React.FC<Props> = ({ user }) => (
     <Route exact path="/register" component={Register} />
     <Route exact path="/login" component={Login} />
     <PrivateRoute user={user} exact path="/admin" component={Admin} />
-    <Route exact path="/user" component={Consumer} />
-    <Route exact path="/producer" component={Producer} />
-    <Route exact path="/add-candy" component={CandyStock} />
-    <Route exact path="/candy-list" component={CandyList} />
-    <Route exact path="/checkout" component={Checkout} />
+    <PrivateRoute user={user} exact path="/user" component={Consumer} />
+    <PrivateRoute user={user} exact path="/producer" component={Producer} />
+    <PrivateRoute user={user} exact path="/add-candy" component={CandyStock} />
+    <PrivateRoute user={user} exact path="/candy-list" component={CandyList} />
+    <PrivateRoute user={user} exact path="/checkout" component={Checkout} />
+    <PrivateRoute user={user} exact path="/producers-list" component={ProducerList} />
+    <PrivateRoute user={user} exact path="/consumer-list" component={ConsumerList} />
   </Switch>
 );
 
