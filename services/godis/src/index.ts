@@ -8,6 +8,8 @@ import middleware from './middleware';
 import routes from './routes';
 import errorHandlers from './middleware/errorHandlers';
 
+let sockets
+
 (async function startServer() {
   createConnection()
     .then(async connection => {
@@ -28,7 +30,9 @@ import errorHandlers from './middleware/errorHandlers';
       applyMiddleware(errorHandlers, app);
 
       const server = http.createServer(app);
-      socketServer(server);
+      const io = socketServer(server);
+      
+      sockets = io.sockets
 
       server.listen(5000, () => console.log('Godisapi listening on port 5000'));
     })
@@ -37,4 +41,8 @@ import errorHandlers from './middleware/errorHandlers';
       setTimeout(() => startServer(), 30000);
     });
 })();
+
+export {
+  sockets,
+}
 

@@ -5,6 +5,7 @@ import { Producer } from '../entities/Producer';
 import { Product } from '../entities/Product';
 import { Deal } from '../entities/Deals';
 import { HTTP400Error, HTTP401Error } from '../utils/httpErrors';
+import { sockets } from '../index';
 
 export async function getProducts(req: MyRequest, res: Response) {
   const entityManager = await getManager().transaction(async manager => {
@@ -142,7 +143,10 @@ export async function createDeal(req: MyRequest, res: Response) {
       throw new HTTP401Error('Unauthorized');
     };
 
-    const product = await manager.findOne(Product, productId);
+    const product = await manager.save(Product, {
+      id: productId,
+      price,
+    });
     const deal = manager.create(Deal, {
       product,
       producer,

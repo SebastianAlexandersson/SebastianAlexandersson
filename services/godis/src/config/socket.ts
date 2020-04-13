@@ -14,9 +14,6 @@ export function socketServer(server) {
     console.log('client disconnected');
   })
 
-  return {
-    io,
-    sockets: io.sockets,
-  };
+  return io
 };
 
