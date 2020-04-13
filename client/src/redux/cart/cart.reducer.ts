@@ -7,7 +7,7 @@ const initialState: ICartState = {
   hidden: false,
   loading: true,
   productsCart: [],
-  products: [], // finalorder
+  products: null, // finalorder
 };
 
 export default (state: ICartState = initialState, action: CartActionTypes) => {
@@ -31,12 +31,22 @@ export default (state: ICartState = initialState, action: CartActionTypes) => {
         loading: false,
       };
 
-
+    case ActionTypesCart.CLEAR_ORDER:
+      return {
+        ...state,
+        products: null,
+        productsCart: [],
+      };
     case ActionTypesCart.REMOVE_ITEM:
       return {
         ...state,
         productsCart: removeFromCartItem(state.productsCart, action.payload),
         loading: false,
+      };
+    case ActionTypesCart.TOGGLE_CART_HIDDEN:
+      return {
+        ...state,
+        hidden: !state.hidden,
       };
     default:
       return state;

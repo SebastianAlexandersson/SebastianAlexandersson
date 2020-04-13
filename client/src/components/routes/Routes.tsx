@@ -18,6 +18,8 @@ import Checkout from '../checkout/Checkout';
 import { AppState } from '../../redux';
 import { selectUser } from '../../redux/auth/aut.selector';
 import { IUserData } from '../../redux/auth/auth.types';
+import ProducerList from '../admin/ProducerList';
+import ConsumerList from '../admin/ConsumerList';
 
 
 interface Props {
@@ -27,7 +29,7 @@ interface Props {
 interface PrivetRoutesProp {
   path: string;
   exact?: boolean;
-  user?: IUserData | null;
+  user?: IUserData | null ;
   component: React.ComponentType<RouteComponentProps<any>> | React.ComponentType<any>;
   // component?: React.ComponentType<RouteComponentProps<any>> | React.ComponentType<any>;
 
@@ -39,6 +41,7 @@ const PrivateRoute: React.FC<PrivetRoutesProp> = ({
   const finalComponent = user ? component : Login;
   return <Route exact={exact} path={path} component={finalComponent} />;
 };
+
 
 const Router: React.FC<Props> = ({ user }) => (
   <Switch>
@@ -52,6 +55,8 @@ const Router: React.FC<Props> = ({ user }) => (
     <PrivateRoute user={user} exact path="/add-candy" component={CandyStock} />
     <PrivateRoute user={user} exact path="/candy-list" component={CandyList} />
     <PrivateRoute user={user} exact path="/checkout" component={Checkout} />
+    <PrivateRoute user={user} exact path="/producers-list" component={ProducerList} />
+    <PrivateRoute user={user} exact path="/consumer-list" component={ConsumerList} />
   </Switch>
 );
 

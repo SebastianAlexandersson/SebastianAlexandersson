@@ -39,7 +39,7 @@ const Register: React.FC<Props> = ({
     if (isAuth) {
       goHome();
     }
-  }, [isAuth]);
+  }, [isAuth, loading]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const { name, value } = e.target;
@@ -60,7 +60,7 @@ const Register: React.FC<Props> = ({
     });
   };
 
-  return loading ? <Spinner /> : (
+  return (
     <>
       <h1>REGISTER</h1>
       <Form handleChange={handleChange} handleSubmit={handleSubmit} formData={formData} isRegister />

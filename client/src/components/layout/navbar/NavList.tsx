@@ -14,8 +14,9 @@ import { IUserData } from '../../../redux/auth/auth.types';
 import { ReactComponent as CartLogo } from '../../../img/cart.svg';
 import useToggle from '../../../hooks/useToggle';
 import DropDown from './DropDown';
-import { selectUser } from '../../../redux/auth/aut.selector';
-import { selectCartItemCount } from '../../../redux/cart/cart.selector';
+import { selectUser, selectUserLoading, selectIsAuth } from '../../../redux/auth/aut.selector';
+import { selectCartItemCount, selectCartIsHidden } from '../../../redux/cart/cart.selector';
+import { toggleCartDropDown } from '../../../redux/cart/cart.actions';
 
 
 interface Props {
@@ -24,6 +25,8 @@ interface Props {
   user: IUserData | null;
   logoutUser: () => Promise<void>;
   cartCount: number;
+  toggleCartDropDown: () => void;
+  isCartHidden: boolean;
 }
 
 interface INavLink {
@@ -33,7 +36,7 @@ interface INavLink {
 }
 
 const NavList: React.FC<Props> = ({
-  isAuth, isLoading, logoutUser, user, cartCount,
+  isAuth, isLoading, logoutUser, user, cartCount, toggleCartDropDown, isCartHidden,
 }) => {
   const navLinks: INavLink[] = [
 
@@ -89,7 +92,7 @@ const NavList: React.FC<Props> = ({
           </li>
 
           <li>
-            <span className="Cart-logo" onClick={toggleCart}>
+            <span className="Cart-logo" onClick={() => toggleCartDropDown()}>
               <CartLogo />
               <small>{cartCount}</small>
             </span>
@@ -125,17 +128,21 @@ const NavList: React.FC<Props> = ({
         </li>
       )) }
 
-      {showCart && <DropDown />}
+      {isCartHidden && <DropDown />}
 
     </ul>
   );
 };
 
 const mapStateToProps = (state: AppState) => ({
-  isAuth: state.auth.isAuth,
-  isLoading: state.auth.loading,
+  isAuth: selectIsAuth(state),
+  // isAuth: state.auth.isAuth,
+  // isLoading: state.auth.loading,
+  isLoading: selectUserLoading(state),
   user: selectUser(state),
   cartCount: selectCartItemCount(state),
+  isCartHidden: selectCartIsHidden(state),
 });
 
-export default connect(mapStateToProps, { logoutUser })(NavList);
+
+export default connect(mapStateToProps, { logoutUser, toggleCartDropDown })(NavList);

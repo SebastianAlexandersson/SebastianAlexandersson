@@ -32,11 +32,12 @@ const Login: React.FC<Props> = ({
   });
 
   const goHome = () => history.push('/');
+
   React.useEffect(() => {
     if (isAuth) {
       goHome();
     }
-  }, [isAuth]);
+  }, [isAuth, loading]);
 
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -55,7 +56,7 @@ const Login: React.FC<Props> = ({
     });
   };
 
-  return loading ? <Spinner /> : (
+  return (
     <>
       <h1 className="display-1">LOGIN</h1>
       <Form handleChange={handleChange} handleSubmit={handleSubmit} formData={formData} isRegister={false} />

@@ -34,3 +34,9 @@ export const selectOrder = createSelector(
   [selectCart],
   (state: ICartState) => state.products,
 );
+
+
+export const selectCartIsHidden = createSelector(
+  [selectCart],
+  (state: ICartState) => state.hidden,
+);

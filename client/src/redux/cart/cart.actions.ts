@@ -3,7 +3,14 @@ import { Dispatch } from 'redux';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import {
-  ActionTypesCart, IDeleteItemFromCartAction, IAddProductAction, IRemoveProductAction, IMakeOrderAction, IOrderProduct,
+  ActionTypesCart,
+  IDeleteItemFromCartAction,
+  IAddProductAction,
+  IRemoveProductAction,
+  IMakeOrderAction,
+  IOrderProduct,
+  IClearOrderAction,
+  IToggleCartAction,
 } from './cart.types';
 import { IProduct } from '../shop/shop.types';
 
@@ -35,7 +42,7 @@ export const makeOrder = (
 
 
     // console.log('form redux ', products);
-    console.log('form redux2 ', JSON.stringify({ products }, null, 2));
+    // console.log('form redux2 ', JSON.stringify({ products }, null, 2));
 
 
     const response = await axios({
@@ -48,16 +55,6 @@ export const makeOrder = (
       data: { products },
     });
 
-    // const response = await fetch('/godisapi/consumer', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //     Authorization: `Bearer ${token}`,
-    //   },
-    //   body: JSON.stringify(products),
-    // });
-
-
     dispatch({
       type: ActionTypesCart.MAKE_ORDER,
       payload: response.data,
@@ -66,3 +63,14 @@ export const makeOrder = (
     console.error(err);
   }
 };
+
+// clear order car after mad a successfully order
+export const clearOrder = (): IClearOrderAction => ({ type: ActionTypesCart.CLEAR_ORDER });
+
+
+// toggle cart Dropdown with a global access
+
+
+export const toggleCartDropDown = (): IToggleCartAction => ({
+  type: ActionTypesCart.TOGGLE_CART_HIDDEN,
+});
