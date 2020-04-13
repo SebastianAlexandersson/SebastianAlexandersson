@@ -52,14 +52,7 @@ export const register = asyncHandler(
           await user.save();
           console.log(response);
         })
-<<<<<<< HEAD
-        .catch(err => {
-          console.log(err)
-          throw Error(err)
-        })
-=======
         .catch(err => console.log(err));
->>>>>>> 26c2907a5ecc886f6ad4de73c2185c74c66221ba
     }
 
     if (user.role === 'producer') {

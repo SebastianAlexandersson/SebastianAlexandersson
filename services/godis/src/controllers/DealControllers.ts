@@ -28,7 +28,11 @@ export async function createDeal(req: MyRequest, res: Response) {
       throw new HTTP401Error('Unauthorized');
     };
 
-    const product = await manager.findOne(Product, productId);
+    const product = await manager.save(Product, {
+      productId,
+      price,
+    });
+
     const deal = manager.create(Deal, {
       product,
       producer,
