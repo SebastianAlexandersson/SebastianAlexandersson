@@ -35,22 +35,42 @@ export const register = asyncHandler(
         adress: req.body.adress,
       };
       sendData('http://godisapi:5000/godisapi/admin/consumer', resData)
-        .then(response => response.json())
+        .then(response => {
+          if (response.status !== 200) {
+            throw Error('didnt work')
+          } else {
+            return response.json()
+          }
+        })
         .then(async response => {
           user.godisDbId = response.consumer.id;
           await user.save();
           console.log(response);
+        })
+        .catch(err => {
+          console.log(err)
+          throw Error(err)
         })
     }
 
     if (user.role === 'producer') {
       const resData = { name: user.username };
       sendData('http://godisapi:5000/godisapi/admin/producer', resData)
-        .then(response => response.json())
+        .then(response => {
+          if (response.status !== 200) {
+            throw Error('didnt work')
+          } else {
+            return response.json()
+          }
+        })
         .then(async response => {
           user.godisDbId = response.producer.id;
           await user.save();
           console.log(response);
+        })
+        .catch(err => {
+          console.log(err)
+          throw Error(err)
         })
     }
 
