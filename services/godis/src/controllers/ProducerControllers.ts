@@ -107,6 +107,19 @@ export async function deleteProduct (req: MyRequest, res: Response) {
   });
 };
 
+export async function getDeals(req: MyRequest, res: Response) {
+  const entityManager = await getManager().transaction(async manager => {
+    const producerId = req.user.godisDbId;
+
+    const deals = await manager.find(Deal, {
+      relations: ['product'],
+    });
+
+    res.status(200)
+    .json(deals);
+  })
+}
+
 export async function createDeal(req: MyRequest, res: Response) {
   const entityManager = await getManager().transaction(async manager => {
     const { productId, price } = req.body;
@@ -148,6 +161,7 @@ export async function deleteDeal(req: MyRequest, res: Response) {
   const entityManager = await getManager().transaction(async manager => {
     const dealId = Number(req.params.id);
     const producerId = req.user.godisDbId;
+    const { newPrice } = req.body;
 
     const producer = await manager.findOne(Producer, producerId);
 
@@ -162,12 +176,24 @@ export async function deleteDeal(req: MyRequest, res: Response) {
       throw new HTTP401Error('Unauthorized');
     };
 
-    const deal = await manager.findOne(Deal, dealId);
+    const deal = await manager.findOne(Deal, {
+      where: {
+        id: dealId,
+      },
+      relations: ['product']
+    });
+
+    const product = await manager.findOne(Product, deal.product)
+    product.price = newPrice;
+
+    await manager.remove(deal);
+    await manager.save(product);
 
     res.status(200)
     .send({
       message: '200 OK',
       deal,
+      product,
     });
   });
 };

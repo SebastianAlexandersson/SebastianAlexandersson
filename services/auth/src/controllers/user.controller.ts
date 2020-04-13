@@ -45,10 +45,6 @@ export const register = asyncHandler(
         })
         .then(async response => {
           user.godisDbId = response.consumer.id;
-          console.log('RES.STATUS IS ', res.status);
-          if (Number(res.status) !== 200) {
-            throw new Error(`ooops something went wrong`);
-          }
           await user.save();
           console.log(response);
         })
@@ -66,10 +62,6 @@ export const register = asyncHandler(
           }
         })
         .then(async response => {
-          console.log('RES.STATUS IS ', res.status);
-          if (Number(res.status) !== 200) {
-            throw new Error(`ooops something went wrong`);
-          }
           user.godisDbId = response.producer.id;
           await user.save();
           console.log(response);

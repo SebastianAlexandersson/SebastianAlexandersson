@@ -16,6 +16,7 @@ export async function getOrders(req: MyRequest, res: Response) {
       where: {
         consumer,
       },
+      relations: ['orderProduct', 'orderProduct.product'],
     });
 
     res.status(200)

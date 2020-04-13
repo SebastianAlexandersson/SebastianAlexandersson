@@ -13,10 +13,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const socket_io_1 = __importDefault(require("socket.io"));
 const http_1 = __importDefault(require("http"));
 require("reflect-metadata");
 const typeorm_1 = require("typeorm");
+const socket_1 = require("./config/socket");
 const utils_1 = require("./utils");
 const middleware_1 = __importDefault(require("./middleware"));
 const routes_1 = __importDefault(require("./routes"));
@@ -38,7 +38,7 @@ const errorHandlers_1 = __importDefault(require("./middleware/errorHandlers"));
             utils_1.applyRoutes(routes_1.default, app);
             utils_1.applyMiddleware(errorHandlers_1.default, app);
             const server = http_1.default.createServer(app);
-            const socket = socket_io_1.default(server);
+            socket_1.socketServer(server);
             server.listen(5000, () => console.log('Godisapi listening on port 5000'));
         }))
             .catch(error => {

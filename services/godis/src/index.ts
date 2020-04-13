@@ -1,8 +1,8 @@
 import express from 'express';
-import io from 'socket.io';
 import http from 'http';
 import 'reflect-metadata';
 import { createConnection } from 'typeorm';
+import { socketServer } from './config/socket';
 import { applyMiddleware, applyRoutes } from './utils';
 import middleware from './middleware';
 import routes from './routes';
@@ -28,7 +28,7 @@ import errorHandlers from './middleware/errorHandlers';
       applyMiddleware(errorHandlers, app);
 
       const server = http.createServer(app);
-      const socket = io(server);
+      socketServer(server);
 
       server.listen(5000, () => console.log('Godisapi listening on port 5000'));
     })

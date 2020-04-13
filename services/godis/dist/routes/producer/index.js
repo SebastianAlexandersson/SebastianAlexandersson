@@ -44,6 +44,14 @@ exports.default = [
     },
     {
         path: '/godisapi/producer/deal',
+        method: 'get',
+        handler: [
+            AuthControllers_1.validateProducer,
+            controllers.getDeals,
+        ],
+    },
+    {
+        path: '/godisapi/producer/deal',
         method: 'post',
         handler: [
             AuthControllers_1.validateProducer,
@@ -52,7 +60,7 @@ exports.default = [
     },
     {
         path: '/godisapi/producer/deal/:id',
-        method: 'delete',
+        method: 'put',
         handler: [
             AuthControllers_1.validateProducer,
             controllers.deleteDeal,
