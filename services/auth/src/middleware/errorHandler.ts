@@ -11,8 +11,8 @@ export const errorHandler = (
 ) => {
   console.log(err);
   let error = { ...err };
+  error.message = err.message;
 
-  console.log(Object.entries(err));
   if (err.statusCode === 404) {
     const message = 'invalid credentials';
     error = new ErrorResponse(message, 404);
@@ -21,8 +21,12 @@ export const errorHandler = (
     const message = 'No duplicate values';
     error = new ErrorResponse(message, 404);
   }
-  if (err.message === 'jwt malformed' || err.name === 'JsonWebTokenError') {
+  if (err.name === 'JsonWebTokenError') {
     const message = 'Authorization error';
+    error = new ErrorResponse(message, 404);
+  }
+  if (err.message === 'jwt malformed') {
+    const message = 'JWT error';
     error = new ErrorResponse(message, 404);
   }
 
