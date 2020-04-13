@@ -16,3 +16,15 @@ export const selectProducerIsLoading = createSelector(
   [selectProducer],
   (producer: IProducerState) => producer.loading,
 );
+
+
+export const selectCurrent = createSelector(
+  [selectProducer],
+  (producer: IProducerState) => producer.current,
+);
+
+
+export const selectDealCurrent = createSelector(
+  [selectProducer],
+  (producer: IProducerState) => producer.currentDeal,
+);

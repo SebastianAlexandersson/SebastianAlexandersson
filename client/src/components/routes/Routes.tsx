@@ -19,6 +19,7 @@ import { AppState } from '../../redux';
 import { selectUser } from '../../redux/auth/aut.selector';
 import { IUserData } from '../../redux/auth/auth.types';
 
+
 interface Props {
   user: IUserData | null;
 }
@@ -46,11 +47,11 @@ const Router: React.FC<Props> = ({ user }) => (
     <Route exact path="/register" component={Register} />
     <Route exact path="/login" component={Login} />
     <PrivateRoute user={user} exact path="/admin" component={Admin} />
-    <Route exact path="/user" component={Consumer} />
-    <Route exact path="/producer" component={Producer} />
-    <Route exact path="/add-candy" component={CandyStock} />
-    <Route exact path="/candy-list" component={CandyList} />
-    <Route exact path="/checkout" component={Checkout} />
+    <PrivateRoute user={user} exact path="/user" component={Consumer} />
+    <PrivateRoute user={user} exact path="/producer" component={Producer} />
+    <PrivateRoute user={user} exact path="/add-candy" component={CandyStock} />
+    <PrivateRoute user={user} exact path="/candy-list" component={CandyList} />
+    <PrivateRoute user={user} exact path="/checkout" component={Checkout} />
   </Switch>
 );
 

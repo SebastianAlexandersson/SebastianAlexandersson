@@ -3,6 +3,7 @@ import { createStore, applyMiddleware, Middleware } from 'redux';
 import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { createLogger } from 'redux-logger';
+// import storage from 'redux-persist/lib/storage';
 import rootReducer from './rootReducer';
 
 const logger = createLogger();

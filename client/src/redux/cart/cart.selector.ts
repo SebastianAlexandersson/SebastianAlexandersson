@@ -1,7 +1,7 @@
 /* eslint-disable import/extensions */
 import { createSelector } from 'reselect';
 import { AppState } from '..';
-import { ICartState } from './cart.types';
+import { ICartState, IOrderProduct } from './cart.types';
 import { IProduct } from '../shop/shop.types';
 
 const selectCart = (state: AppState) => state.cart;
@@ -28,4 +28,9 @@ export const selectCartItemCount = createSelector(
 export const selectCartTotal = createSelector(
   [selectCartItems],
   (cartItems: IProduct[]) => cartItems.reduce((quantity, item) => quantity + item.qty * item.price, 0),
+);
+
+export const selectOrder = createSelector(
+  [selectCart],
+  (state: ICartState) => state.products,
 );

@@ -11,32 +11,30 @@ import { IFormData, IUserData } from '../../redux/auth/auth.types';
 import { loginUser } from '../../redux/auth/auth.actions';
 import { AppState } from '../../redux';
 import './auth.css';
+import { selectUser, selectIsAuth, selectUserLoading } from '../../redux/auth/aut.selector';
+import Spinner from '../layout/Spinner';
 
 interface Props extends RouteComponentProps{
   loginUser: Function;
   isAuth: boolean;
   history: H.History<any>;
   user: IUserData | null;
+  loading: boolean;
 }
 
 
 const Login: React.FC<Props> = ({
-  loginUser, isAuth, history, user,
+  loginUser, isAuth, history, user, loading,
 }) => {
   const [formData, setFormData] = React.useState<IFormData>({
     username: '',
     password: '',
   });
 
+  const goHome = () => history.push('/');
   React.useEffect(() => {
-    if (isAuth && user && user?.role === 'admin') {
-      history.push('/admin');
-    }
-    if (isAuth && user && user?.role === 'user') {
-      history.push('/user');
-    }
-    if (isAuth && user && user?.role === 'producer') {
-      history.push('/producer');
+    if (isAuth) {
+      goHome();
     }
   }, [isAuth]);
 
@@ -57,8 +55,7 @@ const Login: React.FC<Props> = ({
     });
   };
 
-  return (
-
+  return loading ? <Spinner /> : (
     <>
       <h1 className="display-1">LOGIN</h1>
       <Form handleChange={handleChange} handleSubmit={handleSubmit} formData={formData} isRegister={false} />
@@ -67,8 +64,11 @@ const Login: React.FC<Props> = ({
 };
 
 const mapStateToProps = (state: AppState) => ({
-  isAuth: state.auth.isAuth,
-  user: state.auth.user,
+  isAuth: selectIsAuth(state),
+  // isAuth: state.auth.isAuth,
+  // user: state.auth.user,
+  user: selectUser(state),
+  loading: selectUserLoading(state),
 });
 
 export default connect(mapStateToProps, { loginUser })(Login);

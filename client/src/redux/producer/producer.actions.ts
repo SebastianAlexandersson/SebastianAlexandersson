@@ -13,6 +13,12 @@ import {
   IUpdateProductAction,
   IClearCurrent,
   IGetProductsByProducer,
+  IDeal,
+  ICreateDealAction,
+  IHandleErrorAction,
+  IDeleteDealAction,
+  ISetDeal,
+  IClearDeal,
 } from './producer.types';
 
 
@@ -22,6 +28,9 @@ export interface IProductFormData { // type when adding a new product in candy s
   qty: number;
   producerName: string | undefined;
 }
+
+export const handleError = (error: Record<string, any>): IHandleErrorAction => (
+  { type: ProducerActionTypes.HANDLE_ERROR, payload: error });
 
 export const addNewProduct = (
   product: IProductFormData,
@@ -137,5 +146,59 @@ export const getProductsByProducer = () => async (dispatch: Dispatch<IGetProduct
     });
   } catch (err) {
     console.error(err);
+  }
+};
+
+
+export const setDeal = (deal: IDeal): ISetDeal => (
+  { type: ProducerActionTypes.SET_DEAL, payload: deal }
+);
+export const clearDeal = (): IClearDeal => (
+  { type: ProducerActionTypes.CLEAR_DEAL }
+);
+
+export const createDeal = (dealOptions: IDeal) => async (dispatch: Dispatch<ICreateDealAction>) => {
+  try {
+    let token: any;
+    if (Cookies.get('token')) {
+      token = Cookies.get('token');
+    }
+    const response = await axios({
+      method: 'POST',
+      url: '/godisapi/producer/deal',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      data: dealOptions,
+    });
+    dispatch({
+      type: ProducerActionTypes.CREATE_DEAL,
+      payload: response.data,
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const deleteDeal = (dealId: number) => async (dispatch: Dispatch<IDeleteDealAction>) => {
+  try {
+    let token: any;
+    if (Cookies.get('token')) {
+      token = Cookies.get('token');
+    }
+    await axios({
+      method: 'DELETE',
+      url: `/godisapi/producer/deal/${dealId.toString()}`,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+
+    });
+    dispatch({
+      type: ProducerActionTypes.DELETE_DEAL,
+      payload: dealId,
+    });
+  } catch (err) {
+    console.log(err);
   }
 };

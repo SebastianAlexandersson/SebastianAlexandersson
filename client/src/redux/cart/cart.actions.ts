@@ -24,7 +24,9 @@ export const removeProduct = (product: IProduct): IRemoveProductAction => ({
 });
 
 
-export const makeOrder = (products: IOrderProduct[]) => async (dispatch: Dispatch<IMakeOrderAction>) => {
+export const makeOrder = (
+  products: IOrderProduct[],
+) => async (dispatch: Dispatch<IMakeOrderAction>) => {
   try {
     let token: any;
     if (Cookies.get('token')) {

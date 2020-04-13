@@ -41,8 +41,7 @@ export interface IRemoveProductAction {
 }
 export interface IMakeOrderAction {
   type: ActionTypesCart.MAKE_ORDER;
-  // payload: IOrderProduct[];
-  payload: any;
+  payload: IOrderProduct[];
 }
 
 
