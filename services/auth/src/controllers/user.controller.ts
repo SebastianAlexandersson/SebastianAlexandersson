@@ -34,17 +34,19 @@ export const register = asyncHandler(
         lastName: req.body.lastName,
         adress: req.body.adress,
       };
+
       sendData('http://godisapi:5000/godisapi/admin/consumer', resData)
         .then(response => response.json())
         .then(async response => {
           user.godisDbId = response.consumer.id;
           console.log('RES.STATUS IS ', res.status);
           if (Number(res.status) !== 200) {
-            return next(new ErrorResponse(`ooops something went wrong`, 400));
+            throw new Error(`ooops something went wrong`);
           }
           await user.save();
           console.log(response);
-        });
+        })
+        .catch(err => console.log(err));
     }
 
     if (user.role === 'producer') {
@@ -54,12 +56,13 @@ export const register = asyncHandler(
         .then(async response => {
           console.log('RES.STATUS IS ', res.status);
           if (Number(res.status) !== 200) {
-            return next(new ErrorResponse(`ooops something went wrong`, 400));
+            throw new Error(`ooops something went wrong`);
           }
           user.godisDbId = response.producer.id;
           await user.save();
           console.log(response);
-        });
+        })
+        .catch(err => console.log(err));
     }
 
     // await user.save();

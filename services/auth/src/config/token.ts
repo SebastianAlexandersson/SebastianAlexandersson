@@ -41,15 +41,9 @@ async function getToken(): Promise<any> {
               const req = await fetch(url, options);
               const res = await req.json();
 
-<<<<<<< HEAD
-              console.log('TOKEN AQUIRED', res.token);
-              resolve(res.token)
-            })
-=======
               console.log('TOKEN AQUIRED');
               resolve(res.token);
             });
->>>>>>> devis-masiu
         });
     } catch (error) {
       reject(error);
