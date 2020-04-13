@@ -36,9 +36,13 @@ export const register = asyncHandler(
         .then(response => response.json())
         .then(async response => {
           user.godisDbId = response.consumer.id;
+          console.log('RES.STATUS IS ', res.status);
+          if (Number(res.status) !== 200) {
+            return next(new ErrorResponse(`ooops something went wrong`, 400));
+          }
           await user.save();
           console.log(response);
-        })
+        });
     }
 
     if (user.role === 'producer') {
@@ -46,10 +50,14 @@ export const register = asyncHandler(
       sendData('http://godisapi:5000/godisapi/admin/producer', resData)
         .then(response => response.json())
         .then(async response => {
+          console.log('RES.STATUS IS ', res.status);
+          if (Number(res.status) !== 200) {
+            return next(new ErrorResponse(`ooops something went wrong`, 400));
+          }
           user.godisDbId = response.producer.id;
           await user.save();
           console.log(response);
-        })
+        });
     }
 
     // await user.save();
@@ -60,7 +68,6 @@ export const register = asyncHandler(
 
 export const getMe = asyncHandler(
   async (req: IAuthRequest, res: Response, next: NextFunction) => {
-    // console.log(req);
     if (!req.user) {
       return next(new ErrorResponse('Not authorized', 404));
     }

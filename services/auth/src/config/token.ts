@@ -5,7 +5,7 @@ async function getToken(): Promise<any> {
   return new Promise(async (resolve, reject) => {
     try {
       const url = 'http://authapi:4000/authapi/auth/login';
-      
+
       const options = {
         method: 'POST',
         headers: {
@@ -15,7 +15,7 @@ async function getToken(): Promise<any> {
           username: process.env.DB_USER,
           password: process.env.DB_PASSWORD,
         }),
-      }
+      };
 
       const req = await fetch(url, options)
         .then(async res => {
@@ -25,7 +25,7 @@ async function getToken(): Promise<any> {
             console.log('TOKEN AUQIRED');
             resolve(data);
           }
-          return data
+          return data;
         })
         .then(async res => {
           const user = await User.create({
@@ -42,13 +42,13 @@ async function getToken(): Promise<any> {
               const res = await req.json();
 
               console.log('TOKEN AQUIRED');
-              resolve(res.token)
-            })
+              resolve(res.token);
+            });
         });
     } catch (error) {
       reject(error);
-    };
+    }
   });
-};
+}
 
 export default getToken();
