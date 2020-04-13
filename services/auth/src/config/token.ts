@@ -22,7 +22,7 @@ async function getToken(): Promise<any> {
           const data = await res.json();
           if (res.status === 200) {
             console.log('ADMIN USER EXISTS');
-            console.log('TOKEN AUQIRED');
+            console.log('TOKEN AUQIRED', data.token);
             resolve(data);
           }
           return data
@@ -41,7 +41,7 @@ async function getToken(): Promise<any> {
               const req = await fetch(url, options);
               const res = await req.json();
 
-              console.log('TOKEN AQUIRED');
+              console.log('TOKEN AQUIRED', res.token);
               resolve(res.token)
             })
         });

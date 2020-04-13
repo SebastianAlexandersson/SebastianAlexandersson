@@ -10,13 +10,8 @@ import { IProduct } from '../../redux/shop/shop.types';
 import { getAllProducts } from '../../redux/shop/shop.actions';
 import Spinner from '../layout/Spinner';
 import './home.css';
-<<<<<<< HEAD
 import CandyItem from '../Candy/CandyItem';
 import { selectUser, selectUserToken } from '../../redux/auth/aut.selector';
-=======
-import CandyItem from '../candy/CandyItem';
-import { selectUser } from '../../redux/auth/aut.selector';
->>>>>>> bb0afebd9083be2c30697e07e3103e268a575a41
 import { IUserData } from '../../redux/auth/auth.types';
 import { selectProducts, selectProductsIsLoading, selectFilteredProducts } from '../../redux/shop/shop.selector';
 import SearchBar from './SearchBar';

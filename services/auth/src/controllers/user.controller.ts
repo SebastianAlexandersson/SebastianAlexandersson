@@ -12,11 +12,13 @@ import ErrorResponse from '../utils/ErroroResponse';
 import getToken from '../config/token';
 
 async function sendData(url: string, data: any) {
+  const tokenObj = await getToken;
+  const token = tokenObj.token;
   return await fetch(url, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${await getToken}`,
+      Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify(data),
   });
