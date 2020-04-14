@@ -69,8 +69,6 @@ export const clearOrder = (): IClearOrderAction => ({ type: ActionTypesCart.CLEA
 
 
 // toggle cart Dropdown with a global access
-
-
 export const toggleCartDropDown = (): IToggleCartAction => ({
   type: ActionTypesCart.TOGGLE_CART_HIDDEN,
 });

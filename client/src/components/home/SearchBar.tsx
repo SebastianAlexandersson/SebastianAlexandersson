@@ -23,7 +23,7 @@ const SearchBar: React.FC<Props> = ({ filteredProducts, searchByProduct, clearSe
     if (filteredProducts === null || filteredProducts === []) {
       setSearch('');
     }
-  }, []);
+  }, [filteredProducts]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);

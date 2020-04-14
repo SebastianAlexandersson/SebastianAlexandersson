@@ -1,6 +1,6 @@
 .CandyGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
   width: 90vw;
   margin: 2rem auto;
   padding: 1rem;
@@ -12,6 +12,13 @@
   box-shadow: 0 8px 6px -6px #333;
   margin: 1rem auto;
   padding: 1rem .5rem;
+
+}
+
+@media(max-width: 900px) {
+  .Candy {
+    width: 60vw;
+  }
 }
 
 .Candy-header {}

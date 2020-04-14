@@ -22,6 +22,7 @@ import SearchBar from './SearchBar';
 import useToggle from '../../hooks/useToggle';
 import Title from '../title/Title';
 import Label from './Label';
+import RandomOrder from '../random_order/RandomOrder';
 
 interface Props{
   allProducts: IProduct[];
@@ -38,7 +39,7 @@ const Home: React.FC<Props> = ({
 
   React.useEffect(() => {
     getAllProducts();
-  }, []);
+  }, [getAllProducts]);
 
   return (
     <>
@@ -50,7 +51,6 @@ const Home: React.FC<Props> = ({
           spanTwo="and"
           subTitle2="Marcell the ...."
         />
-
         {!isProductsLoading && user?.role !== 'producer' && (
           <div className="Search">
             <span id="search-Icon" onClick={toggleSearch}>&#x26B2;</span>
@@ -65,8 +65,9 @@ const Home: React.FC<Props> = ({
 
       {!isProductsLoading && user?.role !== 'producer' ? (
         <>
+          <RandomOrder />
           <div className="LabelWrapper">
-            <Label allProducts={allProducts} isLoading={isProductsLoading} />
+            <Label isLoading={isProductsLoading} />
           </div>
 
 

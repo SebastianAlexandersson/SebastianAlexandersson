@@ -213,3 +213,38 @@
  .Welcome-producer {
    font-size: 3rem;
  }
+
+ .Confused-wrapper {
+   padding: 2rem 0;
+   color: #fff;
+   background: #333;
+   margin: 5rem auto;
+   width: 45vw;
+   -webkit-box-shadow: 0 10px 6px -6px #777;
+   -moz-box-shadow: 0 10px 6px -6px #777;
+   box-shadow: 0 10px 6px -6px #777;
+ }
+
+ .Confused-wrapper h4 {
+   font-size: 2.5rem;
+   padding: 1rem 0;
+ }
+
+ .Confused-wrapper p {
+   padding: 1rem 0;
+   font-size: 1.8rem;
+ }
+
+ #RandomOrderBtn {
+   width: 18rem;
+   text-transform: capitalize;
+   box-shadow: none;
+   color: #fff;
+   border: 2px solid #fff;
+
+ }
+
+ #RandomOrderBtn:hover {
+   color: #333;
+   background: #fff;
+ }

@@ -33,7 +33,7 @@ const Checkout: React.FC<Props> = ({
 }) => {
   React.useEffect(() => {
     toggleCartDropDown();
-  }, []);
+  }, [toggleCartDropDown]);
 
   const getHome = () => history.push('/');
   const handleMakeOrder = () => {

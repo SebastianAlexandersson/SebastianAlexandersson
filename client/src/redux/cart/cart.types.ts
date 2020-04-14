@@ -21,6 +21,7 @@ export enum ActionTypesCart {
   REMOVE_ITEM = 'REMOVE_ITEM',
   MAKE_ORDER = 'MAKE_ORDER',
   CLEAR_ORDER = 'CLEAR_ORDER',
+
 }
 
 export interface IToggleCartAction {
@@ -49,6 +50,7 @@ export interface IMakeOrderAction {
 export interface IClearOrderAction {
   type: ActionTypesCart.CLEAR_ORDER;
 }
+
 
 export type CartActionTypes =
  IToggleCartAction |
