@@ -19,6 +19,7 @@ import {
   IDeleteDealAction,
   ISetDeal,
   IClearDeal,
+  IGetProducerDeals,
 } from './producer.types';
 
 
@@ -107,7 +108,7 @@ export const deleteProduct = (
     if (Cookies.get('token')) {
       token = Cookies.get('token');
     }
-
+    console.log('dealId is ', productId, ' nad a type of ', typeof productId, ' and token is ', token);
     await axios({
       method: 'DELETE',
       url: `/godisapi/producer/${productId.toString()}`,
@@ -180,23 +181,53 @@ export const createDeal = (dealOptions: IDeal) => async (dispatch: Dispatch<ICre
   }
 };
 
-export const deleteDeal = (dealId: number) => async (dispatch: Dispatch<IDeleteDealAction>) => {
+export const deleteDeal = (
+  dealId: number, newPrice: number,
+) => async (dispatch: Dispatch<IDeleteDealAction>) => {
   try {
     let token: any;
     if (Cookies.get('token')) {
       token = Cookies.get('token');
     }
+
+
     await axios({
-      method: 'DELETE',
+      method: 'PUT',
       url: `/godisapi/producer/deal/${dealId.toString()}`,
       headers: {
         Authorization: `Bearer ${token}`,
       },
-
+      data: newPrice,
     });
+
+
     dispatch({
       type: ProducerActionTypes.DELETE_DEAL,
       payload: dealId,
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+
+export const getProducerDeals = () => async (dispatch: Dispatch<IGetProducerDeals>) => {
+  try {
+    let token: any;
+    if (Cookies.get('token')) {
+      token = Cookies.get('token');
+    }
+    const response = await axios({
+      method: 'GET',
+      url: '/godisapi/producer/deal',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    dispatch({
+      type: ProducerActionTypes.GET_PRODUCER_DEALS,
+      payload: response.data,
     });
   } catch (err) {
     console.log(err);

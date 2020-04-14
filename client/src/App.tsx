@@ -8,7 +8,6 @@ import React from 'react';
 import './App.css';
 import Cookie from 'js-cookie';
 import { connect } from 'react-redux';
-import Axios from 'axios';
 import setAuthToken from './utils/setAuthToken';
 import Layout from './components/layout/Layout';
 import { AppState } from './redux';

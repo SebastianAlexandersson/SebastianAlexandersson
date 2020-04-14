@@ -42,6 +42,7 @@ const Producer: React.FC<Props> = ({ isLoading, user, history }) => {
       <div className="options card-options" style={{ display: 'flex', justifyContent: 'space-around' }}>
         <Card title="Add more Candies" link1="add candies" path1="/add-candy" />
         <Card title="Candy List" link1="list" path1="/candy-list" />
+        <Card title="Deal List" link1="list" path1="/deal-list" />
       </div>
     </div>
   ) : <Spinner />);

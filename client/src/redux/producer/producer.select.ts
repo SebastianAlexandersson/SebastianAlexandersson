@@ -28,3 +28,8 @@ export const selectDealCurrent = createSelector(
   [selectProducer],
   (producer: IProducerState) => producer.currentDeal,
 );
+
+export const selectDeals = createSelector(
+  [selectProducer],
+  (producer: IProducerState) => producer.deals,
+);

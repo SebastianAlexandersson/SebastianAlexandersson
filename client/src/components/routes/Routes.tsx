@@ -20,6 +20,7 @@ import { selectUser } from '../../redux/auth/aut.selector';
 import { IUserData } from '../../redux/auth/auth.types';
 import ProducerList from '../admin/ProducerList';
 import ConsumerList from '../admin/ConsumerList';
+import DealList from '../deals/DealList';
 
 
 interface Props {
@@ -57,6 +58,7 @@ const Router: React.FC<Props> = ({ user }) => (
     <PrivateRoute user={user} exact path="/checkout" component={Checkout} />
     <PrivateRoute user={user} exact path="/producers-list" component={ProducerList} />
     <PrivateRoute user={user} exact path="/consumer-list" component={ConsumerList} />
+    <PrivateRoute user={user} exact path="/deal-list" component={DealList} />
   </Switch>
 );
 

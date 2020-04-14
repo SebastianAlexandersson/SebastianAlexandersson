@@ -19,6 +19,21 @@ export interface IDeal { // interface for det producers deal
   price: number;
 }
 
+export interface IDealProduct{
+  id: number;
+  created_at: Date;
+  name: string;
+  qty: number;
+  price: number;
+}
+
+// type for when fetching all producer deals
+export interface IDealData{
+  id: number;
+  valid_from: Date;
+  valid_to: Date;
+  product: IDealProduct;
+}
 
 export interface IProducerState{
   loading: boolean;
@@ -26,8 +41,8 @@ export interface IProducerState{
   products: [] | IProduct[];
   current: null | IProduct;
   currentDeal: null | IDeal;
-  deals: []| Record<string, any>[];
-
+  deals: IDealData[];
+  // productDeals: IDealData[];
 }
 
 
@@ -35,6 +50,7 @@ export enum ProducerActionTypes {
   ADD_PRODUCT = 'ADD_PRODUCT',
   DELETE_PRODUCT = 'DELETE_PRODUCT',
   GET_PRODUCTS_BY_PRODUCER ='GET_PRODUCTS_BY_PRODUCER',
+  GET_PRODUCER_DEALS ='GET_PRODUCER_DEALS',
   UPDATE_PRODUCT = 'UPDATE_PRODUCT',
   SET_CURRENT = 'SET_CURRENT',
   CLEAR_CURRENT = 'CLEAR_CURRENT',
@@ -101,6 +117,11 @@ export interface IHandleErrorAction {
   payload: Record<string, any>;
 }
 
+export interface IGetProducerDeals {
+  type: ProducerActionTypes.GET_PRODUCER_DEALS;
+  payload: IDealData[];
+}
+
 
 export type ProducerTypesReducer =
    IAddProductAction |
@@ -113,4 +134,5 @@ export type ProducerTypesReducer =
    IDeleteDealAction|
    ISetDeal|
    IClearDeal|
+   IGetProducerDeals|
    IHandleErrorAction;

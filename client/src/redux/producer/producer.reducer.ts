@@ -13,6 +13,7 @@ const initialState: IProducerState = {
   current: null,
   currentDeal: null,
   deals: [],
+  // productDeals: [],
 };
 
 export default (state: IProducerState = initialState, action: ProducerTypesReducer) => {
@@ -29,16 +30,29 @@ export default (state: IProducerState = initialState, action: ProducerTypesReduc
         products: action.payload,
         loading: false,
       };
+    case ProducerActionTypes.GET_PRODUCER_DEALS:
+      return {
+        ...state,
+        deals: action.payload,
+        loading: false,
+      };
     case ProducerActionTypes.DELETE_PRODUCT:
       return {
         ...state,
         products: state.products.filter((product: IProduct) => product.id !== action.payload),
         loading: false,
       };
+
     case ProducerActionTypes.CREATE_DEAL:
       return {
         ...state,
         deals: [...state.deals, action.payload],
+        loading: false,
+      };
+    case ProducerActionTypes.DELETE_DEAL:
+      return {
+        ...state,
+        deals: state.deals.filter((deal) => deal.id !== action.payload),
         loading: false,
       };
     case ProducerActionTypes.SET_CURRENT:

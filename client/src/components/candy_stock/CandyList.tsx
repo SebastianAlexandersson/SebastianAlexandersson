@@ -20,7 +20,7 @@ import CandyItem from './CandyItem';
 import {
   selectProducerProducts, selectProducerIsLoading, selectCurrent, selectDealCurrent,
 } from '../../redux/producer/producer.select';
-import { IDeal } from '../../redux/producer/producer.types';
+import { IDeal, IDealData } from '../../redux/producer/producer.types';
 import DealForm from './DealForm';
 
 
@@ -34,11 +34,13 @@ interface Props {
   setDeal: (deal: IDeal) => void;
   clearDeal: () => void;
   dealCurrent: IDeal | null;
+
+  deals: IDealData[];
 }
 
 const CandyList: React.FC<Props> = ({
   getProductsByProducer, myProducts, isLoading,
-  setCurrent, current, deleteProduct, setDeal, clearDeal, dealCurrent,
+  setCurrent, current, deleteProduct, setDeal, clearDeal, dealCurrent, deals,
 }) => {
   React.useEffect(() => {
     getProductsByProducer();
@@ -79,7 +81,13 @@ const CandyList: React.FC<Props> = ({
           <EditForm current={current} toggle={toggleForm} />
         ) }
 
-        {showDealForm && dealCurrent !== null && <DealForm toggle={toggleDealForm} dealCurrent={dealCurrent} clearDeal={clearDeal} /> }
+        {showDealForm && dealCurrent !== null && (
+          <DealForm
+            toggle={toggleDealForm}
+            dealCurrent={dealCurrent}
+            clearDeal={clearDeal}
+          />
+        ) }
 
       </ul>
     </>
@@ -91,6 +99,7 @@ const mapStateToProps = (state: AppState) => ({
   isLoading: selectProducerIsLoading(state),
   current: selectCurrent(state),
   dealCurrent: selectDealCurrent(state),
+
 });
 
 
@@ -101,5 +110,6 @@ export default connect(
     deleteProduct,
     setDeal,
     clearDeal,
+
   },
 )(CandyList);
