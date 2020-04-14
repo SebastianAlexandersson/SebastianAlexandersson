@@ -10,9 +10,12 @@ interface Props {
   deleteDeal: (dealId: number, newPrice: number) => Promise<void>;
   dealId: number;
   toggle: () => void;
+
 }
 
-const ChangeDeal: React.FC<Props> = ({ dealId, deleteDeal, toggle }) => {
+const ChangeDeal: React.FC<Props> = ({
+  dealId, deleteDeal, toggle,
+}) => {
   const [newPrice, setNewPrice] = React.useState<string>('');
 
 

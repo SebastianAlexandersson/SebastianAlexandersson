@@ -25,9 +25,9 @@ const DealList: React.FC<Props> = ({
 }) => {
   React.useEffect(() => {
     getProducerDeals();
-  }, []);
+  }, [getProducerDeals]);
 
-  return (
+  return isLoading ? <Spinner /> : (
     <div className="Producer-Deals">
       <h3>
         {user && user.username }

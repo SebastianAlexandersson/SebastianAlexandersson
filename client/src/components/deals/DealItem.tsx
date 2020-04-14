@@ -27,22 +27,22 @@ const DealItem: React.FC<Props> = ({ deal }) => {
         <p>
           Product:
           {' '}
-          <span>{deal.product.name}</span>
+          <span>{deal && deal.product.name}</span>
         </p>
         <p>
           Deal Price:
           {' '}
-          <span>{deal.product.price}</span>
+          <span>{deal && deal.product.price}</span>
         </p>
         <p>
           from:
           {' '}
-          <span>{deal.valid_from}</span>
+          <span>{deal && deal.valid_from}</span>
         </p>
         <p>
           to:
           {' '}
-          <span>{deal.valid_to}</span>
+          <span>{deal && deal.valid_to}</span>
         </p>
 
         <div className="deal-options">

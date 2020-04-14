@@ -108,7 +108,7 @@ export const deleteProduct = (
     if (Cookies.get('token')) {
       token = Cookies.get('token');
     }
-    console.log('dealId is ', productId, ' nad a type of ', typeof productId, ' and token is ', token);
+
     await axios({
       method: 'DELETE',
       url: `/godisapi/producer/${productId.toString()}`,
@@ -195,9 +195,10 @@ export const deleteDeal = (
       method: 'PUT',
       url: `/godisapi/producer/deal/${dealId.toString()}`,
       headers: {
+        'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
       },
-      data: newPrice,
+      data: { newPrice },
     });
 
 

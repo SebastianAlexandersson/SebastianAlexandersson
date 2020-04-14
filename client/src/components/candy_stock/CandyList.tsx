@@ -34,13 +34,11 @@ interface Props {
   setDeal: (deal: IDeal) => void;
   clearDeal: () => void;
   dealCurrent: IDeal | null;
-
-  deals: IDealData[];
 }
 
 const CandyList: React.FC<Props> = ({
   getProductsByProducer, myProducts, isLoading,
-  setCurrent, current, deleteProduct, setDeal, clearDeal, dealCurrent, deals,
+  setCurrent, current, deleteProduct, setDeal, clearDeal, dealCurrent,
 }) => {
   React.useEffect(() => {
     getProductsByProducer();
@@ -110,6 +108,5 @@ export default connect(
     deleteProduct,
     setDeal,
     clearDeal,
-
   },
 )(CandyList);
