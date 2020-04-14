@@ -41,6 +41,10 @@ export async function createOrder(req: MyRequest, res: Response) {
     const orderProduct = await Promise.all(products.map(async (obj: ProductObject) => {
       const product = await manager.findOne(Product, obj.id);
 
+      if (!product) {
+        throw new HTTP400Error('Bad product id');
+      };
+
       return manager.create(OrderProduct, {
         product,
         price: product.price,
@@ -49,9 +53,14 @@ export async function createOrder(req: MyRequest, res: Response) {
     }));
     await manager.save(orderProduct);
 
+    const total = orderProduct.reduce((acc, item) => {
+      return acc += (item.qty * item.price);
+    }, 0)
+
     const order = manager.create(Order, {
       consumer,
       orderProduct,
+      total,
     });
     const savedOrder = await manager.save(order);
 
