@@ -153,7 +153,16 @@ export async function createDeal(req: MyRequest, res: Response) {
     });
     const savedDeal = await manager.save(deal);
 
-    io.of('/socket').emit('newDeal', { message: 'NEW DEAL'});
+    const dealToSend = await manager.find(Deal, {
+      where: {
+        id: savedDeal.id,
+      },
+      relations: ['product', 'producer'],
+    })
+
+    io.of('/socket').emit('newDeal', {
+      deal: dealToSend,
+    });
 
     res.status(200)
     .send({

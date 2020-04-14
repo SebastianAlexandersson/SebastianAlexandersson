@@ -18,4 +18,20 @@ export default [
       controllers.getOrders,
     ],
   },
+  {
+    path: '/godisapi/consumer/:id',
+    method: 'delete',
+    handler: [
+      validateConsumer,
+      controllers.deleteOrder,
+    ],
+  },
+  {
+    path: '/godisapi/consumer/:id',
+    method: 'put',
+    handler: [
+      validateConsumer,
+      controllers.updateOrder,
+    ],
+  },
 ];

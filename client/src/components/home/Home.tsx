@@ -11,7 +11,7 @@ import { IProduct } from '../../redux/shop/shop.types';
 import { getAllProducts } from '../../redux/shop/shop.actions';
 import Spinner from '../layout/Spinner';
 import './home.css';
-import CandyItem from '../candy/CandyItem';
+import CandyItem from '../Candy/CandyItem';
 import { selectUser } from '../../redux/auth/aut.selector';
 import { IUserData } from '../../redux/auth/auth.types';
 import {

@@ -26,5 +26,21 @@ exports.default = [
             controllers.getOrders,
         ],
     },
+    {
+        path: '/godisapi/consumer/:id',
+        method: 'delete',
+        handler: [
+            AuthControllers_1.validateConsumer,
+            controllers.deleteOrder,
+        ],
+    },
+    {
+        path: '/godisapi/consumer/:id',
+        method: 'put',
+        handler: [
+            AuthControllers_1.validateConsumer,
+            controllers.updateOrder,
+        ],
+    },
 ];
 //# sourceMappingURL=index.js.map
