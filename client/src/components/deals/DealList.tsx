@@ -27,16 +27,19 @@ const DealList: React.FC<Props> = ({
     getProducerDeals();
   }, [getProducerDeals]);
 
-  return isLoading ? <Spinner /> : (
-    <div className="Producer-Deals">
-      <h3>
+  return isLoading && deals.length === 0 ? <Spinner /> : (
+    <>
+      <h3 id="User-deal-title">
         {user && user.username }
         's
         {' '}
         Deals
       </h3>
-      {!isLoading && deals.length > 0 ? deals.map((deal: IDealData) => <DealItem key={deal.id} deal={deal} />) : <Spinner /> }
-    </div>
+      <div className="Producer-Deals">
+
+        {!isLoading && deals.length > 0 ? deals.map((deal: IDealData) => <DealItem key={deal.id} deal={deal} />) : <Spinner /> }
+      </div>
+    </>
   );
 };
 

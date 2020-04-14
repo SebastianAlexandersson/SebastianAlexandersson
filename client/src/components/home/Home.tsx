@@ -14,7 +14,10 @@ import './home.css';
 import CandyItem from '../candy/CandyItem';
 import { selectUser } from '../../redux/auth/aut.selector';
 import { IUserData } from '../../redux/auth/auth.types';
-import { selectProducts, selectProductsIsLoading, selectFilteredProducts } from '../../redux/shop/shop.selector';
+import {
+  selectProducts, selectProductsIsLoading,
+  selectFilteredProducts,
+} from '../../redux/shop/shop.selector';
 import SearchBar from './SearchBar';
 import useToggle from '../../hooks/useToggle';
 import Title from '../title/Title';

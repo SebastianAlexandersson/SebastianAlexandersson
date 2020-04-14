@@ -18,8 +18,6 @@ const CandyItem: React.FC<Props> = ({
   candy, deleteProduct, handleCurrent, handleSetDeal,
 }) => {
   const dealItem: IDeal = { productId: candy.id, price: candy.price };
-
-
   return (
     <>
       <li id="CandyItem">

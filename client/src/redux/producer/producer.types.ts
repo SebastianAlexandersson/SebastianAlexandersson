@@ -33,6 +33,7 @@ export interface IDealData{
   valid_from: Date;
   valid_to: Date;
   product: IDealProduct;
+
 }
 
 export interface IProducerState{
@@ -59,6 +60,7 @@ export enum ProducerActionTypes {
   HANDLE_ERROR='HANDLE_ERROR',
   SET_DEAL = 'SET_DEAL',
   CLEAR_DEAL = 'CLEAR_DEAL',
+  CALCULATE_PERCENT = 'CALCULATE_PERCENT'
 }
 
 
