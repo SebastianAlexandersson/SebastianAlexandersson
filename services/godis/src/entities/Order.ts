@@ -13,6 +13,12 @@ export class Order {
   })
   created_at: string;
 
+  @Column({
+    type: 'double',
+    default: 0
+  })
+  total: number;
+
   @ManyToOne(type => Consumer, consumer => consumer.id)
   consumer: Consumer;
 
