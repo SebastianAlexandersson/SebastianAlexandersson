@@ -6,6 +6,7 @@ const initialState: IShopState = {
   error: null,
   products: [],
   filteredProducts: null,
+  randomProducts: null,
 };
 
 export default (state: IShopState = initialState, action: ShopActionTypes) => {

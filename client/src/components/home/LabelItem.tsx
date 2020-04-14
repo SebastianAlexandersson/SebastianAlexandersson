@@ -8,6 +8,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { searchByProducer } from '../../redux/shop/shop.actions';
 
+
 interface Props {
   producer: string;
   searchByProducer: (producerName: string) => Promise<void>;

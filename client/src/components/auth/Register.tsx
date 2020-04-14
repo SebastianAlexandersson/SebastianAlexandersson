@@ -12,7 +12,7 @@ import Form from './Form';
 import { AppState } from '../../redux';
 import './auth.css';
 import { selectUser, selectIsAuth, selectUserLoading } from '../../redux/auth/aut.selector';
-import Spinner from '../layout/Spinner';
+
 
 interface Props extends RouteComponentProps {
   registerUser: (formData: IFormData) => Promise<void>;
@@ -34,12 +34,12 @@ const Register: React.FC<Props> = ({
     adress: '',
   });
 
-  const goHome = () => history.push('/');
+
   React.useEffect(() => {
     if (isAuth) {
-      goHome();
+      history.push('/');
     }
-  }, [isAuth, loading]);
+  }, [isAuth, loading, history]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const { name, value } = e.target;

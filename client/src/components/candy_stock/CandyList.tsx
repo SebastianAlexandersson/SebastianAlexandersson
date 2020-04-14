@@ -20,7 +20,7 @@ import CandyItem from './CandyItem';
 import {
   selectProducerProducts, selectProducerIsLoading, selectCurrent, selectDealCurrent,
 } from '../../redux/producer/producer.select';
-import { IDeal, IDealData } from '../../redux/producer/producer.types';
+import { IDeal } from '../../redux/producer/producer.types';
 import DealForm from './DealForm';
 
 
@@ -42,7 +42,7 @@ const CandyList: React.FC<Props> = ({
 }) => {
   React.useEffect(() => {
     getProductsByProducer();
-  }, []);
+  }, [getProductsByProducer]);
 
   const [showForm, toggleForm] = useToggle(false);
   const [showDealForm, toggleDealForm] = useToggle(false);

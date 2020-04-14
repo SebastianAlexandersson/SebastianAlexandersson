@@ -1,7 +1,7 @@
 /* eslint-disable import/extensions */
 import { createSelector } from 'reselect';
 import { AppState } from '..';
-import { ICartState, IOrderProduct } from './cart.types';
+import { ICartState } from './cart.types';
 import { IProduct } from '../shop/shop.types';
 
 const selectCart = (state: AppState) => state.cart;

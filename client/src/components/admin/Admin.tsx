@@ -22,7 +22,7 @@ const Admin: React.FC<Props> = ({ user, isLoading, history }) => {
     if (user === null) {
       history.push('/');
     }
-  }, [user]);
+  }, [user, history]);
 
   return !isLoading ? (
     <div className="Admins-Page">

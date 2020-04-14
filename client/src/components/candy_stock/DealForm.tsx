@@ -14,14 +14,6 @@ interface Props {
 const DealForm: React.FC<Props> = ({ dealCurrent, toggle, createDeal }) => {
   const [price, setPrice] = React.useState<string>('');
 
-  const formatPercent = () => {
-    const currentPrice = dealCurrent ? dealCurrent?.price : 0;
-    const x = Number(price) / 100;
-    // console.log('x', x);
-    // console.log(x * currentPrice);
-    return x * currentPrice;
-  };
-
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

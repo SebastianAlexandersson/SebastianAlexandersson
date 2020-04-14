@@ -12,7 +12,6 @@ import { AppState } from '../../../redux';
 import { logoutUser } from '../../../redux/auth/auth.actions';
 import { IUserData } from '../../../redux/auth/auth.types';
 import { ReactComponent as CartLogo } from '../../../img/cart.svg';
-import useToggle from '../../../hooks/useToggle';
 import DropDown from './DropDown';
 import { selectUser, selectUserLoading, selectIsAuth } from '../../../redux/auth/aut.selector';
 import { selectCartItemCount, selectCartIsHidden } from '../../../redux/cart/cart.selector';
@@ -52,7 +51,7 @@ const NavList: React.FC<Props> = ({
     },
   ];
 
-  const [showCart, toggleCart] = useToggle(false);
+
   return (
     <ul id="navList">
 

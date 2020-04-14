@@ -24,7 +24,7 @@ const Producer: React.FC<Props> = ({ isLoading, user, history }) => {
     if (user === null) {
       history.push('/');
     }
-  }, [user]);
+  }, [user, history]);
 
 
   return (!isLoading ? (

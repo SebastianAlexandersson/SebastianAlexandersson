@@ -3,7 +3,7 @@
 /* eslint-disable import/extensions */
 import * as React from 'react';
 import {
-  Route, Switch, Redirect, RouteComponentProps,
+  Route, Switch, RouteComponentProps,
 } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Home from '../home/Home';

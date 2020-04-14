@@ -11,12 +11,16 @@ export interface IProduct{
   producer: IProducer;
 }
 
+export interface IRandomOrder {
+  orders: IProduct[];
+}
 
 export interface IShopState {
   products: IProduct[];
   isLoading: boolean;
   error: Record<string, any> | null;
   filteredProducts: null | IProduct[];
+  randomProducts: IProduct[] | null;
 }
 
 
@@ -26,7 +30,8 @@ export enum ActionTypesShop{
   SEARCH_BY_PRODUCER='SEARCH_BY_PRODUCER',
   CLEAR_SEARCH='CLEAR_SEARCH',
   FILTER_PRODUCTS = 'FILTER_PRODUCTS',
-  CLEAR_FILTER_PRODUCTS='CLEAR_FILTER_PRODUCTS'
+  CLEAR_FILTER_PRODUCTS='CLEAR_FILTER_PRODUCTS',
+
 }
 
 
@@ -58,4 +63,7 @@ export interface ISearchProductAction {
 
 export type ShopActionTypes =
   IGetProductsAction |
-  IGetErrorAction | ISearchAction| IClearSearchAction | ISearchProductAction
+  IGetErrorAction |
+  ISearchAction |
+  IClearSearchAction|
+  ISearchProductAction

@@ -48,6 +48,7 @@ export default (state: ICartState = initialState, action: CartActionTypes) => {
         ...state,
         hidden: !state.hidden,
       };
+
     default:
       return state;
   }
