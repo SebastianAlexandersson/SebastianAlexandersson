@@ -5,22 +5,14 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
-import io from 'socket.io-client';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { configureStore } from './redux';
 
 const store = configureStore();
-const socket = io('http://localhost/socket');
-
-socket.on('connect', (message: any) => {
-  console.log(message);
-});
-
-socket.on('newDeal', (data: any) => {
-  console.log('NEW DEAL!!!');
-  console.log(data);
-});
+// socket.on('connect', (message: any) => {
+//   console.log(message);
+// });
 
 ReactDOM.render(
   <Router>

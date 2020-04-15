@@ -21,6 +21,7 @@ const OrderShowCase: React.FC<Props> = ({ myOrders, isLoading, getMyOrders }) =>
     getMyOrders();
   }, [getMyOrders]);
 
+  console.log('myOrders  ', myOrders);
 
   return (
     <div className="OrderShowCase">

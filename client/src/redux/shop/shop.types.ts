@@ -3,6 +3,7 @@
 /* eslint-disable @typescript-eslint/interface-name-prefix */
 import { IProducer } from '../producer/producer.types';
 
+
 export interface IProduct{
   id: number;
   name: string;
@@ -20,7 +21,6 @@ export interface IShopState {
   isLoading: boolean;
   error: Record<string, any> | null;
   filteredProducts: null | IProduct[];
-
 }
 
 
@@ -31,7 +31,9 @@ export enum ActionTypesShop{
   CLEAR_SEARCH='CLEAR_SEARCH',
   FILTER_PRODUCTS = 'FILTER_PRODUCTS',
   CLEAR_FILTER_PRODUCTS='CLEAR_FILTER_PRODUCTS',
-
+  GET_IS_THERE_A_DEAL = 'GET_IS_THERE_A_DEAL',
+  GET_IS_THERE_A_DEAL_DATA = 'GET_IS_THERE_A_DEAL_DATA',
+  CLEAR_IS_THERE_A_DEAL = 'CLEAR_IS_THERE_A_DEAL',
 }
 
 
@@ -65,5 +67,5 @@ export type ShopActionTypes =
   IGetProductsAction |
   IGetErrorAction |
   ISearchAction |
-  IClearSearchAction|
+  IClearSearchAction |
   ISearchProductAction

@@ -28,7 +28,7 @@ export async function createProduct(req: MyRequest, res: Response) {
 
     const producerId = req.user.godisDbId;
     const producer = await manager.findOne(Producer, producerId);
-    
+
     const product = manager.create(Product, {
       name,
       price,

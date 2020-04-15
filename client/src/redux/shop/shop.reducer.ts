@@ -6,7 +6,6 @@ const initialState: IShopState = {
   error: null,
   products: [],
   filteredProducts: null,
-
 };
 
 export default (state: IShopState = initialState, action: ShopActionTypes) => {
@@ -43,6 +42,7 @@ export default (state: IShopState = initialState, action: ShopActionTypes) => {
         error: action.payload,
         loading: false,
       };
+
     default:
       return state;
   }

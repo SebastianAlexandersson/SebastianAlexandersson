@@ -6,6 +6,7 @@
 /* eslint-disable no-shadow */
 import * as React from 'react';
 import { connect } from 'react-redux';
+import io from 'socket.io-client';
 import { AppState } from '../../redux';
 import { IProduct } from '../../redux/shop/shop.types';
 import { getAllProducts } from '../../redux/shop/shop.actions';
@@ -24,6 +25,10 @@ import Title from '../title/Title';
 import Label from './Label';
 import RandomOrder from '../random_order/RandomOrder';
 import DealsShowCase from '../consumer/deal_showcase/DealsShowCase';
+import DealMsg from '../layout/dealMsg/DealMsg';
+
+const socket = io('http://localhost/socket');
+
 
 interface Props{
   allProducts: IProduct[];
@@ -38,10 +43,21 @@ const Home: React.FC<Props> = ({
 }) => {
   const [showSearch, toggleSearch] = useToggle(false);
   const [showDeals, toggleDeals] = useToggle(false);
+  const [socketIoDeal, toggleSocketDeal] = useToggle(false);
+
 
   React.useEffect(() => {
     getAllProducts();
   }, [getAllProducts]);
+
+
+  socket.on('newDeal', (data: Record<string, any>) => {
+    if (data) {
+      toggleSocketDeal();
+      toggleDeals();
+    }
+  });
+
 
   return (
     <>
@@ -53,6 +69,7 @@ const Home: React.FC<Props> = ({
           spanTwo="and"
           subTitle2="Marcell the ...."
         />
+
 
         {!isProductsLoading && user?.role !== 'producer' && (
           <div className="Search">
@@ -73,7 +90,11 @@ const Home: React.FC<Props> = ({
             <Label isLoading={isProductsLoading} toggle={toggleDeals} showDeals={showDeals} />
           </div>
 
+          {socketIoDeal && <DealMsg toggleSocketDeal={toggleSocketDeal} /> }
+
           {showDeals && <DealsShowCase /> }
+
+
           <div className="CandyGrid">
             {!isProductsLoading && filteredProducts !== null ? filteredProducts.map(
               (prod) => <CandyItem key={prod.id} product={prod} />,
@@ -94,6 +115,8 @@ const mapStateToProps = (state: AppState) => ({
   allProducts: selectProducts(state),
   isProductsLoading: selectProductsIsLoading(state),
   filteredProducts: selectFilteredProducts(state),
+
 });
+
 
 export default connect(mapStateToProps, { getAllProducts })(Home);

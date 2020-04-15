@@ -248,3 +248,45 @@
    color: #333;
    background: #fff;
  }
+
+ @-webkit-keyframes fadeIn {
+   0% {
+     opacity: 0;
+   }
+
+   100% {
+     opacity: 1;
+   }
+ }
+
+ @keyframes fadeIn {
+   0% {
+     opacity: 0;
+   }
+
+   100% {
+     opacity: 1;
+   }
+ }
+
+ .Socket-Msg {
+   padding: 1rem .5rem;
+   box-shadow: 0 8px 6px -6px black;
+   width: 60vw;
+   margin: 2rem auto;
+   -webkit-animation-name: fadeIn;
+   animation-name: fadeIn;
+   -webkit-animation-duration: 1s;
+   animation-duration: 1s;
+   -webkit-animation-fill-mode: both;
+   animation-fill-mode: both;
+ }
+
+ .Socket-Msg h3 {
+   font-size: 3rem;
+   letter-spacing: .3rem;
+ }
+
+ .Socket-Msg h5 {
+   font-size: 2rem;
+ }
