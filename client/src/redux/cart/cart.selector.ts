@@ -40,3 +40,8 @@ export const selectCartIsHidden = createSelector(
   [selectCart],
   (state: ICartState) => state.hidden,
 );
+
+export const selectDealsProducts = createSelector(
+  [selectCart],
+  (state: ICartState) => state.dealsProducts,
+);

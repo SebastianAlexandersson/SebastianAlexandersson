@@ -23,7 +23,7 @@ const CandyItem: React.FC<Props> = ({ product, addProduct, user }) => (
     <div className="Candy">
       <div className="Candy-header">
         <h3>
-          {product.name}
+          {product && product.name}
           {' '}
         </h3>
       </div>
@@ -33,7 +33,7 @@ const CandyItem: React.FC<Props> = ({ product, addProduct, user }) => (
           Quantity:
           {' '}
           <span>
-            {product.qty}
+            {product && product.qty}
             {' '}
             kg
           </span>
@@ -42,7 +42,7 @@ const CandyItem: React.FC<Props> = ({ product, addProduct, user }) => (
           Price:
           {' '}
           <span>
-            {product.price}
+            {product && product.price}
             {' '}
             $
           </span>
@@ -51,6 +51,7 @@ const CandyItem: React.FC<Props> = ({ product, addProduct, user }) => (
           Producer:
           {' '}
           {/* <span>{product.producer.name !== null ? product.producer.name : ''}</span> */}
+          <span>{product && product.producer.name}</span>
         </p>
 
 

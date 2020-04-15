@@ -11,7 +11,7 @@ import { IProduct } from '../../redux/shop/shop.types';
 import { getAllProducts } from '../../redux/shop/shop.actions';
 import Spinner from '../layout/Spinner';
 import './home.css';
-import CandyItem from '../Candy/CandyItem';
+import CandyItem from '../candy/CandyItem';
 import { selectUser } from '../../redux/auth/aut.selector';
 import { IUserData } from '../../redux/auth/auth.types';
 import {
@@ -23,6 +23,7 @@ import useToggle from '../../hooks/useToggle';
 import Title from '../title/Title';
 import Label from './Label';
 import RandomOrder from '../random_order/RandomOrder';
+import DealsShowCase from '../consumer/deal_showcase/DealsShowCase';
 
 interface Props{
   allProducts: IProduct[];
@@ -36,6 +37,7 @@ const Home: React.FC<Props> = ({
   allProducts, getAllProducts, isProductsLoading, user, filteredProducts,
 }) => {
   const [showSearch, toggleSearch] = useToggle(false);
+  const [showDeals, toggleDeals] = useToggle(false);
 
   React.useEffect(() => {
     getAllProducts();
@@ -51,7 +53,8 @@ const Home: React.FC<Props> = ({
           spanTwo="and"
           subTitle2="Marcell the ...."
         />
-        {!isProductsLoading && user?.role !== 'producer' && (
+
+        {!isProductsLoading && user?.role !== 'producer' && !showDeals && (
           <div className="Search">
             <span id="search-Icon" onClick={toggleSearch}>&#x26B2;</span>
 
@@ -67,10 +70,10 @@ const Home: React.FC<Props> = ({
         <>
           <RandomOrder />
           <div className="LabelWrapper">
-            <Label isLoading={isProductsLoading} />
+            <Label isLoading={isProductsLoading} toggle={toggleDeals} showDeals={showDeals} />
           </div>
 
-
+          {showDeals && <DealsShowCase /> }
           <div className="CandyGrid">
             {!isProductsLoading && filteredProducts !== null ? filteredProducts.map(
               (prod) => <CandyItem key={prod.id} product={prod} />,
@@ -80,6 +83,8 @@ const Home: React.FC<Props> = ({
           </div>
         </>
       ) : <div /> }
+
+
     </>
   );
 };
