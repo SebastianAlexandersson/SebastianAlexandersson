@@ -18,6 +18,12 @@ export default (state: IConsumerState = initialState, action: ConsumerReducerTyp
         orders: action.payload,
         loading: false,
       };
+    case ConsumerActionTypes.DELETE_MY_ORDERS:
+      return {
+        ...state,
+        orders: state.orders.filter((order) => order.id !== action.payload),
+        loading: false,
+      };
     default:
       return state;
   }

@@ -68,6 +68,7 @@ export interface SetCurrentUserAction {
 export interface IGetMyOrdersAction {
   type: ConsumerActionTypes.GET_MY_ORDERS;
   payload: Record<string, any>[];
+
 }
 export interface IEditMyOrderAction {
   type: ConsumerActionTypes.EDIT_MY_ORDER;

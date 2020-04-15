@@ -7,7 +7,6 @@ import { getMyOrders } from '../../../redux/concumer/consumer.actions';
 import { AppState } from '../../../redux';
 import { selectMyOrders, selectIsLoading } from '../../../redux/concumer/consumer.selector';
 import OrderShowCaseItem from './OrderShowCaseItem';
-import Spinner from '../../layout/Spinner';
 import './OrderShowcase.css';
 
 interface Props {
@@ -25,10 +24,9 @@ const OrderShowCase: React.FC<Props> = ({ myOrders, isLoading, getMyOrders }) =>
 
   return (
     <div className="OrderShowCase">
-
       {!isLoading && myOrders.length > 0 ? myOrders.map((order) => (
         <OrderShowCaseItem key={order.id} order={order} />
-      )) : <Spinner /> }
+      )) : <h3 style={{ fontSize: '3rem' }}>No orders</h3> }
 
     </div>
   );

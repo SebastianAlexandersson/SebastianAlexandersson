@@ -65,7 +65,7 @@ export const deleteMyOrder = (id: number) => async (dispath: Dispatch<IDeleteMyO
     }
     await axios({
       method: 'DELETE',
-      url: `/godisapi/consumer/${id}`,
+      url: `/godisapi/consumer/${id.toString()}`,
       headers: {
         Authorization: `Bearer ${token}`,
       },

@@ -16,6 +16,10 @@
   box-shadow: 0 8px 6px -6px black;
 }
 
+.OrderShowCaseItem #editOption {
+  cursor: pointer;
+  font-size: 2rem;
+}
 
 
 .Order-Header p {
@@ -43,9 +47,11 @@
 }
 
 .Order-Body li span {
-  color: #333;
+  color: #fff;
+  background: #333;
   font-weight: 800;
-
+  cursor: none;
+  z-index: 0;
 }
 
 .Order-Footer {
@@ -54,4 +60,36 @@
 
 .Order-Footer p {
   font-size: 2rem;
+}
+
+
+.OrderShowCase .Options-Cta {
+  padding: 2rem;
+}
+
+.OrderShowCase .Options-Cta button {
+  margin: 1rem;
+}
+
+#EditOrderForm {}
+
+#EditOrderForm .form-group {
+  background: #333;
+  box-shadow: 0 8px 6px -6px black;
+  border-radius: 1rem;
+  margin: 1rem 0;
+}
+
+#EditOrderForm .form-group label {
+  color: #fff;
+}
+
+#EditOrderForm .form-group label span {
+  color: #fff;
+}
+
+#EditOrderForm .form-group input {
+  width: 20vw;
+  margin: 0 auto;
+  box-shadow: none;
 }
