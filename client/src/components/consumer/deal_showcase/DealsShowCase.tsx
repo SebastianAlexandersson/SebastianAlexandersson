@@ -22,7 +22,9 @@ const DealsShowCase: React.FC<Props> = ({ getAllDeals, allDeals, isLoading }) =>
 
   return (
     <>
-      {!isLoading && allDeals.length > 0 && allDeals.map((deal) => <ShowCaseItem key={deal.id} deal={deal} />) }
+      {!isLoading && allDeals.length > 0 ? allDeals.map(
+        (deal) => <ShowCaseItem key={deal.id} deal={deal} />,
+      ) : <h3>No deals...Sorry</h3> }
     </>
   );
 };
