@@ -24,7 +24,7 @@ const OrderShowCase: React.FC<Props> = ({ myOrders, isLoading, getMyOrders }) =>
 
   return (
     <div className="OrderShowCase">
-      {!isLoading && myOrders.length > 0 ? myOrders.map((order) => (
+      {!isLoading && myOrders.length > 0 ? myOrders.map((order, index) => (
         <OrderShowCaseItem key={order.id} order={order} />
       )) : <h3 style={{ fontSize: '3rem' }}>No orders</h3> }
 

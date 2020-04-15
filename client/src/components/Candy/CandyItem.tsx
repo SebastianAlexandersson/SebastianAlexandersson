@@ -50,8 +50,8 @@ const CandyItem: React.FC<Props> = ({ product, addProduct, user }) => (
         <p>
           Producer:
           {' '}
-          {/* <span>{product.producer.name !== null ? product.producer.name : ''}</span> */}
-          <span>{product && product.producer.name}</span>
+
+          <span>{product && product.producer.name }</span>
         </p>
 
 

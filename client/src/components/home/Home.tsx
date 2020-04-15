@@ -54,7 +54,7 @@ const Home: React.FC<Props> = ({
           subTitle2="Marcell the ...."
         />
 
-        {!isProductsLoading && user?.role !== 'producer' && !showDeals && (
+        {!isProductsLoading && user?.role !== 'producer' && (
           <div className="Search">
             <span id="search-Icon" onClick={toggleSearch}>&#x26B2;</span>
 
