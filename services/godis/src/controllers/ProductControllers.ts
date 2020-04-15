@@ -18,6 +18,10 @@ export async function getAllProducts(req: Request, res: Response) {
 export async function getProductById(req: Request, res: Response) {
   const id = Number(req.params.id);
 
+  if (isNaN(id)) {
+    throw new HTTP400Error('Bad product id.');
+  };
+
   const productRepository = getRepository(Product);
   const product = await productRepository.findOne({
     where: {
@@ -57,10 +61,12 @@ export async function getProductByProducer(req: Request, res: Response) {
   res.status(200).json(products);
 };
 
-export async function getAllDeal(req: Request, res: Response) {
+export async function getAllDeals(req: Request, res: Response) {
   const dealRepository = getRepository(Deal)
 
-  const deals = await dealRepository.find();
+  const deals = await dealRepository.find({
+    relations: ['product'],
+  });
 
   res.status(200)
   .json(deals);

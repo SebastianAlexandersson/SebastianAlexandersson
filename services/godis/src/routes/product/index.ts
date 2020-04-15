@@ -12,7 +12,7 @@ export default [
     path: '/godisapi/product/deals',
     method: 'get',
     handler: [
-      controllers.getAllDeal,
+      controllers.getAllDeals,
     ],
   },
   {
