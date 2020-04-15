@@ -8,6 +8,7 @@ const initialState: ICartState = {
   loading: true,
   productsCart: [],
   products: null, // finalorder
+  dealsProducts: [],
 };
 
 export default (state: ICartState = initialState, action: CartActionTypes) => {
@@ -47,6 +48,12 @@ export default (state: ICartState = initialState, action: CartActionTypes) => {
       return {
         ...state,
         hidden: !state.hidden,
+      };
+    case ActionTypesCart.GET_DEALS:
+      return {
+        ...state,
+        dealsProducts: action.payload,
+        loading: false,
       };
 
     default:

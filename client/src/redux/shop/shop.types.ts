@@ -20,7 +20,7 @@ export interface IShopState {
   isLoading: boolean;
   error: Record<string, any> | null;
   filteredProducts: null | IProduct[];
-  randomProducts: IProduct[] | null;
+
 }
 
 

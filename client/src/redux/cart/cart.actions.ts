@@ -11,6 +11,7 @@ import {
   IOrderProduct,
   IClearOrderAction,
   IToggleCartAction,
+  IGetDealsAction,
 } from './cart.types';
 import { IProduct } from '../shop/shop.types';
 
@@ -72,3 +73,16 @@ export const clearOrder = (): IClearOrderAction => ({ type: ActionTypesCart.CLEA
 export const toggleCartDropDown = (): IToggleCartAction => ({
   type: ActionTypesCart.TOGGLE_CART_HIDDEN,
 });
+
+
+export const getAllDeals = () => async (dispatch: Dispatch<IGetDealsAction>) => {
+  try {
+    const response = await axios.get('/godisapi/product/deals');
+    dispatch({
+      type: ActionTypesCart.GET_DEALS,
+      payload: response.data,
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};

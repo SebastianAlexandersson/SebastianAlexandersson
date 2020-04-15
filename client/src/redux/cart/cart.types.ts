@@ -12,6 +12,7 @@ export interface ICartState {
   productsCart: IProduct[];
   loading: boolean;
   products: IOrderProduct[] | null;// final order
+  dealsProducts: Record<string, any>[]; // deals there a re mad :TODO: fix type
 }
 
 export enum ActionTypesCart {
@@ -21,7 +22,7 @@ export enum ActionTypesCart {
   REMOVE_ITEM = 'REMOVE_ITEM',
   MAKE_ORDER = 'MAKE_ORDER',
   CLEAR_ORDER = 'CLEAR_ORDER',
-
+  GET_DEALS = 'GET_DEALS',
 }
 
 export interface IToggleCartAction {
@@ -51,6 +52,11 @@ export interface IClearOrderAction {
   type: ActionTypesCart.CLEAR_ORDER;
 }
 
+export interface IGetDealsAction {
+  type: ActionTypesCart.GET_DEALS;
+  payload: Record<string, any>[];
+}
+
 
 export type CartActionTypes =
  IToggleCartAction |
@@ -58,4 +64,5 @@ export type CartActionTypes =
  IDeleteItemFromCartAction |
  IRemoveProductAction |
  IMakeOrderAction |
- IClearOrderAction
+ IClearOrderAction |
+ IGetDealsAction

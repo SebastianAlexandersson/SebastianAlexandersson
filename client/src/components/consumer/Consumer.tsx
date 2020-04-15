@@ -31,6 +31,7 @@ const Consumer: React.FC<Props> = ({ user, isLoading }) => (!isLoading ? (
     </h1>
     <h3> Let's shop some Candy </h3>
     <Link to="/" className="Btn candy-cta"> Candies </Link>
+    <Link to="/showcase-orders" className="Btn candy-cta"> Orders </Link>
 
   </div>
 ) : <Spinner />);

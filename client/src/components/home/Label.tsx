@@ -19,9 +19,13 @@ interface Props {
   isLoading: boolean;
   clearSearch: () => void;
   getAllProducts: () => Promise<void>;
+  toggle: () => void;
+  showDeals: boolean;
 }
 
-const Label: React.FC<Props> = ({ allProducts, isLoading, clearSearch }) => {
+const Label: React.FC<Props> = ({
+  allProducts, isLoading, clearSearch, toggle, showDeals,
+}) => {
   // const producersXs = allProducts.map((producer) => producer.producer.name);
   const producersXs = allProducts.map((product) => {
     if (product && !isLoading && product.producer !== null) {
@@ -38,6 +42,12 @@ const Label: React.FC<Props> = ({ allProducts, isLoading, clearSearch }) => {
     <div className="Label-producers">
       {uniqueProducersTitle.map((producer: any, index: any) => <LabelItem key={index} producer={producer} />)}
       <p className="LabelItem reset-all" onClick={() => clearSearch()}> all Producers </p>
+      <p className="LabelItem reset-all" onClick={toggle}>
+        {' '}
+        {showDeals ? 'Hide deals' : 'Show deals'}
+        {' '}
+      </p>
+
     </div>
   );
 };

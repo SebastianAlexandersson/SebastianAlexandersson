@@ -1,0 +1,57 @@
+.OrderShowCase {
+  max-width: 60vw;
+  margin: 6rem auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.OrderShowCaseItem {
+  padding: 1.5rem 1rem;
+  /* border: 2px solid #333; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  box-shadow: 0 8px 6px -6px black;
+}
+
+
+
+.Order-Header p {
+  color: #333;
+  font-size: 2rem;
+  padding: 1rem;
+}
+
+.Order-Body {
+  color: #333;
+  width: 100%;
+}
+
+.Order-Body li {
+  color: #333;
+  font-size: 1.8rem;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.Order-Body li p {
+  width: 30%;
+
+}
+
+.Order-Body li span {
+  color: #333;
+  font-weight: 800;
+
+}
+
+.Order-Footer {
+  padding: 2rem 1rem;
+}
+
+.Order-Footer p {
+  font-size: 2rem;
+}
