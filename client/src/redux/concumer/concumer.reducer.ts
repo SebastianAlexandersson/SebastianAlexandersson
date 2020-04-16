@@ -1,7 +1,6 @@
 /* eslint-disable import/extensions */
 import { IConsumerState, ConsumerReducerType, ConsumerActionTypes } from './consumer.types';
 
-
 const initialState: IConsumerState = {
   loading: false,
   consumer: null,
@@ -22,6 +21,12 @@ export default (state: IConsumerState = initialState, action: ConsumerReducerTyp
       return {
         ...state,
         orders: state.orders.filter((order) => order.id !== action.payload),
+        loading: false,
+      };
+    case ConsumerActionTypes.EDIT_MY_ORDER:
+      return {
+        ...state,
+        orders: [...state.orders, action.payload],
         loading: false,
       };
     default:

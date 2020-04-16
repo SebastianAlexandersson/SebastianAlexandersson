@@ -1,7 +1,7 @@
 /* eslint-disable import/extensions */
 import { ICartState, ActionTypesCart, CartActionTypes } from './cart.types';
-import { addItemToCart } from './cart.utils';
-import { removeFromCartItem } from '../concumer/consumer.utils';
+import { addItemToCart, removeFromCartItem } from './cart.utils';
+// import { removeFromCartItem } from '../concumer/consumer.utils';
 
 const initialState: ICartState = {
   hidden: false,
@@ -9,6 +9,7 @@ const initialState: ICartState = {
   productsCart: [],
   products: null, // finalorder
   dealsProducts: [],
+
 };
 
 export default (state: ICartState = initialState, action: CartActionTypes) => {

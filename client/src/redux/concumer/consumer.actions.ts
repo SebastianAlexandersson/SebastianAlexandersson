@@ -7,7 +7,7 @@ import {
 } from './consumer.types';
 
 
-export const getMyOrders = () => async (dispath: Dispatch<IGetMyOrdersAction>) => {
+export const getMyOrders = () => async (dispatch: Dispatch<IGetMyOrdersAction>) => {
   try {
     let token: any;
     if (Cookies.get('token')) {
@@ -21,7 +21,7 @@ export const getMyOrders = () => async (dispath: Dispatch<IGetMyOrdersAction>) =
       },
     });
 
-    dispath({
+    dispatch({
       type: ConsumerActionTypes.GET_MY_ORDERS,
       payload: response.data.orders,
     });
@@ -31,23 +31,34 @@ export const getMyOrders = () => async (dispath: Dispatch<IGetMyOrdersAction>) =
 };
 
 
-export const editMyOrder = (id: number, order: Record<string, any>[]) => async (dispath: Dispatch<IEditMyOrderAction>) => {
+export const editMyOrder = (
+  id: number, productsData: Record<string, any>[],
+) => async (dispatch: Dispatch<IEditMyOrderAction>) => {
   try {
     let token: any;
     if (Cookies.get('token')) {
       token = Cookies.get('token');
     }
+
+
+    const products = productsData.map((x) => ({ productId: x.id, qty: x.qty }));
+
+    // console.log('form redux ', products);
+    // console.log('form redux2 ', JSON.stringify({ products }, null, 2));
+
+    console.log('redux', products);
+
     const response = await axios({
       method: 'PUT',
-      url: `/godisapi/consumer/${id}`,
+      url: `/godisapi/consumer/${id.toString()}`,
       headers: {
         Authorization: `Bearer ${token}`,
         'Content-Type': 'application/json',
       },
-      data: order,
+      data: { products },
     });
 
-    dispath({
+    dispatch({
       type: ConsumerActionTypes.EDIT_MY_ORDER,
       payload: response.data,
     });
@@ -57,7 +68,7 @@ export const editMyOrder = (id: number, order: Record<string, any>[]) => async (
 };
 
 
-export const deleteMyOrder = (id: number) => async (dispath: Dispatch<IDeleteMyOrderActions>) => {
+export const deleteMyOrder = (id: number) => async (dispatch: Dispatch<IDeleteMyOrderActions>) => {
   try {
     let token: any;
     if (Cookies.get('token')) {
@@ -71,7 +82,7 @@ export const deleteMyOrder = (id: number) => async (dispath: Dispatch<IDeleteMyO
       },
     });
 
-    dispath({
+    dispatch({
       type: ConsumerActionTypes.DELETE_MY_ORDERS,
       payload: id,
     });

@@ -12,6 +12,7 @@ import {
   IClearOrderAction,
   IToggleCartAction,
   IGetDealsAction,
+
 } from './cart.types';
 import { IProduct } from '../shop/shop.types';
 

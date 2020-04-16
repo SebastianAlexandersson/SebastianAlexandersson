@@ -1,13 +1,16 @@
 .OrderShowCase {
-  max-width: 60vw;
+  max-width: 80vw;
   margin: 6rem auto;
   display: flex;
   flex-direction: column;
+
 }
 
 .OrderShowCaseItem {
+  border: 2px solid #333;
   padding: 1.5rem 1rem;
-  /* border: 2px solid #333; */
+  width: 80%;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -16,9 +19,23 @@
   box-shadow: 0 8px 6px -6px black;
 }
 
-.OrderShowCaseItem #editOption {
+.OrderShowCaseItem .Order-Header {
+  padding: 2rem 0;
+}
+
+
+#editOption {
   cursor: pointer;
   font-size: 2rem;
+  color: #fff;
+  background: #333;
+}
+
+#Delete-Order_Item {
+  cursor: pointer;
+  font-size: 2rem;
+  color: #fff;
+  background: #333;
 }
 
 
@@ -26,11 +43,28 @@
   color: #333;
   font-size: 2rem;
   padding: 1rem;
+
 }
 
 .Order-Body {
   color: #333;
   width: 100%;
+  padding: 2rem 0;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+.Order-Body #decrease,
+#increase {
+  color: #333;
+  position: static;
+  font-size: 2rem;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  font-weight: 800;
+  ;
 }
 
 .Order-Body li {
@@ -41,9 +75,10 @@
   justify-content: space-evenly;
 }
 
-.Order-Body li p {
-  width: 30%;
 
+
+.Order-Body li p {
+  width: 40%;
 }
 
 .Order-Body li span {
@@ -92,4 +127,16 @@
   width: 20vw;
   margin: 0 auto;
   box-shadow: none;
+}
+
+@media(max-width:900px) {
+  .Order-Body li {
+    flex-direction: column;
+
+  }
+
+  .Order-Body li p {
+    width: 100%;
+    margin: 1rem;
+  }
 }

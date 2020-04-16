@@ -14,7 +14,7 @@ export type AppState = ReturnType<typeof rootReducer>
 export const configureStore = () => {
   const middleware: Middleware[] = [];
   if (process.env.NODE_ENV === 'development') {
-    middleware.push(logger, thunk);
+    middleware.push(thunk);
   }
   if (process.env.NODE_ENV === 'test') {
     middleware.push(logger, thunk);

@@ -36,6 +36,8 @@ const Checkout: React.FC<Props> = ({
   }, [toggleCartDropDown]);
 
   const getHome = () => history.push('/');
+
+
   const handleMakeOrder = () => {
     const products = userCart.map((x) => {
       const order: IOrderProduct = { id: x.id, qty: x.qty };

@@ -10,7 +10,7 @@ const DealMsg: React.FC<Props> = ({ toggleSocketDeal }) => {
     setTimeout(() => {
       toggleSocketDeal();
     }, 5000);
-  }, []);
+  }, [toggleSocketDeal]);
 
 
   return (

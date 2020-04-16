@@ -13,6 +13,7 @@ export interface ICartState {
   loading: boolean;
   products: IOrderProduct[] | null;// final order
   dealsProducts: Record<string, any>[]; // deals there a re mad :TODO: fix type
+
 }
 
 export enum ActionTypesCart {
@@ -23,6 +24,7 @@ export enum ActionTypesCart {
   MAKE_ORDER = 'MAKE_ORDER',
   CLEAR_ORDER = 'CLEAR_ORDER',
   GET_DEALS = 'GET_DEALS',
+
 }
 
 export interface IToggleCartAction {

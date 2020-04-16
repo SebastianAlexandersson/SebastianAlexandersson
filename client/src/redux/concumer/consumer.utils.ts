@@ -1,28 +1,24 @@
+/* eslint-disable max-len */
 /* eslint-disable import/extensions */
-import { IProduct } from '../shop/shop.types';
 
-export const adDItemToCart = (cartItems: IProduct[], cartItemToAdd: IProduct) => {
-  const isThereACartItemAlreadyInBasket = cartItems.find((item) => item.id === cartItemToAdd.id);
-  if (isThereACartItemAlreadyInBasket) {
-    return cartItems.map((item) => (item.id === cartItemToAdd.id ? { ...item, qty: item.qty + 1 } : item));
+
+export const addItemToOrder = (orderItems: Record<string, any>[], orderItemId: Record<string, any>) => {
+  const isThereAOrderItem = orderItems.find((item) => item.id === orderItemId.id);
+  if (isThereAOrderItem) {
+    return orderItems.map((item) => (item.id === orderItemId.id ? { ...item, qty: item.qty + 1 } : item));
   }
-  return [...cartItems, { ...cartItemToAdd, qty: 1 }];
+  return [...orderItems, { ...orderItemId, qty: 1 }];
 };
 
 
-// export const calculatePrice = (
-//   cartItems: IProduct[],
-// ) => cartItems.map((item) => item.price += item.price);
-
-
-export const removeFromCartItem = (cartItems: IProduct[], cartItemToRemove: IProduct) => {
-  const existingCartItem = cartItems.find((item) => item.id === cartItemToRemove.id);
+export const removeFromOrderItem = (orderItems: Record<string, any>[], cartItemToRemove: Record<string, any>) => {
+  const existingCartItem = orderItems.find((item) => item.id === cartItemToRemove.id);
 
   if (existingCartItem?.qty === 1) {
-    return cartItems.filter((item) => item.id !== cartItemToRemove.id);
+    return orderItems.filter((item) => item.id !== cartItemToRemove.id);
   }
 
-  return cartItems.map(
+  return orderItems.map(
     (item) => (item.id === cartItemToRemove.id ? { ...item, qty: item.qty - 1 } : item),
   );
 };
