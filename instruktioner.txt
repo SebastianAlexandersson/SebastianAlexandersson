@@ -1,0 +1,25 @@
+Systemkrav: Operativsystem som kan köra docker och docker-compose. Förslagsvis Ubuntu via Oracle Virtual Box. 
+
+Guider: 
+
+VirtualBox - https://www.virtualbox.org/wiki/Downloads
+Installera ubuntu - https://askubuntu.com/questions/142549/how-to-install-ubuntu-on-virtualbox
+Installera docker - https://phoenixnap.com/kb/how-to-install-docker-on-ubuntu-18-04
+Installera docker-compose - https://phoenixnap.com/kb/install-docker-compose-ubuntu
+
+Köra vår app:
+
+1. Gå till projektmapp msgodis
+2. kör "npm install" i msgodis/client
+3. kör "npm install" i msgodis/services/godis
+4. kör "npm install" i msgodis/services/auth
+5. gå till rootmappen för projektet (/msgodis/)
+6. kör "docker-compose up"
+7. vänta ett par minuter för allt att starta upp.
+8. Projektet är tillgängligt på http://localhost/
+9. SQL-databasen kan inspekteras via http://localhost:8080 använd uppgifterna: host: godisdb, user: msgodis, password: #godisKUNGAR123, database: msgodis
+10. MongoDB-databasen kan inspekteras via compass på localhost:27017 username: msgodis, password: #godisKUNGAR123
+
+OBS!!
+
+Se till att ditt operativsystem INTE använder portarna: 80, 8080, 3000, 4000, 5000, 3306, 27017
