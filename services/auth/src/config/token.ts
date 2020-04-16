@@ -41,7 +41,7 @@ async function getToken(): Promise<any> {
               const req = await fetch(url, options);
               const res = await req.json();
 
-              console.log('TOKEN AQUIRED');
+              console.log('TOKEN AQUIRED', res.token);
               resolve(res.token);
             });
         });
