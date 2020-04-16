@@ -29,6 +29,8 @@
   font-size: 2rem;
   color: #fff;
   background: #333;
+  padding: 0;
+  margin: 0 1rem;
 }
 
 #Delete-Order_Item {
@@ -53,19 +55,10 @@
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
+
 }
 
-.Order-Body #decrease,
-#increase {
-  color: #333;
-  position: static;
-  font-size: 2rem;
-  padding: 0;
-  margin: 0;
-  cursor: pointer;
-  font-weight: 800;
-  ;
-}
+
 
 .Order-Body li {
   color: #333;
@@ -73,6 +66,7 @@
   padding: 1rem;
   display: flex;
   justify-content: space-evenly;
+  align-items: center;
 }
 
 

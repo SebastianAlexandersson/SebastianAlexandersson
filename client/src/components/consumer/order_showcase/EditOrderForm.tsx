@@ -40,8 +40,12 @@ const EditOrderForm: React.FC<Props> = ({
       return orderProduct;
     }));
 
-    editMyOrder(orderId, products[0]);
-    history.push('/');
+
+    const productsData = products[0].map((x: any) => ({ productId: x.id, qty: x.qty }));
+
+
+    // editMyOrder(orderId, products[0] );
+    editMyOrder(orderId, productsData);
   };
 
 
@@ -49,6 +53,7 @@ const EditOrderForm: React.FC<Props> = ({
     e.preventDefault();
     handleUpdateOrder();
     setFormData('');
+    history.push('/');
   };
 
 

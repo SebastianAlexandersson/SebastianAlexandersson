@@ -26,7 +26,8 @@ export default (state: IConsumerState = initialState, action: ConsumerReducerTyp
     case ConsumerActionTypes.EDIT_MY_ORDER:
       return {
         ...state,
-        orders: [...state.orders, action.payload],
+        // orders: [...state.orders, action.payload],
+        orders: action.payload,
         loading: false,
       };
     default:

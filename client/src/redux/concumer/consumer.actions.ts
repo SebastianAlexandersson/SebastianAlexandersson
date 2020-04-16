@@ -32,7 +32,7 @@ export const getMyOrders = () => async (dispatch: Dispatch<IGetMyOrdersAction>) 
 
 
 export const editMyOrder = (
-  id: number, productsData: Record<string, any>[],
+  id: number, products: Record<string, any>[],
 ) => async (dispatch: Dispatch<IEditMyOrderAction>) => {
   try {
     let token: any;
@@ -41,12 +41,10 @@ export const editMyOrder = (
     }
 
 
-    const products = productsData.map((x) => ({ productId: x.id, qty: x.qty }));
+    // const products = productsData.map((x) => ({ productId: x.id, qty: x.qty }));
 
-    // console.log('form redux ', products);
-    // console.log('form redux2 ', JSON.stringify({ products }, null, 2));
 
-    console.log('redux', products);
+    // console.log('redux', products);
 
     const response = await axios({
       method: 'PUT',

@@ -53,8 +53,8 @@ const OrderShowCaseItem: React.FC<Props> = ({ order, deleteMyOrder, history }) =
             </p>
 
             <p>
-              name:
-              <span>{product.product.name}</span>
+              prod id:
+              <span>{product.id}</span>
             </p>
 
             <p>
@@ -85,7 +85,8 @@ const OrderShowCaseItem: React.FC<Props> = ({ order, deleteMyOrder, history }) =
       </div>
 
       <div className="Options-Cta">
-        <button type="button" onClick={() => setNewOrderState(orderItem)}>Update order</button>
+        {orderItem && <button type="button" onClick={() => setNewOrderState(orderItem)}>Update order</button>}
+
         <button type="button" onClick={() => deleteMyOrder(order.id)}>Delete order</button>
       </div>
       {newOrderState !== null && <EditOrderForm orderId={order.id} newOrderState={newOrderState} history={history} />}

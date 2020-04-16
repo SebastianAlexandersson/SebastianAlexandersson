@@ -23,9 +23,11 @@ interface Props extends RouteComponentProps {
 const OrderShowCase: React.FC<Props> = ({
   myOrders, isLoading, getMyOrders, history,
 }) => {
+  const memoMyOrders = React.useMemo(() => myOrders, []);
+
   React.useEffect(() => {
     getMyOrders();
-  }, [getMyOrders]);
+  }, [getMyOrders, memoMyOrders]);
 
 
   return (
