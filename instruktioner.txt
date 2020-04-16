@@ -23,3 +23,5 @@ Köra vår app:
 OBS!!
 
 Se till att ditt operativsystem INTE använder portarna: 80, 8080, 3000, 4000, 5000, 3306, 27017
+
+Projeketmappen jag lämnar in innehåller en fil som heter .env. Den filen har lösenord och annat docker behöver för att köra projektet. Den filen FINNS INTE på github, ifall du skulle klona om projektet behöver du kopier den filen till /msgodis/.
